@@ -1,0 +1,24 @@
+@startwbs
+* Page d'accueil
+** Authentification
+*** Oubli de mot de passe
+** Inscription
+** Gestion des utilisateurs
+*** Ajouter un utilisateur
+*** Modifier un utilisateur
+*** Supprimer un utilisateur
+** Gestion des questions
+*** Valider une question
+*** Ajouter une question
+*** Modifier une question
+*** Supprimer une question
+** Quiz
+*** Répondre au quiz
+*** Résultats du quiz
+*** Mise à jour du classement
+** Classement
+** Dashboard
+*** Modifier mon profil
+*** Modifier mon mot de passe
+
+@endwbs

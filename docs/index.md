@@ -6,6 +6,7 @@ DOCUMENTATION
 * [Clean Architecture](#clean-architecture)
 * [Test Driver Development](#test-driven-development)
 * [Tests](#tests)
+* [Sitemap](#sitemap)
 * [Cas d'utilisation](#cas-dutilisation)
     * [Liste des cas d'utilisation](#gnrer-un-cas-dutilisation)
         * [Inscription](#inscription)
@@ -122,6 +123,9 @@ PANTHER_NO_HEADLESS=1
 PANTHER_WEB_SERVER_PORT=8001
 ```
 Dans ce cas, vous précisez que vous ne souhaitez pas que **Panther** soit en `headless`, et donc que vous souhaitez vraiment avoir un navigateur **Chrome** qui s'ouvre pour effectuer les tests.
+
+# Sitemap
+[![Sitemap](img/sitemap.png)](uml/sitemap.puml)
 
 # Cas d'utilisation
 Dans un premier temps, il est de bon ton de définir ce qu'est un cas d'utilisation. Pour faire simple, c'est une fonctionnalité, exemples :
