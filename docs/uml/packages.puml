@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Visiteur
+actor Utilisateur
+actor Contributeur
+actor Administrateur
+database Database
+database Mailer
+database Stockage
+rectangle "Code Challenge" {
+  Visiteur -- [Se connecter]
+  Visiteur -- [S'inscrire]
+  [Se connecter] -- Database
+  [Se connecter] -- Mailer
+  [S'inscrire] -- Database
+  Utilisateur -- [Se déconnecter]
+  Utilisateur -- [Répondre à\nun quiz]
+  Utilisateur -- [Dashboard]
+  Utilisateur -- [Modifier son\nmot de passe]
+  Utilisateur -- [Modifier son\nprofil]
+  Utilisateur -- [Classement]
+  [Répondre à\nun quiz] -- Database
+  [Dashboard] -- Database
+  [Modifier son\nmot de passe] -- Database
+  [Modifier son\nprofil] -- Database
+  [Modifier son\nprofil] -- Stockage
+  [Classement] -- Database
+  Contributeur -- [Gestion des\nquestions]
+  [Gestion des\nquestions] -- Database
+  Administrateur -- [Gestion des\nutilisateurs]
+  Administrateur -- [Gestion des\nquestions]
+  [Gestion des\nutilisateurs] -- Database
+  [Gestion des\nquestions] -- Database
+}
+Contributeur -> Utilisateur
+Administrateur -> Contributeur
+@enduml

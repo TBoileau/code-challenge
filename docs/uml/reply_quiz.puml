@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+database Database
+rectangle "Répondre à un quiz" {
+  Utilisateur -- (Répondre aux\nquestions)
+  (Répondre aux\nquestions) .> (Visualiser les\nrésultats) : include
+  (Répondre aux\nquestions) -- Database
+  (Répondre aux\nquestions) .> (Mise à jour\ndes résultats) : include
+  (Répondre aux\nquestions) .> (Mise à jour\ndu classement) : include
+}
+@enduml

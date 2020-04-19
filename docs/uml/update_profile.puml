@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+database Database
+database Stockage
+rectangle "Modifier son profil" {
+  Utilisateur -- (Modifier son profil)
+  (Uploader un avatar) .> (Modifier son profil) : extends
+  (Modifier son profil) -- Database
+  (Uploader un avatar) -- Stockage
+}
+@enduml

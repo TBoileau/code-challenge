@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+database Database
+rectangle "Classement" {
+  Utilisateur -- (Visualiser la liste des\nutilisateurs classés par point)
+  (Rang) .> (Visualiser la liste des\nutilisateurs classés par point) : include
+  (Visualiser la liste des\nutilisateurs classés par point) -- Database
+}
+@enduml

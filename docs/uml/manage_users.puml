@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Administrateur
+database Database
+rectangle "Gestion des utilisateurs" {
+  Administrateur -- (Lister les\nutilisateurs)
+  Administrateur -- (Ajouter un\nutilisateur)
+  Administrateur -- (Modifier un\nutilisateur)
+  Administrateur -- (Supprimer un\nutilisateur)
+  (Lister les\nutilisateurs) -- Database
+  (Ajouter un\nutilisateur) -- Database
+  (Modifier un\nutilisateur) -- Database
+  (Supprimer un\nutilisateur) -- Database
+}
+@enduml

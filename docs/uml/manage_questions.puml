@@ -1,0 +1,20 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Contributeur
+actor Administrateur
+database Database
+rectangle "Gestion des questions" {
+  Contributeur -- (Lister ses\npropres question)
+  Contributeur -- (Ajouter une\nquestion)
+  Contributeur -- (Modifier une\nquestion)
+  Contributeur -- (Supprimer une\nquestion)
+  (Ajouter une\nquestion) -- Database
+  (Lister ses\npropres question) -- Database
+  (Modifier une\nquestion) -- Database
+  (Supprimer une\nquestion) -- Database
+  (Valider une\nquestion) -- Database
+  Administrateur -- (Valider une\nquestion)
+}
+Administrateur -> Contributeur
+@enduml
