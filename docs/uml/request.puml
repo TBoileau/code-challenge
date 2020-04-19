@@ -1,0 +1,54 @@
+@startuml
+box "Symfony" #LightGrey
+participant HTTPFoundation
+participant Kernel
+participant Router
+end box
+box "UserInterface" #LightBlue
+participant BlogController
+participant ReadPostPresenter
+participant PostViewModel
+end box
+box "Domain" #LightRed
+participant ReadPost
+participant ReadPostRequest
+participant ReadPostPresenterInterface
+participant ReadPostResponse
+participant Post
+participant PostGateway
+end box
+box "Infrastructure" #LightGreen
+participant PostRepository
+end box
+
+HTTPFoundation -> Kernel : Envoie de la requête
+Kernel ->Router : Récupère la route
+Router -> Kernel : Renvoie les informations\nde la route
+Kernel -> BlogController : Appelle la méthode read()
+BlogController -> ReadPostRequest : Instancie la requête
+note right of BlogController
+    En lui passant le **slug**
+    récupérer dans l'url
+end note
+BlogController -> ReadPostPresenter : Instancie le présenteur
+BlogController -> ReadPost : Appelle la méthode execute()
+ReadPost -> PostGateway : Récupère l'article
+note right of ReadPost
+    En lui passant le **slug**
+    récupérer dans **ReadPostRequest**
+end note
+PostGateway -> PostRepository : Requête DQL pour\npour récupérer l'article
+note left of PostRepository
+    PostRepository implémentant l'interface PostGateway,
+    en injectant seulement l'interface
+    Symfony vous injectera une instance de PostRepository.
+end note
+PostRepository -> Post : Instancie et hydrate un article
+PostRepository -> ReadPost : Renvoie un article
+ReadPost -> ReadPostResponse : Instancie et hydrate la réponse\navec l'article récupéré
+ReadPost -> ReadPostPresenterInterface : Présente la réponse
+ReadPostPresenterInterface -> ReadPostPresenter : Prépare la vue à retourner
+ReadPostPresenter -> PostViewModel : Instancie et hydrate un PostViewModel\navec les données de la réponse
+BlogController -> HTTPFoundation : Créer et renvoie la réponse\nen passant à la vue la vue modèle\nprésenter ultérieurement
+
+@enduml

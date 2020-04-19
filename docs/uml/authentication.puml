@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Visiteur
+database Database
+database Mailer
+rectangle Authentification {
+  Visiteur -- (Se connecter)
+  (Se connecter) .> (Inscription) : include
+  (Se connecter) -- Database
+  (Oubi de mot de passe) .> (Se connecter) : extends
+  (Oubi de mot de passe) -- Mailer
+}
+@enduml

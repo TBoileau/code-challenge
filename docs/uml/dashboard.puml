@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+database Database
+rectangle Dashboard {
+  Utilisateur -- (Visualiser ses statistiques)
+  Utilisateur -- (Activités récentes)
+  Utilisateur -- (Rang)
+  (Visualiser ses statistiques) -- Database
+  (Activités récentes) -- Database
+  (Rang) -- Database
+}
+@enduml

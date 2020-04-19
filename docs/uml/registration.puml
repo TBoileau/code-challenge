@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Visiteur
+database Database
+rectangle Inscription {
+  Visiteur -- (S'inscrire)
+  (S'inscrire) .> (Accepter les CGU) : include
+  (S'inscrire) -- Database
+}
+@enduml

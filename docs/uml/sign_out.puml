@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Utilisateur
+actor Visiteur
+rectangle Déconnexion {
+  Utilisateur -- (Se déconnecter)
+  (Se déconnecter) .> (Connexion) : include
+  Visiteur -- (Connexion)
+}
+@enduml

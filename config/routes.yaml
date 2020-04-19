@@ -1,0 +1,4 @@
+foo_bar:
+    path: /foo/bar/{id}
+    methods: GET
+    controller: App\UserInterface\Controller\BarController
