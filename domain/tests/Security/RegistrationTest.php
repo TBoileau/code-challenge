@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class RegistrationTest
+ *
  * @package TBoileau\CodeChallenge\Domain\Tests\Security
  */
 class RegistrationTest extends TestCase
@@ -30,7 +31,7 @@ class RegistrationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->presenter = new class() implements RegistrationPresenterInterface {
+        $this->presenter = new class () implements RegistrationPresenterInterface {
             public RegistrationResponse $response;
 
             public function present(RegistrationResponse $response): void
@@ -39,7 +40,7 @@ class RegistrationTest extends TestCase
             }
         };
 
-        $userGateway = new class() implements UserGateway {
+        $userGateway = new class () implements UserGateway {
             public function isEmailUnique(string $email): bool
             {
                 return !in_array($email, ["used@email.com"]);
@@ -73,9 +74,9 @@ class RegistrationTest extends TestCase
 
     /**
      * @dataProvider provideFailedRequestData
-     * @param string $email
-     * @param string $pseudo
-     * @param string $plainPassword
+     * @param        string $email
+     * @param        string $pseudo
+     * @param        string $plainPassword
      */
     public function testFailedRequest(string $email, string $pseudo, string $plainPassword): void
     {

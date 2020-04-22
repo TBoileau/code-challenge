@@ -10,6 +10,7 @@ use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
 
 /**
  * Class RegistrationRequest
+ *
  * @package TBoileau\CodeChallenge\Domain\Security\Request
  */
 class RegistrationRequest
@@ -30,9 +31,9 @@ class RegistrationRequest
     private string $plainPassword;
 
     /**
-     * @param string $email
-     * @param string $pseudo
-     * @param string $plainPassword
+     * @param  string $email
+     * @param  string $pseudo
+     * @param  string $plainPassword
      * @return static
      */
     public static function create(string $email, string $pseudo, string $plainPassword): self
@@ -42,6 +43,7 @@ class RegistrationRequest
 
     /**
      * RegistrationRequest constructor.
+     *
      * @param string $email
      * @param string $pseudo
      * @param string $plainPassword
@@ -78,16 +80,16 @@ class RegistrationRequest
     }
 
     /**
-     * @param UserGateway $userGateway
+     * @param  UserGateway $userGateway
      * @throws AssertionFailedException
      */
     public function validate(UserGateway $userGateway): void
     {
         Assertion::notBlank($this->email);
         Assertion::email($this->email);
-        Assertion::nonUniqueEmail($this->email,$userGateway);
+        Assertion::nonUniqueEmail($this->email, $userGateway);
         Assertion::notBlank($this->pseudo);
-        Assertion::nonUniquePseudo($this->pseudo,$userGateway);
+        Assertion::nonUniquePseudo($this->pseudo, $userGateway);
         Assertion::notBlank($this->plainPassword);
         Assertion::minLength($this->plainPassword, 8);
     }

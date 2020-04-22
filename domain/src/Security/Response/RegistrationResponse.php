@@ -6,6 +6,7 @@ use TBoileau\CodeChallenge\Domain\Security\Entity\User;
 
 /**
  * Class RegistrationResponse
+ *
  * @package TBoileau\CodeChallenge\Domain\Security\Response
  */
 class RegistrationResponse
@@ -17,6 +18,7 @@ class RegistrationResponse
 
     /**
      * RegistrationResponse constructor.
+     *
      * @param User $user
      */
     public function __construct(User $user)

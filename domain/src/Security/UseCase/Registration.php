@@ -10,6 +10,7 @@ use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterf
 
 /**
  * Class Registration
+ *
  * @package TBoileau\CodeChallenge\Domain\Security\UseCase
  */
 class Registration
@@ -21,6 +22,7 @@ class Registration
 
     /**
      * Registration constructor.
+     *
      * @param UserGateway $userGateway
      */
     public function __construct(UserGateway $userGateway)
@@ -29,7 +31,7 @@ class Registration
     }
 
     /**
-     * @param RegistrationRequest $request
+     * @param RegistrationRequest            $request
      * @param RegistrationPresenterInterface $presenter
      */
     public function execute(RegistrationRequest $request, RegistrationPresenterInterface $presenter)

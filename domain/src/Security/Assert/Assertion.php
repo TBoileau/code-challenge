@@ -8,6 +8,7 @@ use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
 
 /**
  * Class Assertion
+ *
  * @package TBoileau\CodeChallenge\Domain\Security\Assert
  */
 class Assertion extends BaseAssertion
@@ -16,7 +17,7 @@ class Assertion extends BaseAssertion
     public const EXISTING_PSEUDO = 501;
 
     /**
-     * @param string $pseudo
+     * @param string      $pseudo
      * @param UserGateway $userGateway
      */
     public static function nonUniquePseudo(string $pseudo, UserGateway $userGateway): void
@@ -27,7 +28,7 @@ class Assertion extends BaseAssertion
     }
 
     /**
-     * @param string $email
+     * @param string      $email
      * @param UserGateway $userGateway
      */
     public static function nonUniqueEmail(string $email, UserGateway $userGateway): void

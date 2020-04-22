@@ -8,6 +8,7 @@ use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 
 /**
  * Class User
+ *
  * @package TBoileau\CodeChallenge\Domain\Security\Entity
  */
 class User
@@ -28,7 +29,7 @@ class User
     private string $password;
 
     /**
-     * @param RegistrationRequest $request
+     * @param  RegistrationRequest $request
      * @return static
      */
     public static function fromRegistration(RegistrationRequest $request): self
@@ -38,6 +39,7 @@ class User
 
     /**
      * User constructor.
+     *
      * @param string $email
      * @param string $pseudo
      * @param string $plainPassword
