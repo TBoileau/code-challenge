@@ -191,6 +191,9 @@
             "./.env"
         ]
     },
+    "symfony/form": {
+        "version": "v5.0.7"
+    },
     "symfony/framework-bundle": {
         "version": "4.4",
         "recipe": {
@@ -226,6 +229,9 @@
     "symfony/inflector": {
         "version": "v5.0.7"
     },
+    "symfony/intl": {
+        "version": "v5.0.7"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -236,6 +242,9 @@
         }
     },
     "symfony/mime": {
+        "version": "v5.0.7"
+    },
+    "symfony/options-resolver": {
         "version": "v5.0.7"
     },
     "symfony/panther": {
@@ -255,6 +264,9 @@
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
         ]
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.15.0"
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.15.0"
@@ -300,6 +312,42 @@
     "symfony/test-pack": {
         "version": "v1.0.6"
     },
+    "symfony/translation-contracts": {
+        "version": "v2.0.1"
+    },
+    "symfony/twig-bridge": {
+        "version": "v5.0.7"
+    },
+    "symfony/twig-bundle": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "fab9149bbaa4d5eca054ed93f9e1b66cc500895d"
+        },
+        "files": [
+            "./config/packages/test/twig.yaml",
+            "./config/packages/twig.yaml",
+            "./templates/base.html.twig"
+        ]
+    },
+    "symfony/twig-pack": {
+        "version": "v1.0.0"
+    },
+    "symfony/validator": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "d902da3e4952f18d3bf05aab29512eb61cabd869"
+        },
+        "files": [
+            "./config/packages/test/validator.yaml",
+            "./config/packages/validator.yaml"
+        ]
+    },
     "symfony/var-dumper": {
         "version": "v5.0.7"
     },
@@ -311,6 +359,12 @@
     },
     "theseer/tokenizer": {
         "version": "1.1.3"
+    },
+    "twig/extra-bundle": {
+        "version": "v3.0.3"
+    },
+    "twig/twig": {
+        "version": "v3.0.3"
     },
     "webmozart/assert": {
         "version": "1.7.0"

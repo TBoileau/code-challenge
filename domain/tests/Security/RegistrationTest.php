@@ -41,12 +41,12 @@ class RegistrationTest extends TestCase
         };
 
         $userGateway = new class () implements UserGateway {
-            public function isEmailUnique(string $email): bool
+            public function isEmailUnique(?string $email): bool
             {
                 return !in_array($email, ["used@email.com"]);
             }
 
-            public function isPseudoUnique(string $pseudo): bool
+            public function isPseudoUnique(?string $pseudo): bool
             {
                 return !in_array($pseudo, ["used_pseudo"]);
             }
