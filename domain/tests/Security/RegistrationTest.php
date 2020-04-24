@@ -4,8 +4,10 @@ namespace TBoileau\CodeChallenge\Domain\Tests\Security;
 
 use Assert\AssertionFailedException;
 use Generator;
-use TBoileau\CodeChallenge\Domain\Security\Entity\User;
-use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
+use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\RegistrationResponse;
@@ -40,7 +42,7 @@ class RegistrationTest extends TestCase
             }
         };
 
-        $userGateway = new class () implements UserGateway {
+        $participantGateway = new class () implements ParticipantGateway {
             public function isEmailUnique(?string $email): bool
             {
                 return !in_array($email, ["used@email.com"]);
@@ -50,9 +52,13 @@ class RegistrationTest extends TestCase
             {
                 return !in_array($pseudo, ["used_pseudo"]);
             }
+
+            public function register(Participant $participant): void
+            {
+            }
         };
 
-        $this->useCase = new Registration($userGateway);
+        $this->useCase = new Registration($participantGateway);
     }
 
     public function testSuccessful(): void
@@ -62,14 +68,10 @@ class RegistrationTest extends TestCase
         $this->useCase->execute($request, $this->presenter);
 
         $this->assertInstanceOf(RegistrationResponse::class, $this->presenter->response);
-
-        $this->assertInstanceOf(User::class, $this->presenter->response->getUser());
-
-        $this->assertEquals("email@email.com", $this->presenter->response->getUser()->getEmail());
-
-        $this->assertEquals("pseudo", $this->presenter->response->getUser()->getPseudo());
-
-        $this->assertTrue(password_verify("password", $this->presenter->response->getUser()->getPassword()));
+        $this->assertInstanceOf(UuidInterface::class, $this->presenter->response->getParticipant()->getId());
+        $this->assertEquals("email@email.com", $this->presenter->response->getParticipant()->getEmail());
+        $this->assertEquals("pseudo", $this->presenter->response->getParticipant()->getPseudo());
+        $this->assertTrue(password_verify("password", $this->presenter->response->getParticipant()->getPassword()));
     }
 
     /**

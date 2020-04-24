@@ -2,8 +2,8 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\UseCase;
 
-use TBoileau\CodeChallenge\Domain\Security\Entity\User;
-use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
+use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
+use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\RegistrationResponse;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterface;
@@ -16,18 +16,18 @@ use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterf
 class Registration
 {
     /**
-     * @var UserGateway
+     * @var ParticipantGateway
      */
-    private UserGateway $userGateway;
+    private ParticipantGateway $participantGateway;
 
     /**
      * Registration constructor.
      *
-     * @param UserGateway $userGateway
+     * @param ParticipantGateway $participantGateway
      */
-    public function __construct(UserGateway $userGateway)
+    public function __construct(ParticipantGateway $participantGateway)
     {
-        $this->userGateway = $userGateway;
+        $this->userGateway = $participantGateway;
     }
 
     /**
@@ -37,7 +37,8 @@ class Registration
     public function execute(RegistrationRequest $request, RegistrationPresenterInterface $presenter)
     {
         $request->validate($this->userGateway);
-        $user = User::fromRegistration($request);
+        $user = Participant::fromRegistration($request);
+        $this->userGateway->register($user);
         $presenter->present(new RegistrationResponse($user));
     }
 }

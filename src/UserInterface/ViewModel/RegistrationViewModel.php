@@ -1,15 +1,15 @@
 <?php
 
-namespace TBoileau\CodeChallenge\Domain\Security\Response;
+namespace App\UserInterface\ViewModel;
 
+use App\Infrastructure\Security\User;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 
 /**
- * Class RegistrationResponse
- *
- * @package TBoileau\CodeChallenge\Domain\Security\Response
+ * Class RegistrationViewModel
+ * @package App\UserInterface\ViewModel
  */
-class RegistrationResponse
+class RegistrationViewModel
 {
     /**
      * @var Participant
@@ -17,8 +17,7 @@ class RegistrationResponse
     private Participant $participant;
 
     /**
-     * RegistrationResponse constructor.
-     *
+     * RegistrationViewModel constructor.
      * @param Participant $participant
      */
     public function __construct(Participant $participant)

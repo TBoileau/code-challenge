@@ -2,17 +2,22 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\Entity;
 
-use Assert\Assert;
-use Assert\Assertion;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 
 /**
- * Class User
+ * Class Participant
  *
  * @package TBoileau\CodeChallenge\Domain\Security\Entity
  */
-class User
+class Participant
 {
+    /**
+     * @var UuidInterface
+     */
+    private UuidInterface $id;
+
     /**
      * @var string
      */
@@ -46,9 +51,26 @@ class User
      */
     public function __construct(string $email, string $pseudo, string $plainPassword)
     {
+        $this->id = Uuid::uuid4();
         $this->email = $email;
         $this->pseudo = $pseudo;
         $this->password = password_hash($plainPassword, PASSWORD_ARGON2I);
+    }
+
+    /**
+     * @return UuidInterface
+     */
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param UuidInterface $id
+     */
+    public function setId(UuidInterface $id): void
+    {
+        $this->id = $id;
     }
 
     /**

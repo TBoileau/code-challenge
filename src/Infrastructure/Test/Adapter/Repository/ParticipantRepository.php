@@ -2,13 +2,14 @@
 
 namespace App\Infrastructure\Test\Adapter\Repository;
 
-use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
+use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
+use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
 /**
  * Class UserRepository
  * @package App\Infrastructure\Test\Adapter\Repository
  */
-class UserRepository implements UserGateway
+class ParticipantRepository implements ParticipantGateway
 {
     /**
      * @inheritDoc
@@ -24,5 +25,12 @@ class UserRepository implements UserGateway
     public function isPseudoUnique(?string $pseudo): bool
     {
         return !in_array($pseudo, ["used_pseudo"]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function register(Participant $participant): void
+    {
     }
 }

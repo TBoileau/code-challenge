@@ -4,7 +4,7 @@ namespace App\Infrastructure\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
+use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
 /**
  * Class NonUniqueEmailValidator
@@ -13,17 +13,17 @@ use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
 class NonUniqueEmailValidator extends ConstraintValidator
 {
     /**
-     * @var UserGateway
+     * @var ParticipantGateway
      */
-    private UserGateway $userGateway;
+    private ParticipantGateway $participantGateway;
 
     /**
      * NonUniqueEmailValidator constructor.
-     * @param UserGateway $userGateway
+     * @param ParticipantGateway $participantGateway
      */
-    public function __construct(UserGateway $userGateway)
+    public function __construct(ParticipantGateway $participantGateway)
     {
-        $this->userGateway = $userGateway;
+        $this->userGateway = $participantGateway;
     }
 
     /**

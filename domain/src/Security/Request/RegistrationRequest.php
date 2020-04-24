@@ -6,7 +6,7 @@ use Assert\AssertionFailedException;
 use Assert\InvalidArgumentException;
 use TBoileau\CodeChallenge\Domain\Security\Assert\Assertion;
 use TBoileau\CodeChallenge\Domain\Security\Exception\NonUniqueEmailException;
-use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
+use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
 /**
  * Class RegistrationRequest
@@ -80,16 +80,16 @@ class RegistrationRequest
     }
 
     /**
-     * @param  UserGateway $userGateway
+     * @param  ParticipantGateway $participantGateway
      * @throws AssertionFailedException
      */
-    public function validate(UserGateway $userGateway): void
+    public function validate(ParticipantGateway $participantGateway): void
     {
         Assertion::notBlank($this->email);
         Assertion::email($this->email);
-        Assertion::nonUniqueEmail($this->email, $userGateway);
+        Assertion::nonUniqueEmail($this->email, $participantGateway);
         Assertion::notBlank($this->pseudo);
-        Assertion::nonUniquePseudo($this->pseudo, $userGateway);
+        Assertion::nonUniquePseudo($this->pseudo, $participantGateway);
         Assertion::notBlank($this->plainPassword);
         Assertion::minLength($this->plainPassword, 8);
     }

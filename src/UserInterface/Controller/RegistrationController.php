@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\Registration;
@@ -31,11 +30,6 @@ class RegistrationController
     private Environment $twig;
 
     /**
-     * @var FlashBagInterface
-     */
-    private FlashBagInterface $flashBag;
-
-    /**
      * @var UrlGeneratorInterface
      */
     private UrlGeneratorInterface $urlGenerator;
@@ -44,30 +38,28 @@ class RegistrationController
      * RegistrationController constructor.
      * @param FormFactoryInterface $formFactory
      * @param Environment $twig
-     * @param FlashBagInterface $flashBag
      * @param UrlGeneratorInterface $urlGenerator
      */
     public function __construct(
         FormFactoryInterface $formFactory,
         Environment $twig,
-        FlashBagInterface $flashBag,
         UrlGeneratorInterface $urlGenerator
     ) {
         $this->formFactory = $formFactory;
         $this->twig = $twig;
-        $this->flashBag = $flashBag;
         $this->urlGenerator = $urlGenerator;
     }
 
     /**
      * @param Request $request
      * @param Registration $registration
+     * @param RegistrationPresenter $presenter
      * @return Response
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function __invoke(Request $request, Registration $registration): Response
+    public function __invoke(Request $request, Registration $registration, RegistrationPresenter $presenter): Response
     {
         $form = $this->formFactory->create(RegistrationType::class)->handleRequest($request);
 
@@ -77,13 +69,7 @@ class RegistrationController
                 $form->getData()->getPseudo(),
                 $form->getData()->getPlainPassword()
             );
-            $presenter = new RegistrationPresenter();
             $registration->execute($request, $presenter);
-
-            $this->flashBag->add(
-                "success",
-                "Bienvenue sur Code Challenge ! Votre inscription a été effectuée avec succès !"
-            );
 
             return new RedirectResponse($this->urlGenerator->generate("home"));
         }

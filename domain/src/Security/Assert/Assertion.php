@@ -4,7 +4,7 @@ namespace TBoileau\CodeChallenge\Domain\Security\Assert;
 
 use Assert\Assertion as BaseAssertion;
 use TBoileau\CodeChallenge\Domain\Security\Exception\NonUniqueEmailException;
-use TBoileau\CodeChallenge\Domain\Security\Gateway\UserGateway;
+use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
 /**
  * Class Assertion
@@ -18,22 +18,22 @@ class Assertion extends BaseAssertion
 
     /**
      * @param string      $pseudo
-     * @param UserGateway $userGateway
+     * @param ParticipantGateway $participantGateway
      */
-    public static function nonUniquePseudo(string $pseudo, UserGateway $userGateway): void
+    public static function nonUniquePseudo(string $pseudo, ParticipantGateway $participantGateway): void
     {
-        if (!$userGateway->isPseudoUnique($pseudo)) {
+        if (!$participantGateway->isPseudoUnique($pseudo)) {
             throw new NonUniqueEmailException("This email should be unique !", self::EXISTING_PSEUDO);
         }
     }
 
     /**
      * @param string      $email
-     * @param UserGateway $userGateway
+     * @param ParticipantGateway $participantGateway
      */
-    public static function nonUniqueEmail(string $email, UserGateway $userGateway): void
+    public static function nonUniqueEmail(string $email, ParticipantGateway $participantGateway): void
     {
-        if (!$userGateway->isEmailUnique($email)) {
+        if (!$participantGateway->isEmailUnique($email)) {
             throw new NonUniqueEmailException("This email should be unique !", self::EXISTING_EMAIL);
         }
     }
