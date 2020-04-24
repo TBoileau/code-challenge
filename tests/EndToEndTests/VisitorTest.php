@@ -30,5 +30,19 @@ class VisitorTest extends PantherTestCase
             '.FlashBag',
             'Bienvenue sur Code Challenge ! Votre inscription a été effectuée avec succès !'
         );
+
+        $crawler = $client->request(Request::METHOD_GET, '/login');
+
+        $form = $crawler->filter("form")->form([
+            "username" => "email@email.com",
+            "password" => "password"
+        ]);
+
+        $client->submit($form);
+
+        $this->assertSelectorTextContains(
+            '.FlashBag',
+            'Bon retour sur Code Challenge !'
+        );
     }
 }

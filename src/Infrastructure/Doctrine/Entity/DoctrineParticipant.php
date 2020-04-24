@@ -6,16 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * Class DoctrineUser
+ * Class DoctrineParticipant
  * @package App\Infrastructure\Doctrine\Entity
  * @ORM\Entity(repositoryClass="App\Infrastructure\Adapter\Repository\UserRepository")
  */
-class DoctrineUser
+class DoctrineParticipant
 {
     /**
      * @var UuidInterface
      * @ORM\Id
-     * @ORM\Column
+     * @ORM\Column(type="uuid")
      */
     private UuidInterface $id;
 

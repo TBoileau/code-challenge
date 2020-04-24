@@ -1,0 +1,19 @@
+security:
+    encoders:
+        App\Infrastructure\Security\User:
+            algorithm: argon2i
+    providers:
+        user_provider:
+            id: App\Infrastructure\Security\Provider\UserProvider
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: lazy
+            provider: user_provider
+            pattern: ^/
+            guard:
+                authenticators:
+                    - App\Infrastructure\Security\Guard\WebAuthenticator
+    access_control:

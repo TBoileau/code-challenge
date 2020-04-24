@@ -2,6 +2,7 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\UseCase;
 
+use Ramsey\Uuid\Uuid;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;

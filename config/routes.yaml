@@ -3,6 +3,11 @@ registration:
     methods: GET|POST
     controller: App\UserInterface\Controller\RegistrationController
 
+login:
+    path: /login
+    methods: GET|POST
+    controller: App\UserInterface\Controller\LoginController
+
 home:
     path: /
     methods: GET

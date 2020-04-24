@@ -12,6 +12,12 @@ use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 interface ParticipantGateway
 {
     /**
+     * @param string $email
+     * @return Participant|null
+     */
+    public function getParticipantByEmail(string $email): ?Participant;
+
+    /**
      * @param  string|null $email
      * @return bool
      */
