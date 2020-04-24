@@ -1,23 +1,23 @@
-<?= "<?php\n" ?>
+<?php echo "<?php\n" ?>
 
-namespace <?= $namespace; ?>;
+namespace <?php echo $namespace; ?>;
 
-use <?= str_replace("UseCase", "Request", $namespace); ?>\<?= $requestClassName ?>;
-use <?= str_replace("UseCase", "Response", $namespace); ?>\<?= $responseClassName ?>;
-use <?= str_replace("UseCase", "Presenter", $namespace); ?>\<?= $presenterInterfaceName ?>;
+use <?php echo str_replace("UseCase", "Request", $namespace); ?>\<?php echo $requestClassName ?>;
+use <?php echo str_replace("UseCase", "Response", $namespace); ?>\<?php echo $responseClassName ?>;
+use <?php echo str_replace("UseCase", "Presenter", $namespace); ?>\<?php echo $presenterInterfaceName ?>;
 
 /**
- * Class <?= $className; ?><?= "\n" ?>
- * @package <?= $namespace; ?><?= "\n" ?>
+ * Class <?php echo $className; ?><?php echo "\n" ?>
+ * @package <?php echo $namespace; ?><?php echo "\n" ?>
  */
-class <?= $className; ?><?= "\n" ?>
+class <?php echo $className; ?><?php echo "\n" ?>
 {
     /**
-     * @param <?= $requestClassName ?> $request
-     * @param <?= $presenterInterfaceName ?> $presenter
+     * @param <?php echo $requestClassName ?> $request
+     * @param <?php echo $presenterInterfaceName ?> $presenter
      */
-    public function execute(<?= $requestClassName ?> $request, <?= $presenterInterfaceName ?> $presenter)
+    public function execute(<?php echo $requestClassName ?> $request, <?php echo $presenterInterfaceName ?> $presenter)
     {
-        $presenter->present(new <?= $responseClassName ?>());
+        $presenter->present(new <?php echo $responseClassName ?>());
     }
 }

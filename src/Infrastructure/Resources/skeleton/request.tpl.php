@@ -1,12 +1,12 @@
-<?= "<?php\n" ?>
+<?php echo "<?php\n" ?>
 
-namespace <?= $namespace; ?>;
+namespace <?php echo $namespace; ?>;
 
 /**
- * Class <?= $className; ?><?= "\n" ?>
- * @package <?= $namespace; ?><?= "\n" ?>
+ * Class <?php echo $className; ?><?php echo "\n" ?>
+ * @package <?php echo $namespace; ?><?php echo "\n" ?>
  */
-class <?= $className; ?><?= "\n" ?>
+class <?php echo $className; ?><?php echo "\n" ?>
 {
 
 }

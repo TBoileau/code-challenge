@@ -1,17 +1,17 @@
-<?= "<?php\n" ?>
+<?php echo "<?php\n" ?>
 
-namespace <?= $namespace; ?>;
+namespace <?php echo $namespace; ?>;
 
-use <?= str_replace("Presenter", "Response", $namespace); ?>\<?= $responseClassName ?>;
+use <?php echo str_replace("Presenter", "Response", $namespace); ?>\<?php echo $responseClassName ?>;
 
 /**
- * Interface <?= $className; ?><?= "\n" ?>
- * @package <?= $namespace; ?><?= "\n" ?>
+ * Interface <?php echo $className; ?><?php echo "\n" ?>
+ * @package <?php echo $namespace; ?><?php echo "\n" ?>
  */
-interface <?= $className; ?><?= "\n" ?>
+interface <?php echo $className; ?><?php echo "\n" ?>
 {
     /**
-     * @param <?= $responseClassName ?> $response
+     * @param <?php echo $responseClassName ?> $response
      */
-    public function present(<?= $responseClassName ?> $response): void;
+    public function present(<?php echo $responseClassName ?> $response): void;
 }

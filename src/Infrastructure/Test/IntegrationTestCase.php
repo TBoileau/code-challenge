@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
  * Class IntegrationTestCase
+ *
  * @package App\Infrastructure\Test
  */
 abstract class IntegrationTestCase extends WebTestCase

@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * Class MakeUseCase
+ *
  * @package App\Infrastructure\Maker
  */
 class MakeUseCase extends AbstractMaker
@@ -27,7 +28,7 @@ class MakeUseCase extends AbstractMaker
     }
 
     /**
-     * @param Command $command
+     * @param Command            $command
      * @param InputConfiguration $inputConfig
      */
     public function configureCommand(Command $command, InputConfiguration $inputConfig)
@@ -35,8 +36,7 @@ class MakeUseCase extends AbstractMaker
         $command
             ->setDescription("Create a new use case.")
             ->addArgument('domain', InputArgument::OPTIONAL, 'Select the domain name.')
-            ->addArgument('name', InputArgument::OPTIONAL, 'Choose a name for your new use case.')
-        ;
+            ->addArgument('name', InputArgument::OPTIONAL, 'Choose a name for your new use case.');
     }
 
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator)
