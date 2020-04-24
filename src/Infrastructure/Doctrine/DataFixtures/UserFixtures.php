@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Doctrine\DataFixtures;
 
-use App\Infrastructure\Doctrine\Entity\DoctrineUser;
+use App\Infrastructure\Doctrine\Entity\DoctrineParticipant;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
@@ -18,7 +18,7 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $user = new DoctrineUser();
+        $user = new DoctrineParticipant();
         $user->setId(Uuid::uuid4());
         $user->setPseudo("used_pseudo");
         $user->setEmail("used@email.com");

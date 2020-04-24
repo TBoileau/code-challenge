@@ -39,22 +39,28 @@ class Participant
      */
     public static function fromRegistration(RegistrationRequest $request): self
     {
-        return new self($request->getEmail(), $request->getPseudo(), $request->getPlainPassword());
+        return new self(
+            Uuid::uuid4(),
+            $request->getEmail(),
+            $request->getPseudo(),
+            password_hash($request->getPlainPassword(), PASSWORD_ARGON2I)
+        );
     }
 
     /**
      * User constructor.
      *
+     * @param UuidInterface $id
      * @param string $email
      * @param string $pseudo
-     * @param string $plainPassword
+     * @param string $password
      */
-    public function __construct(string $email, string $pseudo, string $plainPassword)
+    public function __construct(UuidInterface $id, string $email, string $pseudo, string $password)
     {
-        $this->id = Uuid::uuid4();
+        $this->id = $id;
         $this->email = $email;
         $this->pseudo = $pseudo;
-        $this->password = password_hash($plainPassword, PASSWORD_ARGON2I);
+        $this->password = $password;
     }
 
     /**
@@ -63,14 +69,6 @@ class Participant
     public function getId(): UuidInterface
     {
         return $this->id;
-    }
-
-    /**
-     * @param UuidInterface $id
-     */
-    public function setId(UuidInterface $id): void
-    {
-        $this->id = $id;
     }
 
     /**

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Infrastructure\Test\Adapter\Repository;
+namespace TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter;
 
 use Ramsey\Uuid\Uuid;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
 /**
- * Class UserRepository
- * @package App\Infrastructure\Test\Adapter\Repository
+ * Class ParticipantRepository
+ * @package TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter
  */
 class ParticipantRepository implements ParticipantGateway
 {
@@ -30,7 +30,8 @@ class ParticipantRepository implements ParticipantGateway
     }
 
     /**
-     * @inheritDoc
+     * @param string|null $email
+     * @return bool
      */
     public function isEmailUnique(?string $email): bool
     {
@@ -38,7 +39,8 @@ class ParticipantRepository implements ParticipantGateway
     }
 
     /**
-     * @inheritDoc
+     * @param string|null $pseudo
+     * @return bool
      */
     public function isPseudoUnique(?string $pseudo): bool
     {
@@ -46,7 +48,7 @@ class ParticipantRepository implements ParticipantGateway
     }
 
     /**
-     * @inheritDoc
+     * @param Participant $participant
      */
     public function register(Participant $participant): void
     {

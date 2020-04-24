@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Adapter\Repository;
 
-use App\Infrastructure\Doctrine\Entity\DoctrineUser;
+use App\Infrastructure\Doctrine\Entity\DoctrineParticipant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
@@ -20,7 +20,27 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
      */
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DoctrineUser::class);
+        parent::__construct($registry, DoctrineParticipant::class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getParticipantByEmail(string $email): ?Participant
+    {
+        /** @var DoctrineParticipant $DoctrineParticipant */
+        $DoctrineParticipant = $this->findOneByEmail($email);
+
+        if ($DoctrineParticipant === null) {
+            return null;
+        }
+
+        return new Participant(
+            $DoctrineParticipant->getId(),
+            $DoctrineParticipant->getEmail(),
+            $DoctrineParticipant->getPseudo(),
+            $DoctrineParticipant->getPassword()
+        );
     }
 
     /**
@@ -44,13 +64,13 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
      */
     public function register(Participant $participant): void
     {
-        $doctrineUser = new DoctrineUser();
-        $doctrineUser->setId($participant->getId());
-        $doctrineUser->setEmail($participant->getEmail());
-        $doctrineUser->setPassword($participant->getPassword());
-        $doctrineUser->setPseudo($participant->getPseudo());
+        $DoctrineParticipant = new DoctrineParticipant();
+        $DoctrineParticipant->setId($participant->getId());
+        $DoctrineParticipant->setEmail($participant->getEmail());
+        $DoctrineParticipant->setPassword($participant->getPassword());
+        $DoctrineParticipant->setPseudo($participant->getPseudo());
 
-        $this->_em->persist($doctrineUser);
+        $this->_em->persist($DoctrineParticipant);
         $this->_em->flush();
     }
 }

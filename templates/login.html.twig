@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {% if vm.errorMessage is not null %}
+        {{ vm.errorMessage }}
+    {% endif %}
+    <form method="post">
+        <input type="email" required="required" name="username" value="{{ vm.lastUsername }}" placeholder="Adresse email"/>
+        <input type="password" required="required" name="password"/>
+        <button>Se connecter</button>
+    </form>
+{% endblock %}

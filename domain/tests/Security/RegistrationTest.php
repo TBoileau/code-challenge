@@ -4,15 +4,13 @@ namespace TBoileau\CodeChallenge\Domain\Tests\Security;
 
 use Assert\AssertionFailedException;
 use Generator;
-use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
-use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\RegistrationResponse;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\Registration;
 use PHPUnit\Framework\TestCase;
+use TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter\ParticipantRepository;
 
 /**
  * Class RegistrationTest
@@ -42,21 +40,7 @@ class RegistrationTest extends TestCase
             }
         };
 
-        $participantGateway = new class () implements ParticipantGateway {
-            public function isEmailUnique(?string $email): bool
-            {
-                return !in_array($email, ["used@email.com"]);
-            }
-
-            public function isPseudoUnique(?string $pseudo): bool
-            {
-                return !in_array($pseudo, ["used_pseudo"]);
-            }
-
-            public function register(Participant $participant): void
-            {
-            }
-        };
+        $participantGateway = new ParticipantRepository();
 
         $this->useCase = new Registration($participantGateway);
     }
