@@ -1,0 +1,32 @@
+.Card {
+    @include shadow(large);
+    display: flex;
+    flex-direction: column;
+    border-radius: $round-size;
+
+    @each $name, $color in $colors {
+        &.Card--#{$name} {
+            background: $color;
+        }
+    }
+
+    > .Card__Header, > .Card__Footer {
+        background-color: rgba(0,0,0,.03);
+    }
+
+    > .Card__Body {
+        padding: 1.25rem;
+    }
+
+    > .Card__Header {
+        border-bottom: 1px solid rgba(0,0,0,.125);
+        padding: .75rem 1.25rem;
+        border-radius: calc($round-size - 1px) calc($round-size - 1px) 0 0;
+    }
+
+    > .Card__Footer {
+        border-top: 1px solid rgba(0,0,0,.125);
+        padding: .75rem 1.25rem;
+        border-radius: 0 0 calc($round-size - 1px) calc($round-size - 1px);
+    }
+}
