@@ -1,10 +1,14 @@
 {% set flahses = app.flashes %}
 {% if flahses|length > 0 %}
-    <ul class="FlashBag">
+    <div class="FlashBag">
+        {% set delay = 5000 %}
         {% for type, messages in flahses %}
             {% for message in messages %}
-                <li>{{ type }} : {{ message }}</li>
+                <div class="FlashBag__Message FlashBag__Message--animate FlashBag__Message--{{ type }}" data-delay="{{ delay }}">
+                    {{ message }}
+                </div>
+                {% set delay = delay + 1000 %}
             {% endfor %}
         {% endfor %}
-    </ul>
+    </div>
 {% endif %}

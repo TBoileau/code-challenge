@@ -1,0 +1,20 @@
+$base-font-size: 16px;
+
+$text-small: .8rem;
+$text-normal: 1rem;
+
+$heading-1: 2.5rem;
+$heading-2: 2rem;
+$heading-3: 1.75rem;
+$heading-4: 1.5rem;
+$heading-5: 1.25rem;
+$heading-6: 1rem;
+
+$headings: (
+  1: $heading-1,
+  2: $heading-2,
+  3: $heading-3,
+  4: $heading-4,
+  5: $heading-5,
+  6: $heading-6
+);

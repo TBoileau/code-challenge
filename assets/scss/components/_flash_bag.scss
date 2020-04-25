@@ -1,0 +1,42 @@
+.FlashBag {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 250px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+
+  .FlashBag__Message {
+    padding: 1rem 1rem 1rem calc(2rem + 30px);
+    position: relative;
+    margin-bottom: 1rem;
+    min-height: 30px;
+    font-size: $text-small;
+    @include shadow(small);
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    &:before {
+      font-family: "Font Awesome 5 Free";
+      font-weight: bold;
+      font-size: 30px;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+    }
+
+    @each $type, $icon in $icons {
+      &.FlashBag__Message--#{$type}:before {
+        color: map-get($icon, color);
+        content: map-get($icon, content);
+      }
+    }
+
+    &.FlashBag__Message--hide {
+      @include animation(fold, 1s, 1);
+    }
+  }
+}
