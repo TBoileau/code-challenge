@@ -5,6 +5,7 @@
   "abstracts/breakpoints",
   "abstracts/responsive",
   "abstracts/grid",
+  "abstracts/round",
   "abstracts/texts",
   "abstracts/icons";
 
@@ -15,6 +16,8 @@
 
 @import "themes/default";
 
-@import "components/flash_bag";
+@import
+  "components/card",
+  "components/flash_bag";
 
 @import "vendors/font_awesome";
