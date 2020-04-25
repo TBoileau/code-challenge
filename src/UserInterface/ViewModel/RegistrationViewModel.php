@@ -2,8 +2,7 @@
 
 namespace App\UserInterface\ViewModel;
 
-use App\Infrastructure\Security\User;
-use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class RegistrationViewModel
@@ -12,24 +11,24 @@ use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 class RegistrationViewModel
 {
     /**
-     * @var Participant
+     * @var UserInterface
      */
-    private Participant $participant;
+    private UserInterface $user;
 
     /**
      * RegistrationViewModel constructor.
-     * @param Participant $participant
+     * @param UserInterface $user
      */
-    public function __construct(Participant $participant)
+    public function __construct(UserInterface $user)
     {
-        $this->participant = $participant;
+        $this->user = $user;
     }
 
     /**
-     * @return Participant
+     * @return UserInterface
      */
-    public function getParticipant(): Participant
+    public function getUser(): UserInterface
     {
-        return $this->participant;
+        return $this->user;
     }
 }

@@ -28,3 +28,5 @@ debug.log
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+/node_modules
+/public/build

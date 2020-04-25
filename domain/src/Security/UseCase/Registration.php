@@ -40,6 +40,6 @@ class Registration
         $request->validate($this->userGateway);
         $user = Participant::fromRegistration($request);
         $this->userGateway->register($user);
-        $presenter->present(new RegistrationResponse($user));
+        $presenter->present(new RegistrationResponse($user->getEmail()));
     }
 }

@@ -4,6 +4,7 @@ namespace App\UserInterface\Presenter;
 
 use App\UserInterface\ViewModel\RegistrationViewModel;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Response\RegistrationResponse;
 
@@ -24,12 +25,19 @@ class RegistrationPresenter implements RegistrationPresenterInterface
     private FlashBagInterface $flashBag;
 
     /**
+     * @var UserProviderInterface
+     */
+    private UserProviderInterface $userProvider;
+
+    /**
      * RegistrationPresenter constructor.
      * @param FlashBagInterface $flashBag
+     * @param UserProviderInterface $userProvider
      */
-    public function __construct(FlashBagInterface $flashBag)
+    public function __construct(FlashBagInterface $flashBag, UserProviderInterface $userProvider)
     {
         $this->flashBag = $flashBag;
+        $this->userProvider = $userProvider;
     }
 
     /**
@@ -37,11 +45,19 @@ class RegistrationPresenter implements RegistrationPresenterInterface
      */
     public function present(RegistrationResponse $response): void
     {
-        $this->viewModel = new RegistrationViewModel($response->getParticipant());
+        $this->viewModel = new RegistrationViewModel($this->userProvider->loadUserByUsername($response->getEmail()));
 
         $this->flashBag->add(
             "success",
             "Bienvenue sur Code Challenge ! Votre inscription a été effectuée avec succès !"
         );
+    }
+
+    /**
+     * @return RegistrationViewModel
+     */
+    public function getViewModel(): RegistrationViewModel
+    {
+        return $this->viewModel;
     }
 }

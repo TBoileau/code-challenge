@@ -52,10 +52,7 @@ class RegistrationTest extends TestCase
         $this->useCase->execute($request, $this->presenter);
 
         $this->assertInstanceOf(RegistrationResponse::class, $this->presenter->response);
-        $this->assertInstanceOf(UuidInterface::class, $this->presenter->response->getParticipant()->getId());
-        $this->assertEquals("email@email.com", $this->presenter->response->getParticipant()->getEmail());
-        $this->assertEquals("pseudo", $this->presenter->response->getParticipant()->getPseudo());
-        $this->assertTrue(password_verify("password", $this->presenter->response->getParticipant()->getPassword()));
+        $this->assertEquals("email@email.com", $this->presenter->response->getEmail());
     }
 
     /**
