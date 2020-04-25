@@ -92,27 +92,27 @@ Pour cela, nous allons suivre la pyramide de test :
 
 Lancer tous les tests :
 ```
-bin/phpunit
+make tests
 ```
 
 Lancer seulement les tests unitaires :
 ```
-bin/phpunit --testsuite unit
+make unit-tests
 ```
 
 Lancer seulement les tests d'intégration :
 ```
-bin/phpunit --testsuite integration
+make integration-tests
 ```
 
 Lancer seulement les tests systèmes :
 ```
-bin/phpunit --testsuite system
+make system-tests
 ```
 
 Lancer seulement les tests bout-en-bout :
 ```
-bin/phpunit --testsuite end_to_end
+make e2e-tests
 ```
 
 Si vous le souhaitez, lors de l'execution des tests de bout-en-bout, vous pouvez demander configurer votre environnement de test pour qu'un navigateur s'ouvre et effectue les actions implémentées dans votre test, tel un automate.

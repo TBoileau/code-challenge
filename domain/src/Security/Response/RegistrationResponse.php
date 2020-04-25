@@ -12,25 +12,24 @@ use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 class RegistrationResponse
 {
     /**
-     * @var Participant
+     * @var string
      */
-    private Participant $participant;
+    private string $email;
 
     /**
      * RegistrationResponse constructor.
-     *
-     * @param Participant $participant
+     * @param string $email
      */
-    public function __construct(Participant $participant)
+    public function __construct(string $email)
     {
-        $this->participant = $participant;
+        $this->email = $email;
     }
 
     /**
-     * @return Participant
+     * @return string
      */
-    public function getParticipant(): Participant
+    public function getEmail(): string
     {
-        return $this->participant;
+        return $this->email;
     }
 }
