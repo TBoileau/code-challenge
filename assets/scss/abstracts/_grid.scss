@@ -1,18 +1,10 @@
 @mixin grid($columns) {
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
     flex: 0 0 percentage($columns/12);
     max-width: percentage($columns/12);
 }
 
 @mixin responsive-grid($columns, $size) {
     @include respond-from($size) {
-        position: relative;
-        width: 100%;
-        padding-right: 15px;
-        padding-left: 15px;
         flex: 0 0 percentage($columns/12);
         max-width: percentage($columns/12);
     }
