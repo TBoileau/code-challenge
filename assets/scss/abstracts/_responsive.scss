@@ -1,0 +1,41 @@
+@mixin respond-to($size) {
+    @if map-has_key(map-get($breakpoints, $size), max-width) {
+        @media (max-width: #{map-get(map-get($breakpoints, $size), max-width)}) {
+            @content;
+        }
+    }
+}
+
+@mixin respond-from($size) {
+    @if map-has_key(map-get($breakpoints, $size), min-width) {
+        @media (min-width: #{map-get(map-get($breakpoints, $size), min-width)}) {
+            @content;
+        }
+    }
+}
+
+@mixin respond-range($from, $to) {
+    @if map-has_key(map-get($breakpoints, $size), min-width) and map-has_key(map-get($breakpoints, $size), max-width) {
+        @media (min-width: #{map-get(map-get($breakpoints, $from), min-width)}) and (max-width: #{map-get(map-get($breakpoints, $to), max-width)}) {
+            @content;
+        }
+    }
+}
+
+@mixin respond-on($size) {
+    @if map-has_key($breakpoints, $size) {
+        @if map-has_key(map-get($breakpoints, $size), min-width) and map-has_key(map-get($breakpoints, $size), max-width) {
+            @media (min-width: #{map-get(map-get($breakpoints, $size), min-width)}) and (max-width: #{map-get(map-get($breakpoints, $size), max-width)}) {
+                @content;
+            }
+        } @else if map-has_key(map-get($breakpoints, $size), min-width) {
+            @media (min-width: #{map-get(map-get($breakpoints, $size), min-width)}) {
+                @content;
+            }
+        } @else {
+            @media (max-width: #{map-get(map-get($breakpoints, $size), max-width)}) {
+                @content;
+            }
+        }
+    }
+}

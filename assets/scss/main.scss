@@ -2,11 +2,15 @@
   "abstracts/animations",
   "abstracts/colors",
   "abstracts/shadows",
+  "abstracts/breakpoints",
+  "abstracts/responsive",
+  "abstracts/grid",
   "abstracts/texts",
   "abstracts/icons";
 
 @import
   "base/shadows",
+  "base/grid",
   "base/text";
 
 @import "themes/default";
