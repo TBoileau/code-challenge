@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "declaration": false,
+    "noImplicitAny": false,
+    "jsx": "react",
+    "sourceMap": true,
+    "noLib": false,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules"
+  ]
+}

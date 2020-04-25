@@ -1,0 +1,17 @@
+@keyframes fold {
+  from {
+    top: 0;
+    opacity: 1;
+  }
+  to {
+    top: -150px;
+    opacity: 0;
+  }
+}
+
+@mixin animation($type, $duration, $count) {
+  animation-duration: $duration;
+  animation-name: $type;
+  animation-iteration-count: $count;
+  animation-fill-mode: forwards;
+}

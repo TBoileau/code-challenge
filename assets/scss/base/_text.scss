@@ -1,0 +1,17 @@
+.Text {
+  .Text--small {
+    font-size: $text-small;
+  }
+
+  .Text--normal {
+    font-size: $text-normal;
+  }
+}
+
+.Heading {
+  @each $size, $heading in $headings {
+    &.Heading--#{$size} {
+      font-size: $heading;
+    }
+  }
+}

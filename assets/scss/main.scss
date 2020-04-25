@@ -1,0 +1,16 @@
+@import
+  "abstracts/animations",
+  "abstracts/colors",
+  "abstracts/shadows",
+  "abstracts/texts",
+  "abstracts/icons";
+
+@import
+  "base/shadows",
+  "base/text";
+
+@import "themes/default";
+
+@import "components/flash_bag";
+
+@import "vendors/font_awesome";

@@ -1,0 +1,7 @@
+.Shadow {
+  @each $size, $shadow in $shadows {
+    &.Shadow--#{$size} {
+      @include shadow($size);
+    }
+  }
+}
