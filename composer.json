@@ -70,7 +70,8 @@
         "database-panther": [
             "php bin/console doctrine:database:drop --if-exists --force --env=panther",
             "php bin/console doctrine:database:create --env=panther",
-            "php bin/console doctrine:schema:update --force --env=panther"
+            "php bin/console doctrine:schema:update --force --env=panther",
+            "php bin/console doctrine:fixtures:load -n --env=panther"
         ],
         "database-test": [
             "php bin/console doctrine:database:drop --if-exists --force --env=test",
