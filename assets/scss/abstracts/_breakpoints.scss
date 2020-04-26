@@ -5,3 +5,11 @@ $breakpoints: (
     lg: (min-width: 992px, max-width: 1199.98px),
     xl: (min-width: 1200px)
 );
+
+$container: (
+    xs: 95%,
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px
+)
