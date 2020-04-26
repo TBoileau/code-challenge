@@ -1,0 +1,43 @@
+.Flex {
+    display: flex;
+
+    @each $direction in $flex-directions {
+        &.Flex--#{$direction}  {
+            flex-direction: $direction;
+        }
+
+        @each $size in map-keys($breakpoints) {
+            &.Flex--#{$size}-#{$direction}  {
+                @include respond-from($size) {
+                    flex-direction: $direction;
+                }
+            }
+        }
+    }
+}
+
+@each $name, $justify in $flex-justify {
+    &.Justify--#{$name}  {
+        justify-content: $justify;
+    }
+    @each $size in map-keys($breakpoints) {
+        &.Justify--#{$size}-#{$name}  {
+            @include respond-from($size) {
+                justify-content: $justify;
+            }
+        }
+    }
+}
+
+@each $name, $align in $flex-aligns {
+    &.Align--#{$name}  {
+        align-items: $align;
+    }
+    @each $size in map-keys($breakpoints) {
+        &.Align--#{$size}-#{$name}  {
+            @include respond-from($size) {
+                align-items: $align;
+            }
+        }
+    }
+}

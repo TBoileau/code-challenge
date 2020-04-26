@@ -1,0 +1,16 @@
+$flex-directions: (row, column);
+$flex-justify: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    between: space-between,
+    around: space-around,
+    evenly: space-evenly
+);
+$flex-aligns: (
+    start: flex-start,
+    end: flex-end,
+    center: center,
+    stretch: stretch,
+    baseline: baseline
+);
