@@ -1,0 +1,48 @@
+.Button {
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    line-height: 1.5;
+    border-radius: map-get($button-radius, medium);
+    padding: map-get($button-paddings, medium);
+    font-size: map-get($button-font-sizes, medium);
+
+    @each $name, $color in $colors {
+        &:not(.Button--outline).Button--#{$name} {
+            border: 1px solid $color;
+            background: $color;
+            color: map-get($contrasts, $name);
+
+            &:active, &:hover {
+                border: 1px solid darken($color, 10%);
+                background: darken($color, 10%);
+            }
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($color,.5);
+                outline: none;
+            }
+        }
+        &.Button--outline.Button--#{$name} {
+            border: 1px solid $color;
+            background: $white;
+            color: $color;
+            &:active, &:hover {
+                border: 1px solid $color;
+                background: $color;
+                color: map-get($contrasts, $name);
+            }
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($color,.5);
+                outline: none;
+            }
+        }
+    }
+    @each $size in $button-sizes {
+        &.Button--#{$size} {
+            border-radius: map-get($button-radius, $size);
+            padding: map-get($button-paddings, $size);
+            font-size: map-get($button-font-sizes, $size);
+        }
+    }
+}

@@ -11,6 +11,21 @@ $white: #fff;
 $grey: #ced4da;
 $black: #000;
 
+$contrasts: (
+    primary: $white,
+    secondary: $white,
+    success: $white,
+    danger: $white,
+    warning: $dark,
+    info: $white,
+    light: $dark,
+    dark: $white,
+    muted: $dark,
+    white: $dark,
+    grey: $white,
+    black: $white,
+);
+
 $colors: (
   primary: $primary,
   secondary: $secondary,
