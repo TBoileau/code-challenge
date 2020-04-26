@@ -1,9 +1,21 @@
 $shadows: (
-  small: 0 .125rem .25rem,
-  medium: 0 .5rem 1rem,
-  large: 0 1rem 3rem
+        bottom: (
+                small: 0 .125rem .25rem,
+                medium: 0 .5rem 1rem,
+                large: 0 1rem 3rem
+        ),
+        center: (
+                small: 0 0 .25rem,
+                medium: 0 0 1rem,
+                large: 0 0 3rem
+        ),
+        top: (
+                small: 0 -.125rem .25rem,
+                medium: 0 -.5rem 1rem,
+                large: 0 -1rem 3rem
+        )
 );
 
-@mixin shadow($size, $color: $black) {
-  box-shadow: map-get($shadows, $size) rgba($color, .1);
+@mixin shadow($size, $color: $black, $direction: bottom) {
+    box-shadow: map-get(map-get($shadows, $direction), $size) rgba($color, .1);
 }

@@ -1,0 +1,24 @@
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-size: $base-font-size;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    color: $dark;
+}
+
+header {
+
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+
+}

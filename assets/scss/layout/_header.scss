@@ -1,0 +1,23 @@
+.Header {
+    padding: $header-padding;
+    background: $header-background;
+    border-bottom: $header-border-bottom;
+    @include shadow(small);
+    z-index: 10;
+    position: relative;
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .Header__Title {
+            text-decoration: none;
+            color: inherit;
+            margin: 0;
+            font-weight: 400;
+            font-size: $heading-2;
+            text-transform: uppercase;
+        }
+    }
+}
