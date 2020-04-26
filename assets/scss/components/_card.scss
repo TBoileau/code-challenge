@@ -1,8 +1,9 @@
 .Card {
-    @include shadow(large);
+    @include shadow(medium);
     display: flex;
     flex-direction: column;
     border-radius: $round-size;
+    border: 1px solid rgba(0,0,0,.125);
 
     @each $name, $color in $colors {
         &.Card--#{$name} {

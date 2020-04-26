@@ -1,0 +1,93 @@
+{% extends "form_div_layout.html.twig" %}
+
+{% block form_label -%}
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' Field__Label')|trim}) %}
+    <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>{{ translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain) }}</{{ element|default('label') }}>
+{%- endblock form_label %}
+
+{% block form_row -%}
+    {%- set widget_attr = {} -%}
+    {% if form.vars.expanded is defined %}
+        {% if form.vars.expanded %}
+            {% set row_attr = row_attr|merge({class: (label_attr.class|default('') ~ ' Field--choice')|trim}) %}
+        {% else %}
+            {% set row_attr = row_attr|merge({class: (label_attr.class|default('') ~ ' Field--select')|trim}) %}
+        {% endif %}
+    {% else %}
+        {% set row_attr = row_attr|merge({class: (label_attr.class|default('') ~ ' Field--input')|trim}) %}
+    {% endif %}
+    {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' Field__Label')|trim}) %}
+    <{{ element|default('div') }}{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~ ' Field')|trim})} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+    </{{ element|default('div') }}>
+{%- endblock form_row %}
+
+{% block choice_widget_expanded -%}
+    <div {{ block('widget_container_attributes') }}>
+        {%- for child in form %}
+
+            <div class="Field__Choice">
+                {{ form_widget(child) }}
+                {{ block('checkbox_radio_label') }}
+            </div>
+        {% endfor -%}
+    </div>
+{%- endblock choice_widget_expanded %}
+
+{% block checkbox_radio_label -%}
+    <label for="{{ form.vars.id }}">
+        {{- label is not same as(false) ? (translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain)) -}}
+    </label>
+{%- endblock checkbox_radio_label %}
+
+{% block form_help -%}
+    {%- if help is not empty -%}
+        {%- set help_attr = help_attr|merge({class: (help_attr.class|default('') ~ ' Field__Help')|trim}) -%}
+        <div id="{{ id }}_help"{% with { attr: help_attr } %}{{ block('attributes') }}{% endwith %}>
+            {%- if translation_domain is same as(false) -%}
+                {%- if help_html is same as(false) -%}
+                    {{- help -}}
+                {%- else -%}
+                    {{- help|raw -}}
+                {%- endif -%}
+            {%- else -%}
+                {%- if help_html is same as(false) -%}
+                    {{- help|trans(help_translation_parameters, translation_domain) -}}
+                {%- else -%}
+                    {{- help|trans(help_translation_parameters, translation_domain)|raw -}}
+                {%- endif -%}
+            {%- endif -%}
+        </div>
+    {%- endif -%}
+{%- endblock form_help %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 %}
+        <div id="{{ id }}_error" class="Field__Error">
+            {%- for error in errors -%}
+                {{ error.message }}
+                {% if not loop.last %}
+                    <br/>
+                {% endif %}
+            {%- endfor -%}
+        </div>
+    {% endif %}
+{%- endblock form_errors %}
+
+{%- block widget_container_attributes -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' Field__Choices')|trim}) %}
+    {{ parent() }}
+{%- endblock widget_container_attributes -%}
+
+{%- block label_attributes -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' Field__Label')|trim}) %}
+    {{ parent() }}
+{%- endblock label_attributes -%}
+
+{%- block widget_attributes -%}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' Field__Widget')|trim}) %}
+    {{ parent() }}
+{%- endblock widget_attributes -%}

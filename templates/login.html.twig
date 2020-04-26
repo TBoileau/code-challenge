@@ -4,9 +4,26 @@
     {% if vm.errorMessage is not null %}
         {{ vm.errorMessage }}
     {% endif %}
-    <form method="post">
-        <input type="email" required="required" name="username" value="{{ vm.lastUsername }}" placeholder="Adresse email"/>
-        <input type="password" required="required" name="password"/>
-        <button>Se connecter</button>
-    </form>
+    <div class="Row">
+        <div class="Column Column--12 Column--md-8 Column--lg-6 Column--xl-4">
+            <form method="post">
+            <div class="Card">
+                <div class="Card__Header">Connexion</div>
+                <div class="Card__Body">
+                    <div class="Field Field--input Field--icon Field--icon-solid-at">
+                        <label for="username" class="Field__Label">Email</label>
+                        <input type="email" required="required" id="username" name="username" value="{{ vm.lastUsername }}" placeholder="Adresse email" class="Field__Widget">
+                    </div>
+                    <div class="Field Field--input Field--icon Field--icon-solid-key">
+                        <label for="password" class="Field__Label">Mot de passe</label>
+                        <input type="password" required="required" name="password" placeholder="Mot de passe" class="Field__Widget">
+                    </div>
+                </div>
+                <div class="Card__Footer">
+                    <button>Se connecter</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}

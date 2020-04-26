@@ -1,0 +1,18 @@
+$flash-bag-icons: (
+    success: (
+        color: $success,
+        content: "\f058"
+    ),
+    danger: (
+        color: $danger,
+        content: "\f057"
+    ),
+    info: (
+        color: $info,
+        content: "\f05a"
+    ),
+    warning: (
+        color: $warning,
+        content: "\f06a"
+    )
+);
