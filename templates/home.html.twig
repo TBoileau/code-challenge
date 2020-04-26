@@ -1,23 +1,28 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-
     <div class="Container">
-        test
-    </div>
-    <div class="Container Container--sm">
-        test
-    </div>
-    <div class="Container Container--md">
-        test
-    </div>
-    <div class="Container Container--lg">
-        test
-    </div>
-    <div class="Container Container--xl">
-        test
-    </div>
-    <div class="Container Container--fluid">
-        test
+        <div class="Row">
+            <div class="Column">
+                <div class="Alert Alert--primary Alert--icon Alert--icon-solid-user" role="alert">
+                    test
+                </div>
+                <div class="Alert Alert--secondary" role="alert">
+                    test
+                </div>
+                <div class="Alert Alert--warning" role="alert">
+                    test
+                </div>
+                <div class="Alert Alert--info" role="alert">
+                    test
+                </div>
+                <div class="Alert Alert--successs" role="alert">
+                    test
+                </div>
+                <div class="Alert Alert--danger Alert--icon Alert--icon-solid-exclamation-triangle">
+                    test
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

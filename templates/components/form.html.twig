@@ -66,14 +66,25 @@
 
 {% block form_errors -%}
     {% if errors|length > 0 %}
-        <div id="{{ id }}_error" class="Field__Error">
-            {%- for error in errors -%}
-                {{ error.message }}
-                {% if not loop.last %}
-                    <br/>
-                {% endif %}
-            {%- endfor -%}
-        </div>
+        {% if form is not rootform %}
+            <div id="{{ id }}_error" class="Field__Error">
+                {%- for error in errors -%}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                        <br/>
+                    {% endif %}
+                {%- endfor -%}
+            </div>
+        {% else %}
+            <div class="Alert Alert--danger Alert--icon Alert--icon-solid-exclamation-triangle">
+                {%- for error in errors -%}
+                    {{ error.message }}
+                    {% if not loop.last %}
+                        <br/>
+                    {% endif %}
+                {%- endfor -%}
+            </div>
+        {% endif %}
     {% endif %}
 {%- endblock form_errors %}
 

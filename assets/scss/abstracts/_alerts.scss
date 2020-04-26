@@ -1,0 +1,48 @@
+$alert-colors: (
+    primary: (
+        color: #004085,
+        background: #cce5ff,
+        border: #b8daff
+    ),
+    secondary: (
+        color: #383d41,
+        background: #e2e3e5,
+        border: #d6d8db
+    ),
+    success: (
+        color: #155724,
+        background: #d4edda,
+        border: #c3e6cb
+    ),
+    danger: (
+        color: #721c24,
+        background: #f8d7da,
+        border: #f5c6cb
+    ),
+    warning: (
+        color: #856404,
+        background: #fff3cd,
+        border: #ffeeba
+    ),
+    info: (
+        color: #0c5460,
+        background: #d1ecf1,
+        border: #bee5eb
+    ),
+    light: (
+        color: #818182,
+        background: #fefefe,
+        border: #fdfdfe
+    ),
+    dark: (
+        color: #1b1e21,
+        background: #d6d8d9,
+        border: #c6c8ca
+    )
+);
+$alert-icon-left: .75rem;
+$alert-icon-top: calc(.75rem + 1px);
+$alert-padding-with-icon: .75rem 1.25rem .75rem 2.5rem;
+$alert-margin-bottom: 1rem;
+$alert-padding: .75rem 1.25rem;
+$alert-radius: .25rem;
