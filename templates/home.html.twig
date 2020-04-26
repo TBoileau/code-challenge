@@ -1,46 +1,10 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="Field Field--input Field--invalid Field--icon Field--icon-solid-user">
-        <label for="" class="Field__Label">test</label>
-        <input type="text" class="Field__Widget">
-        <span class="Field__Help">test</span>
-        <span class="Field__Error">test</span>
-    </div>
-    <div class="Field Field--select Field--valid Field--icon Field--icon-solid-user">
-        <label for="" class="Field__Label">test</label>
-        <select class="Field__Widget">
-            <option value="">sdqfgqsdfqsdf</option>
-            <option value="">sdqfgqsdfqsdf</option>
-            <option value="">sdqfgqsdfqsdf</option>
-            <option value="">sdqfgqsdfqsdf</option>
-        </select>
-        <span class="Field__Help">test</span>
-        <span class="Field__Error">test</span>
-    </div>
-    <div class="Field Field--input Field--checking Field--icon Field--icon-solid-user">
-        <label for="" class="Field__Label">test</label>
-        <textarea class="Field__Widget"></textarea>
-        <span class="Field__Help">test</span>
-        <span class="Field__Error">test</span>
-    </div>
-    <div class="Field Field--choice Field--invalid">
-        <label class="Field__Label">test</label>
-        <div class="Field__Choices">
-            <div class="Field__Choice">
-                <input type="radio"><label for="">Salut les loubard</label>
-            </div>
-            <div class="Field__Choice">
-                <input type="radio"><label for="">Salut les loubard</label>
-            </div>
-            <div class="Field__Choice">
-                <input type="checkbox"><label for="">Salut les loubard</label>
-            </div>
-            <div class="Field__Choice">
-                <input type="checkbox"><label for="">Salut les loubard</label>
-            </div>
-        </div>
-        <span class="Field__Help">test</span>
-        <span class="Field__Error">test</span>
-    </div>
+    <button class="Button Button--small Button--primary">Primary</button>
+    <button class="Button Button--medium Button--success">Success</button>
+    <button class="Button Button--large Button--danger">Danger</button>
+    <button class="Button Button--small Button--outline Button--primary">Primary</button>
+    <button class="Button Button--medium Button--outline Button--success">Success</button>
+    <button class="Button Button--large Button--outline Button--danger">Danger</button>
 {% endblock %}
