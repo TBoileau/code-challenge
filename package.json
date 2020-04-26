@@ -4,6 +4,7 @@
         "@symfony/webpack-encore": "^0.29.0",
         "core-js": "^3.0.0",
         "node-sass": "^4.14.0",
+        "normalize.css": "^8.0.1",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^7.3.1",
         "ts-loader": "^5.4.5",

@@ -1,0 +1,170 @@
+.Field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: $field-margin-bottom;
+    position: relative;
+
+    .Field__Help, .Field__Error {
+        font-size: $text-small;
+        margin: $field-help-error-margin;
+        position: relative;
+        padding-left: 1rem;
+        &:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 10px;
+            text-align: center;
+        }
+    }
+
+    .Field__Help {
+        color: $muted;
+        &:before {
+            @include icon(solid, "info")
+        }
+    }
+
+    .Field__Error {
+        color: $danger;
+        &:before {
+            @include icon(solid, "times")
+        }
+    }
+
+    .Field__Label {
+        font-size: $text-normal;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: $label-margin-bottom;
+        height: $label-height;
+    }
+
+    &.Field--input textarea {
+        min-height: $widget-textarea-min-height;
+    }
+
+    &.Field--input input, &.Field--select select {
+        height: $widget-height;
+    }
+
+    &.Field--input input, &.Field--input textarea, &.Field--select select {
+        border: 1px solid $grey;
+        padding: $widget-padding;
+        border-radius: $round-size;
+    }
+
+    .Field__Widget {
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &.Field--select.Field--invalid:after, &.Field--select.Field--valid:after, &.Field--select.Field--checking:after {
+        right: $widget-select-icon-right;
+    }
+
+    &.Field--input.Field--invalid:after, &.Field--input.Field--valid:after, &.Field--input.Field--checking:after {
+        right: $widget-input-icon-right;
+    }
+
+    &.Field--invalid:after, &.Field--valid:after, &.Field--checking:after, &.Field--icon:before {
+        position: absolute;
+        top: $widget-icon-top;
+        width: 1rem;
+        height: 1rem;
+        line-height: 1rem;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    &.Field--icon {
+        @each $type in map_keys($icon-types) {
+            @each $icon in map_keys($icons) {
+                &.Field--icon-#{$type}-#{$icon}:before {
+                    @include icon($type, $icon);
+                }
+            }
+        }
+        .Field__Widget {
+            padding: $widget-padding-with-icon !important;
+        }
+        &:before {
+            left: $widget-icon-left;
+            color: $widget-icon-color;
+        }
+    }
+
+    &.Field--choice {
+        .Field__Choice {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: $widget-choice-padding;
+            border-bottom: 1px solid $grey;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            input {
+                margin-right: .5rem;
+            }
+        }
+
+        &.Field--invalid:after, &.Field--valid:after, &.Field--checking:after {
+            top: 0;
+            right: 0;
+        }
+    }
+
+    &.Field--invalid {
+        .Field__Widget {
+            border-color: $danger;
+            &:focus {
+                @include shadow(small, $danger);
+            }
+        }
+        &:after {
+            color: $danger;
+            @include icon("solid", "times");
+        }
+    }
+
+    &.Field--valid {
+        .Field__Widget {
+            border-color: $success;
+            &:focus {
+                @include shadow(small, $success);
+            }
+        }
+        &:after {
+            color: $success;
+            @include icon("solid", "check");
+        }
+    }
+
+    &.Field--checking {
+        .Field__Widget {
+            border-color: $info;
+            &:focus {
+                @include shadow(small, $info);
+            }
+        }
+        &:after {
+            color: $info;
+            @include icon("solid", "spinner");
+            animation: fa-spin 1s steps(8) infinite;
+        }
+    }
+}
+
+textarea, input, select {
+    font-family: inherit;
+}
+
+textarea {
+    resize: none;
+    overflow-y: hidden;
+}

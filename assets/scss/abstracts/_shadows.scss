@@ -1,9 +1,9 @@
 $shadows: (
-  small: 0 .125rem .25rem rgba(0,0,0,.075),
-  medium: 0 .5rem 1rem rgba(0,0,0,.15),
-  large: 0 1rem 3rem rgba(0,0,0,.175)
+  small: 0 .125rem .25rem,
+  medium: 0 .5rem 1rem,
+  large: 0 1rem 3rem
 );
 
-@mixin shadow($size) {
-  box-shadow: map-get($shadows, $size);
+@mixin shadow($size, $color: $black) {
+  box-shadow: map-get($shadows, $size) rgba($color, .1);
 }

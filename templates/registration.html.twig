@@ -1,8 +1,20 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    {{ form_start(form) }}
-        {{ form_rest(form) }}
-        <button>S'inscrire</button>
-    {{ form_end(form) }}
+
+    <div class="Row">
+        <div class="Column Column--12 Column--md-8 Column--lg-6 Column--xl-4">
+            {{ form_start(form) }}
+                <div class="Card">
+                    <div class="Card__Header">Inscription</div>
+                    <div class="Card__Body">
+                        {{ form_rest(form) }}
+                    </div>
+                    <div class="Card__Footer">
+                        <button>S'inscrire</button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock %}

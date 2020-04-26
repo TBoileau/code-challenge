@@ -34,7 +34,8 @@ class RegistrationType extends AbstractType
                     new NotBlank(),
                     new Email(),
                     new NonUniqueEmail()
-                ]
+                ],
+                "help" => "Veuillez saisir une adresse email valide, ex: xyz@email.com."
             ])
             ->add("pseudo", TextType::class, [
                 "label" => "Pseudo :",
@@ -46,10 +47,12 @@ class RegistrationType extends AbstractType
             ->add("plainPassword", RepeatedType::class, [
                 "type" => PasswordType::class,
                 "first_options" => [
-                    "label" => "Mot de passe :"
+                    "label" => "Mot de passe :",
+                    "help" => "Votre mot de passe doit contenir au minimum 8 caractères."
                 ],
                 "second_options" => [
-                    "label" => "Confirmez votre mot de passe :"
+                    "label" => "Confirmez votre mot de passe :",
+                    "help" => "Saisissez de nouveau votre mot de passe."
                 ],
                 "invalid_message" => "La confirmation doit être similaire au mot de passe",
                 "constraints" => [
