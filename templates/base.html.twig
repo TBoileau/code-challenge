@@ -8,9 +8,42 @@
         {% endblock %}
     </head>
     <body>
-        <main>
+        <header class="Header">
+            <div class="Container">
+                <nav>
+                    <a class="Header__Title" href="{{ path("home") }}">
+                        Code Challenge
+                    </a>
+                    <ul class="Main-Nav">
+                        <li class="Main-Nav__Item">
+                            <a href="{{ path("home") }}">Accueil</a>
+                        </li>
+                        {% if is_granted("ROLE_USER") %}
+                            <li class="Main-Nav__Item">
+                                <a href="">Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="Main-Nav__Item">
+                                <a href="{{ path("login") }}">Se connecter</a>
+                            </li>
+                            <li class="Main-Nav__Item">
+                                <a href="{{ path("registration") }}">S'inscrire</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="Main">
             {% block body %}{% endblock %}
         </main>
+        <footer class="Footer">
+            <div class="Container">
+                <div class="Row">
+                    <div class="Column">Footer</div>
+                </div>
+            </div>
+        </footer>
         {% include 'components/flash_messages.html.twig' %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}

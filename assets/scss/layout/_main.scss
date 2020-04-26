@@ -1,0 +1,17 @@
+.Main {
+    padding: $main-padding;
+    background: $main-background;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar{
+        width: $main-scrollbar-width;
+    }
+    &::-webkit-scrollbar-track{
+        background: $main-scrollbar-background;
+        border-radius: 0px
+    }
+    &::-webkit-scrollbar-thumb{
+        background: $main-scrollbar-color;
+        border-radius: 0px;
+    }
+}

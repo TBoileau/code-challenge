@@ -1,0 +1,8 @@
+.Footer {
+    padding: $footer-padding;
+    background: $footer-background;
+    border-top: $footer-border-top;
+    @include shadow(small, $black, top);
+    z-index: 10;
+    position: relative;
+}

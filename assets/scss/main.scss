@@ -8,6 +8,7 @@
   "abstracts/colors",
   "abstracts/buttons",
   "abstracts/shadows",
+  "abstracts/layout",
   "abstracts/flex",
   "abstracts/alerts",
   "abstracts/breakpoints",
@@ -26,10 +27,17 @@
   "base/container",
   "base/text";
 
+@import
+  "layout/header",
+  "layout/main",
+  "layout/footer",
+  "layout/global";
+
 @import "themes/default";
 
 @import
   "components/card",
+  "components/main_nav",
   "components/field",
   "components/alert",
   "components/button",

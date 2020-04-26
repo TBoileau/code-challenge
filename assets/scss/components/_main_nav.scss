@@ -1,0 +1,30 @@
+.Main-Nav {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    .Main-Nav__Item {
+        margin: 0 1rem;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        > a {
+            text-decoration: none;
+            color: inherit;
+
+            &:hover {
+                font-weight: 500;
+            }
+        }
+    }
+}
