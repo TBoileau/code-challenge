@@ -1,0 +1,30 @@
+@use "sass:list";
+
+.Container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+
+    @each $size, $width in $container {
+        @include respond-from($size) {
+            max-width: $width;
+        }
+        &.Container--#{$size} {
+            @each $subsize, $subwidth in $container {
+                @if index(map-keys($container), $subsize) >= index(map-keys($container), $size) {
+                    @include respond-from($subsize) {
+                        max-width: $subwidth;
+                    }
+                } @else {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+
+    &.Container--fluid {
+        max-width: 100%;
+    }
+}
