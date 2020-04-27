@@ -20,7 +20,7 @@
                         </li>
                         {% if is_granted("ROLE_USER") %}
                             <li class="Main-Nav__Item">
-                                <a href="">Déconnexion</a>
+                                <a href="{{ path("logout") }}">Déconnexion</a>
                             </li>
                         {% else %}
                             <li class="Main-Nav__Item">

@@ -28,5 +28,7 @@ class ParticipantTest extends PantherTestCase
             '.FlashBag',
             'Bon retour sur Code Challenge !'
         );
+
+        $client->clickLink("Déconnexion");
     }
 }
