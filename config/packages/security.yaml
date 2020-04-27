@@ -13,6 +13,8 @@ security:
             anonymous: lazy
             provider: user_provider
             pattern: ^/
+            logout:
+                path: logout
             guard:
                 authenticators:
                     - App\Infrastructure\Security\Guard\WebAuthenticator
