@@ -1,11 +1,26 @@
 $button-sizes: (small, medium, large );
 $button-paddings: (
     small: .25rem .5rem,
-    medium: .375rem .75rem,
-    large: .5rem 1rem,
+    medium: .5rem .75rem,
+    large: .75rem 1rem,
+);
+$button-padding-icons: (
+    small: .25rem .5rem .25rem 1.75rem,
+    medium: .5rem .75rem .5rem 2rem,
+    large: .75rem 1rem .75rem 2.5rem
+);
+$button-top-icons: (
+    small: calc(.085rem + 1px),
+    medium: calc(.45rem + 1px),
+    large: calc(.75rem + 1px)
+);
+$button-left-icons: (
+    small: .5rem,
+    medium: .625rem,
+    large: .75rem
 );
 $button-font-sizes: (
-    small: .875rem,
+    small: .75rem,
     medium: 1rem,
     large: 1.25rem,
 );

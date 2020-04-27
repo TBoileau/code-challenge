@@ -20,6 +20,7 @@ DOCUMENTATION
         * [Gestion des questions](#gestion-des-questions)
         * [Gestion des utilisateurs](#gestion-des-utilisateurs)
     * [Générer un cas d'utilisation](#gnrer-un-cas-dutilisation)
+* [Front-end](front.md)
 
 # Installation
 

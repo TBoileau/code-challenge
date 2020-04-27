@@ -30,14 +30,12 @@
 @import
   "layout/header",
   "layout/main",
+  "layout/main_nav",
   "layout/footer",
   "layout/global";
 
-@import "themes/default";
-
 @import
   "components/card",
-  "components/main_nav",
   "components/field",
   "components/alert",
   "components/button",
