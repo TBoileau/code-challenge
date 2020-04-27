@@ -6,6 +6,7 @@
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
+    box-sizing: border-box;
 
     @each $size, $width in $container {
         @include respond-from($size) {

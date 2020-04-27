@@ -11,6 +11,7 @@
         width: 100%;
         padding-right: 15px;
         padding-left: 15px;
+        box-sizing: border-box;
         @for $columns from 1 through 12 {
             &.Column--#{$columns} {
                 @include grid($columns);

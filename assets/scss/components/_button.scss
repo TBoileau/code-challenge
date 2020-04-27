@@ -3,10 +3,44 @@
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    line-height: 1.5;
+    line-height: map-get($button-font-sizes, medium);
     border-radius: map-get($button-radius, medium);
     padding: map-get($button-paddings, medium);
     font-size: map-get($button-font-sizes, medium);
+
+    &.Button--icon {
+        padding: map-get($button-padding-icons, medium);
+        position: relative;
+
+        &:before {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            top: map-get($button-top-icons, medium);
+            left: map-get($button-left-icons, medium);
+        }
+
+        @each $size in $button-sizes {
+            &.Button--#{$size} {
+                padding: map-get($button-padding-icons, $size);
+            }
+            &.Button--#{$size}:before {
+                top: map-get($button-top-icons, $size);
+                left: map-get($button-left-icons, $size);
+            }
+        }
+
+        @each $type in map_keys($icon-types) {
+            @each $icon in map_keys($icons) {
+                &.Button--icon-#{$type}-#{$icon}:before {
+                    @include icon($type, $icon);
+                }
+            }
+        }
+    }
 
     @each $name, $color in $colors {
         &:not(.Button--outline).Button--#{$name} {
@@ -43,6 +77,7 @@
             border-radius: map-get($button-radius, $size);
             padding: map-get($button-paddings, $size);
             font-size: map-get($button-font-sizes, $size);
+            line-height: map-get($button-font-sizes, $size);
         }
     }
 }

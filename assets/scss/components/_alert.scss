@@ -3,6 +3,7 @@
     padding: $alert-padding;
     border: 1px solid transparent;
     border-radius: $alert-radius;
+    min-height: 1rem;
 
     @each $name, $color in $alert-colors {
         &.Alert--#{$name} {
