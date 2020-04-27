@@ -13,4 +13,5 @@ e2e-tests:
 
 .PHONY: tests
 tests:
+	composer database
 	bin/phpunit --testsuite unit,integration,system,end_to_end

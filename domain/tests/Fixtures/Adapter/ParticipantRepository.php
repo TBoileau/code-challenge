@@ -3,6 +3,7 @@
 namespace TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter;
 
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
