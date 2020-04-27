@@ -4,6 +4,7 @@
     flex-direction: column;
     margin-bottom: $field-margin-bottom;
     position: relative;
+    box-sizing: border-box;
 
     .Field__Help, .Field__Error {
         font-size: $text-small;
@@ -56,6 +57,7 @@
     }
 
     .Field__Widget {
+        box-sizing: border-box;
         &:focus {
             outline: none;
         }
