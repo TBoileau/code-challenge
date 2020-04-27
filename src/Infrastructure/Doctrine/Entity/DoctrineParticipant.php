@@ -8,7 +8,7 @@ use Ramsey\Uuid\UuidInterface;
 /**
  * Class DoctrineParticipant
  * @package App\Infrastructure\Doctrine\Entity
- * @ORM\Entity(repositoryClass="App\Infrastructure\Adapter\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Infrastructure\Adapter\Repository\ParticipantRepository")
  */
 class DoctrineParticipant
 {

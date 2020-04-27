@@ -1,0 +1,6 @@
+framework:
+  messenger:
+    transports:
+      sqs: 'enqueue://default?topic[name]=code-challenge&queue[name]=code-challenge&receiveTimeout=3'
+    routing:
+      TBoileau\CodeChallenge\Domain\System\Request\TrackRequest: sqs

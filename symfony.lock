@@ -1,9 +1,9 @@
 {
+    "aws/aws-sdk-php": {
+        "version": "3.135.5"
+    },
     "beberlei/assert": {
         "version": "v3.2.7"
-    },
-    "brick/math": {
-        "version": "0.8.15"
     },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
@@ -108,6 +108,49 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "enqueue/amqp-tools": {
+        "version": "0.10.0"
+    },
+    "enqueue/dsn": {
+        "version": "0.10.1"
+    },
+    "enqueue/enqueue": {
+        "version": "0.10.1"
+    },
+    "enqueue/enqueue-bundle": {
+        "version": "0.9",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.9",
+            "ref": "c6ec89b63f963d10ad0d7a7bea170359c119c8bc"
+        },
+        "files": [
+            "./config/packages/enqueue.yaml",
+            "./config/packages/test/enqueue.yaml"
+        ]
+    },
+    "enqueue/null": {
+        "version": "0.10.1"
+    },
+    "enqueue/sqs": {
+        "version": "0.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.7",
+            "ref": "0dbfd58e70c8e3a95d21b947d179350f064ad568"
+        }
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.5.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -119,6 +162,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.3"
+    },
+    "mtdowling/jmespath.php": {
+        "version": "2.5.0"
     },
     "myclabs/deep-copy": {
         "version": "1.9.5"
@@ -194,11 +240,20 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.3"
     },
-    "ramsey/collection": {
-        "version": "1.0.1"
+    "queue-interop/amqp-interop": {
+        "version": "0.8.1"
+    },
+    "queue-interop/queue-interop": {
+        "version": "0.8.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "ramsey/uuid": {
         "version": "4.0.1"
@@ -259,6 +314,15 @@
         "files": [
             "./phpcs.xml.dist"
         ]
+    },
+    "sroze/messenger-enqueue-transport": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.1",
+            "ref": "9a7119f609b576a30dbf03e4fe44212388e96ea1"
+        }
     },
     "symfony/asset": {
         "version": "v5.0.7"
@@ -379,6 +443,18 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
+    },
+    "symfony/messenger": {
+        "version": "4.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.3",
+            "ref": "8a2675c061737658bed85102e9241c752620e575"
+        },
+        "files": [
+            "./config/packages/messenger.yaml"
+        ]
     },
     "symfony/mime": {
         "version": "v5.0.7"
