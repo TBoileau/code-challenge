@@ -41,3 +41,11 @@
         }
     }
 }
+
+@each $type in (grow, shrink) {
+    @each $i in (0, 1) {
+        .Flex--#{$type}-#{$i} {
+            flex-#{$type}: $i;
+        }
+    }
+}

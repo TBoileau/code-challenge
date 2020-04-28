@@ -3,14 +3,20 @@
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
+    min-height: map-get($button-font-sizes, medium);
     line-height: map-get($button-font-sizes, medium);
     border-radius: map-get($button-radius, medium);
     padding: map-get($button-paddings, medium);
     font-size: map-get($button-font-sizes, medium);
 
+
     &.Button--icon {
         padding: map-get($button-padding-icons, medium);
         position: relative;
+
+        &:empty {
+            padding-right: 0;
+        }
 
         &:before {
             position: absolute;
@@ -26,6 +32,7 @@
         @each $size in $button-sizes {
             &.Button--#{$size} {
                 padding: map-get($button-padding-icons, $size);
+                min-height: map-get($button-font-sizes, $size);
             }
             &.Button--#{$size}:before {
                 top: map-get($button-top-icons, $size);

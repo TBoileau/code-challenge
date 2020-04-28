@@ -1,3 +1,9 @@
+question_create:
+    path: /questions/create
+    methods: GET|POST
+    controller: App\UserInterface\Controller\Question\CreateController
+
+
 registration:
     path: /registration
     methods: GET|POST

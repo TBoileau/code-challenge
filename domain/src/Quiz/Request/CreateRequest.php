@@ -22,6 +22,16 @@ class CreateRequest
     private array $answers;
 
     /**
+     * @param string $title
+     * @param array $answers
+     * @return static
+     */
+    public static function create(string $title, array $answers): self
+    {
+        return new self($title, $answers);
+    }
+
+    /**
      * CreateRequest constructor.
      * @param string $title
      * @param array $answers

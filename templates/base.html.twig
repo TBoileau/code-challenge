@@ -20,6 +20,9 @@
                         </li>
                         {% if is_granted("ROLE_USER") %}
                             <li class="Main-Nav__Item">
+                                <a href="{{ path("question_create") }}">Créer une question</a>
+                            </li>
+                            <li class="Main-Nav__Item">
                                 <a href="{{ path("logout") }}">Déconnexion</a>
                             </li>
                         {% else %}
