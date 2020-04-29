@@ -6,6 +6,10 @@
     position: relative;
     box-sizing: border-box;
 
+    &.Field--no-margin {
+        margin: 0;
+    }
+
     .Field__Help, .Field__Error {
         font-size: $text-small;
         margin: $field-help-error-margin;
@@ -158,6 +162,24 @@
             color: $info;
             @include icon("solid", "spinner");
             animation: fa-spin 1s steps(8) infinite;
+        }
+    }
+
+    &.Field--group {
+        > * {
+            height: auto;
+        }
+        input[type=checkbox].Field__Widget, input[type=radio].Field__Widget {
+            height: auto;
+        }
+        > *:first-child {
+            border-radius: $round-size 0 0 $round-size;
+        }
+        > *:last-child {
+            border-radius: 0 $round-size $round-size 0;
+        }
+        > *:not(:first-child):not(:last-child) {
+            border-radius: 0;
         }
     }
 }

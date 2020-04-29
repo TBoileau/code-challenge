@@ -65,15 +65,18 @@ class TrackTest extends TestCase
         $this->assertEquals($routeParams, $presenter->response->getLog()->getRouteParams());
         $this->assertEquals($requestData, $presenter->response->getLog()->getRequestData());
         $this->assertEquals($queryData, $presenter->response->getLog()->getQueryData());
-        $this->assertInstanceOf(Participant::class, $presenter->response->getLog()->getParticipant());
+        if ($email !== null) {
+            $this->assertInstanceOf(Participant::class, $presenter->response->getLog()->getParticipant());
+            $this->assertEquals($email, $presenter->response->getLog()->getParticipant()->getEmail());
+        }
         $this->assertInstanceOf(DateTimeInterface::class, $presenter->response->getLog()->getLoggedAt());
-        $this->assertEquals($email, $presenter->response->getLog()->getParticipant()->getEmail());
         $this->assertEquals($ip, $presenter->response->getLog()->getIp());
     }
 
     public function provideRequestData(): Generator
     {
         yield [Request::METHOD_GET, "home", [], [], ["page" => 1], "127.0.0.1", "used@email.com"];
+        yield [Request::METHOD_GET, "home", [], [], ["page" => 1], "127.0.0.1", null];
         yield [
             Request::METHOD_POST,
             "registration",

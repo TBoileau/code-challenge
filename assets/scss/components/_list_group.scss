@@ -1,0 +1,12 @@
+.List-Group {
+    margin: 0;
+    padding: 0;
+    .List-Group__Item {
+        padding: $list-group-item-padding;
+        border-bottom: 1px solid $grey;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

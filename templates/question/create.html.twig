@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="Container">
+        <div class="Row Justify--center">
+            <div class="Column Column--12 Column--md-8 Column--lg-6 Column--xl-5">
+                {{ form_start(form) }}
+                <div class="Card">
+                    <div class="Card__Header">Créer une question</div>
+                    <div class="Card__Body">
+                        {{ form_errors(form) }}
+                        {{ form_widget(form._token) }}
+                        {{ form_row(form.title) }}
+                        <div class="Field Field--no-margin Flex Flex--row Justify--between">
+                            {{ form_label(form.answers) }}
+                            <button data-target="#{{ form.answers.vars.id }}" class="Collection__Add Button Button--small Button--primary Button--icon Button--icon-solid-plus">Ajouter</button>
+                        </div>
+                        <ul
+                                class="Collection List-Group"
+                                id="{{ form.answers.vars.id }}"
+                                data-index="{{ form.answers|length == 0 ? 0 : form.answers|last.vars.name + 1 }}"
+                                data-prototype="{{ include('question/_prototype.html.twig', { form: form.answers.vars.prototype })|e("html_attr") }}"
+                        >
+                            {% for answer in form.answers %}
+                                {{ include('question/_prototype.html.twig', { form: answer }) }}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="Card__Footer Flex Justify--end">
+                        <button class="Button Button--primary">Créer</button>
+                    </div>
+                </div>
+                {{ form_end(form, { render_rest: false }) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
