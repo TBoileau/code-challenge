@@ -3,6 +3,10 @@ question_create:
     methods: GET|POST
     controller: App\UserInterface\Controller\Question\CreateController
 
+question_update:
+    path: /questions/{id}/update
+    methods: GET|POST
+    controller: App\UserInterface\Controller\Question\UpdateController
 
 registration:
     path: /registration

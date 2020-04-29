@@ -1,23 +1,33 @@
 <?php
 
-namespace App\Tests\IntegrationTests;
+namespace App\Tests\SystemTests;
 
+use App\Infrastructure\Doctrine\Entity\DoctrineQuestion;
 use App\Infrastructure\Test\IntegrationTestCase;
 use Generator;
+use Ramsey\Uuid\Uuid;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class CreateQuestionTest
- * @package App\Tests\IntegrationTests
+ * Class UpdateQuestionTest
+ * @package App\Tests\SystemTests
  */
-class CreateQuestionTest extends IntegrationTestCase
+class UpdateQuestionTest extends WebTestCase
 {
     public function testSuccessful()
     {
         $client = static::createClient();
 
-        $crawler = $client->request(Request::METHOD_GET, '/questions/create');
+        $em = $client->getContainer()->get("doctrine.orm.entity_manager");
+
+        $question = $em->getRepository(DoctrineQuestion::class)->findOneBy([]);
+
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            sprintf('/questions/%s/update', $question->getid())
+        );
 
         $this->assertResponseIsSuccessful();
 
@@ -25,7 +35,7 @@ class CreateQuestionTest extends IntegrationTestCase
 
         $token = $form->get("question")["_token"]->getValue();
 
-        $client->request(Request::METHOD_POST, '/questions/create', [
+        $client->request(Request::METHOD_POST, sprintf('/questions/%s/update', $question->getid()), [
             "question" => [
                 "_token" => $token,
                 "title" => "title",
@@ -54,7 +64,14 @@ class CreateQuestionTest extends IntegrationTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request(Request::METHOD_GET, '/questions/create');
+        $em = $client->getContainer()->get("doctrine.orm.entity_manager");
+
+        $question = $em->getRepository(DoctrineQuestion::class)->findOneBy([]);
+
+        $crawler = $client->request(
+            Request::METHOD_GET,
+            sprintf('/questions/%s/update', $question->getid())
+        );
 
         $this->assertResponseIsSuccessful();
 
@@ -64,7 +81,7 @@ class CreateQuestionTest extends IntegrationTestCase
 
         $formData["_token"] = $token;
 
-        $client->request(Request::METHOD_POST, '/questions/create', [
+        $client->request(Request::METHOD_POST, sprintf('/questions/%s/update', $question->getid()), [
             "question" => $formData
         ]);
 

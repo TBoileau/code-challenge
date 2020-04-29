@@ -2,6 +2,9 @@
 
 namespace App\UserInterface\DataTransferObject;
 
+use TBoileau\CodeChallenge\Domain\Quiz\Entity\Answer as DomainAnswer;
+use TBoileau\CodeChallenge\Domain\Quiz\Entity\Question as DomainQuestion;
+
 /**
  * Class Question
  * @package App\UserInterface\DataTransferObject
@@ -17,6 +20,22 @@ class Question
      * @var array
      */
     private array $answers = [];
+
+    /**
+     * @param DomainQuestion $question
+     * @return static
+     */
+    public static function fromDomainQuestion(DomainQuestion $question): self
+    {
+        $newQuestion = new self();
+        $newQuestion->title = $question->getTitle();
+        $newQuestion->answers = array_map(
+            fn (DomainAnswer $answer) => Answer::fromDomainAnswer($answer),
+            $question->getAnswers()
+        );
+
+        return $newQuestion;
+    }
 
     /**
      * @return string|null

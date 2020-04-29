@@ -6,6 +6,7 @@ use App\Infrastructure\Doctrine\Entity\DoctrineAnswer;
 use App\Infrastructure\Doctrine\Entity\DoctrineQuestion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Quiz\Entity\Answer;
 use TBoileau\CodeChallenge\Domain\Quiz\Entity\Question;
 use TBoileau\CodeChallenge\Domain\Quiz\Gateway\QuestionGateway;
@@ -25,13 +26,13 @@ class QuestionRepository extends ServiceEntityRepository implements QuestionGate
     }
 
     /**
-     * @inheritDoc
+     * @param DoctrineQuestion $doctrineQuestion
+     * @param Question $question
      */
-    public function create(Question $question): void
+    private function hydrateQuestion(DoctrineQuestion $doctrineQuestion, Question $question): void
     {
-        $doctrineQuestion = new DoctrineQuestion();
-        $doctrineQuestion->setId($question->getId());
         $doctrineQuestion->setTitle($question->getTitle());
+        $doctrineQuestion->getAnswers()->clear();
         $doctrineQuestion->setAnswers(array_map(function (Answer $answer) use ($doctrineQuestion) {
             $doctrineAnswer = new DoctrineAnswer();
             $doctrineAnswer->setId($answer->getId());
@@ -41,8 +42,57 @@ class QuestionRepository extends ServiceEntityRepository implements QuestionGate
 
             return $doctrineAnswer;
         }, $question->getAnswers()));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(Question $question): void
+    {
+        $doctrineQuestion = new DoctrineQuestion();
+        $doctrineQuestion->setId($question->getId());
+
+        $this->hydrateQuestion($doctrineQuestion, $question);
 
         $this->_em->persist($doctrineQuestion);
         $this->_em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function update(Question $question): void
+    {
+        $doctrineQuestion = $this->find($question->getId());
+
+        $this->hydrateQuestion($doctrineQuestion, $question);
+
+        $this->_em->persist($doctrineQuestion);
+        $this->_em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQuestionById(UuidInterface $id): ?Question
+    {
+        /** @var DoctrineQuestion $doctrineQuestion */
+        $doctrineQuestion = $this->find($id);
+
+        if ($doctrineQuestion === null) {
+            return null;
+        }
+
+        return new Question(
+            $doctrineQuestion->getId(),
+            $doctrineQuestion->getTitle(),
+            $doctrineQuestion->getAnswers()->map(function (DoctrineAnswer $doctrineAnswer) use ($doctrineQuestion) {
+                return new Answer(
+                    $doctrineAnswer->getId(),
+                    $doctrineAnswer->getTitle(),
+                    $doctrineAnswer->isGood()
+                );
+            })->toArray()
+        );
     }
 }

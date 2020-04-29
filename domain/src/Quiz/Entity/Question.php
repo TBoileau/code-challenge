@@ -5,6 +5,7 @@ namespace TBoileau\CodeChallenge\Domain\Quiz\Entity;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Quiz\Request\CreateRequest;
+use TBoileau\CodeChallenge\Domain\Quiz\Request\UpdateRequest;
 
 /**
  * Class Question
@@ -70,10 +71,26 @@ class Question
     }
 
     /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
      * @return Answer[]
      */
     public function getAnswers(): array
     {
         return $this->answers;
+    }
+
+    /**
+     * @param Answer[] $answers
+     */
+    public function setAnswers(array $answers): void
+    {
+        $this->answers = $answers;
     }
 }

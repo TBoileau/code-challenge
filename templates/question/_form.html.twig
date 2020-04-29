@@ -1,0 +1,17 @@
+{{ form_errors(form) }}
+{{ form_widget(form._token) }}
+{{ form_row(form.title) }}
+<div class="Field Field--no-margin Flex Flex--row Justify--between">
+    {{ form_label(form.answers) }}
+    <button data-target="#{{ form.answers.vars.id }}" class="Collection__Add Button Button--small Button--primary Button--icon Button--icon-solid-plus">Ajouter</button>
+</div>
+<ul
+        class="Collection List-Group"
+        id="{{ form.answers.vars.id }}"
+        data-index="{{ form.answers|length == 0 ? 0 : form.answers|last.vars.name + 1 }}"
+        data-prototype="{{ include('question/_prototype.html.twig', { form: form.answers.vars.prototype })|e("html_attr") }}"
+>
+    {% for answer in form.answers %}
+        {{ include('question/_prototype.html.twig', { form: answer }) }}
+    {% endfor %}
+</ul>

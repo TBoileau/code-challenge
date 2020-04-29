@@ -32,7 +32,7 @@ class DoctrineQuestion
 
     /**
      * @var Collection
-     * @ORM\OneToMany(targetEntity="DoctrineAnswer", mappedBy="question", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="DoctrineAnswer", mappedBy="question", cascade={"persist"}, orphanRemoval=true)
      */
     private Collection $answers;
 

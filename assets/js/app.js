@@ -26,7 +26,7 @@ HTMLElement.prototype.handleCollection = function() {
     HTMLElement.prototype.handleRemove = function () {
         this.addEventListener("click", e => {
             e.preventDefault();
-            document.querySelector(this.dataset.target).removeChild(e.target.closest(".Collection__Item"));
+            this.closest(".Collection").removeChild(e.target.closest(".Collection__Item"));
         });
     };
 

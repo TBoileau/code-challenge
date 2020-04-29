@@ -35,11 +35,11 @@ class DoctrineAnswer
     private bool $good;
 
     /**
-     * @var DoctrineQuestion
+     * @var DoctrineQuestion|null
      * @ORM\ManyToOne(targetEntity="DoctrineQuestion", inversedBy="answers")
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
-    private DoctrineQuestion $question;
+    private ?DoctrineQuestion $question;
 
     /**
      * @return UuidInterface
@@ -90,17 +90,17 @@ class DoctrineAnswer
     }
 
     /**
-     * @return DoctrineQuestion
+     * @return DoctrineQuestion|null
      */
-    public function getQuestion(): DoctrineQuestion
+    public function getQuestion(): ?DoctrineQuestion
     {
         return $this->question;
     }
 
     /**
-     * @param DoctrineQuestion $question
+     * @param null|DoctrineQuestion $question
      */
-    public function setQuestion(DoctrineQuestion $question): void
+    public function setQuestion(?DoctrineQuestion $question): void
     {
         $this->question = $question;
     }
