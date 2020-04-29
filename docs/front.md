@@ -46,14 +46,23 @@ On garde les même et on recommence, je me suis basé sur la grille de Bootstrap
 </div>
 ```
 **Ecran extra-large :**
+
 ![Icônes](img/grid_xl.png)
+
 **Ecran large :**
+
 ![Icônes](img/grid_lg.png)
+
 **Ecran medium :**
+
 ![Icônes](img/grid_md.png)
+
 **Ecran small :**
+
 ![Icônes](img/grid_sm.png)
+
 **Ecran extra-small :**
+
 ![Icônes](img/grid_xs.png)
 
 ## Flexbox
