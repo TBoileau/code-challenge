@@ -16,6 +16,5 @@ class QuestionRepository implements QuestionGateway
      */
     public function create(Question $question): void
     {
-
     }
 }

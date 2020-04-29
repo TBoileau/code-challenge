@@ -31,7 +31,7 @@ class CreateTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->presenter = new class() implements CreatePresenterInterface {
+        $this->presenter = new class () implements CreatePresenterInterface {
             public CreateResponse $response;
 
             public function present(CreateResponse $response): void
@@ -70,10 +70,16 @@ class CreateTest extends TestCase
         $this->assertInstanceOf(UuidInterface::class, $this->presenter->response->getQuestion()->getId());
         $this->assertEquals("title", $this->presenter->response->getQuestion()->getTitle());
         $this->assertCount(3, $this->presenter->response->getQuestion()->getAnswers());
-        $this->assertContainsOnlyInstancesOf(Answer::class, $this->presenter->response->getQuestion()->getAnswers());
+        $this->assertContainsOnlyInstancesOf(
+            Answer::class,
+            $this->presenter->response->getQuestion()->getAnswers()
+        );
         $this->assertEquals(
             ["answer 1", "answer 2", "answer 3"],
-            array_map(fn (Answer $answer) => $answer->getTitle(), $this->presenter->response->getQuestion()->getAnswers())
+            array_map(
+                fn (Answer $answer) => $answer->getTitle(),
+                $this->presenter->response->getQuestion()->getAnswers()
+            )
         );
         $this->assertContainsOnlyInstancesOf(
             UuidInterface::class,
