@@ -6,12 +6,12 @@
             <div class="Column Column--12 Column--md-8 Column--lg-6 Column--xl-5">
                 {{ form_start(form) }}
                 <div class="Card">
-                    <div class="Card__Header">Créer une question</div>
+                    <div class="Card__Header">Modifier une question</div>
                     <div class="Card__Body">
                         {% include "question/_form.html.twig" with { form: form } %}
                     </div>
                     <div class="Card__Footer Flex Justify--end">
-                        <button class="Button Button--primary">Créer</button>
+                        <button class="Button Button--primary">Modifier</button>
                     </div>
                 </div>
                 {{ form_end(form, { render_rest: false }) }}

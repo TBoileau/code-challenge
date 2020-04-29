@@ -4,20 +4,23 @@ namespace App\Tests\IntegrationTests;
 
 use App\Infrastructure\Test\IntegrationTestCase;
 use Generator;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class CreateQuestionTest
+ * Class UpdateQuestionTest
  * @package App\Tests\IntegrationTests
  */
-class CreateQuestionTest extends IntegrationTestCase
+class UpdateQuestionTest extends IntegrationTestCase
 {
     public function testSuccessful()
     {
         $client = static::createClient();
 
-        $crawler = $client->request(Request::METHOD_GET, '/questions/create');
+        $id = Uuid::uuid4();
+
+        $crawler = $client->request(Request::METHOD_GET, sprintf('/questions/%s/update', $id));
 
         $this->assertResponseIsSuccessful();
 
@@ -25,7 +28,7 @@ class CreateQuestionTest extends IntegrationTestCase
 
         $token = $form->get("question")["_token"]->getValue();
 
-        $client->request(Request::METHOD_POST, '/questions/create', [
+        $client->request(Request::METHOD_POST, sprintf('/questions/%s/update', $id), [
             "question" => [
                 "_token" => $token,
                 "title" => "title",
@@ -54,7 +57,9 @@ class CreateQuestionTest extends IntegrationTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request(Request::METHOD_GET, '/questions/create');
+        $id = Uuid::uuid4();
+
+        $crawler = $client->request(Request::METHOD_GET, sprintf('/questions/%s/update', $id));
 
         $this->assertResponseIsSuccessful();
 
@@ -64,7 +69,7 @@ class CreateQuestionTest extends IntegrationTestCase
 
         $formData["_token"] = $token;
 
-        $client->request(Request::METHOD_POST, '/questions/create', [
+        $client->request(Request::METHOD_POST, sprintf('/questions/%s/update', $id), [
             "question" => $formData
         ]);
 
