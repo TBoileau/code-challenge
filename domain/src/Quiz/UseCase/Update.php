@@ -42,7 +42,7 @@ class Update
         $question = $this->questionGateway->getQuestionById($request->getId());
         $question->setTitle($request->getTitle());
         $question->setAnswers(
-            array_map(fn (array $answer) => Answer::fromArray($answer),$request->getAnswers())
+            array_map(fn (array $answer) => Answer::fromArray($answer), $request->getAnswers())
         );
 
         $this->questionGateway->update($question);
