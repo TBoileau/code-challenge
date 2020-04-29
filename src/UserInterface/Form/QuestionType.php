@@ -2,15 +2,19 @@
 
 namespace App\UserInterface\Form;
 
+use App\UserInterface\DataTransferObject\Answer;
 use App\UserInterface\DataTransferObject\Question;
+use Assert\Assertion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class QuestionType
@@ -32,21 +36,25 @@ class QuestionType extends AbstractType
             ])
             ->add("answers", CollectionType::class, [
                 "label" => "Liste des réponses",
-                "entry_type" => TextType::class,
-                "entry_options" => [
-                    "label" => false,
-                    'attr' => [
-                        "placeholder" => "Votre réponse..."
-                    ],
-                    "constraints" => [
-                        new NotBlank()
-                    ]
-                ],
+                "entry_type" => AnswerType::class,
                 "allow_add" => true,
                 "allow_delete" => true,
                 "constraints" => [
                     new Valid(),
-                    new Count(["min" => 2])
+                    new Count(["min" => 2]),
+                    new Callback(["callback" => function ($values, ExecutionContextInterface $context) {
+                        $goodAnswers = array_filter(
+                            $values,
+                            fn (Answer $answer) => $answer->isGood()
+                        );
+
+                        if (count($goodAnswers) < 1) {
+                            $context
+                                ->buildViolation('Vous devez sélectionner au moins une bonne réponse.')
+                                ->addViolation()
+                            ;
+                        }
+                    }])
                 ]
             ])
         ;

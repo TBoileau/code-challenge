@@ -18,7 +18,7 @@
                         <ul
                                 class="Collection List-Group"
                                 id="{{ form.answers.vars.id }}"
-                                data-index="{{ form.answers|length == 0 ? 0 : form.answers|last + 1 }}"
+                                data-index="{{ form.answers|length == 0 ? 0 : form.answers|last.vars.name + 1 }}"
                                 data-prototype="{{ include('question/_prototype.html.twig', { form: form.answers.vars.prototype })|e("html_attr") }}"
                         >
                             {% for answer in form.answers %}

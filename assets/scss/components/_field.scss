@@ -166,6 +166,12 @@
     }
 
     &.Field--group {
+        > * {
+            height: auto;
+        }
+        input[type=checkbox].Field__Widget, input[type=radio].Field__Widget {
+            height: auto;
+        }
         > *:first-child {
             border-radius: $round-size 0 0 $round-size;
         }

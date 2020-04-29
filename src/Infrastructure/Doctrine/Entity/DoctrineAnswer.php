@@ -29,6 +29,12 @@ class DoctrineAnswer
     private string $title;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private bool $good;
+
+    /**
      * @var DoctrineQuestion
      * @ORM\ManyToOne(targetEntity="DoctrineQuestion", inversedBy="answers")
      * @ORM\JoinColumn(onDelete="CASCADE")
@@ -65,6 +71,22 @@ class DoctrineAnswer
     public function setTitle(string $title): void
     {
         $this->title = $title;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGood(): bool
+    {
+        return $this->good;
+    }
+
+    /**
+     * @param bool $good
+     */
+    public function setGood(bool $good): void
+    {
+        $this->good = $good;
     }
 
     /**

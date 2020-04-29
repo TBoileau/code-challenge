@@ -21,20 +21,32 @@ class Answer
      */
     private string $title;
 
-    public static function create(string $title): self
+    /**
+     * @var bool
+     */
+    private bool $good;
+
+    /**
+     * @param array $data
+     * @return static
+     * @throws \Exception
+     */
+    public static function fromArray(array $data): self
     {
-        return new self(Uuid::uuid4(), $title);
+        return new self(Uuid::uuid4(), $data["title"], $data["good"]);
     }
 
     /**
      * Answer constructor.
      * @param UuidInterface $id
      * @param string $title
+     * @param bool $good
      */
-    public function __construct(UuidInterface $id, string $title)
+    public function __construct(UuidInterface $id, string $title, bool $good)
     {
         $this->id = $id;
         $this->title = $title;
+        $this->good = $good;
     }
 
     /**
@@ -51,5 +63,13 @@ class Answer
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isGood(): bool
+    {
+        return $this->good;
     }
 }

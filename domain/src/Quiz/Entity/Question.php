@@ -36,7 +36,7 @@ class Question
         return new self(
             Uuid::uuid4(),
             $createRequest->getTitle(),
-            array_map(fn (string $title) => Answer::create($title), $createRequest->getAnswers())
+            array_map(fn (array $answer) => Answer::fromArray($answer), $createRequest->getAnswers())
         );
     }
 

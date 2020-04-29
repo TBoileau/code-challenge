@@ -36,6 +36,7 @@ class QuestionRepository extends ServiceEntityRepository implements QuestionGate
             $doctrineAnswer = new DoctrineAnswer();
             $doctrineAnswer->setId($answer->getId());
             $doctrineAnswer->setTitle($answer->getTitle());
+            $doctrineAnswer->setGood($answer->isGood());
             $doctrineAnswer->setQuestion($doctrineQuestion);
 
             return $doctrineAnswer;

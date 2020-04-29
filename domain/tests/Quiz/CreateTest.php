@@ -45,7 +45,23 @@ class CreateTest extends TestCase
 
     public function testSuccessful(): void
     {
-        $request = new CreateRequest("title", ["answer 1", "answer 2", "answer 3"]);
+        $request = CreateRequest::create(
+            "title",
+            [
+                [
+                    "title" => "answer 1",
+                    "good" => true
+                ],
+                [
+                    "title" => "answer 2",
+                    "good" => false
+                ],
+                [
+                    "title" => "answer 3",
+                    "good" => true
+                ]
+            ]
+        );
 
         $this->useCase->execute($request, $this->presenter);
 
@@ -62,6 +78,13 @@ class CreateTest extends TestCase
         $this->assertContainsOnlyInstancesOf(
             UuidInterface::class,
             array_map(fn (Answer $answer) => $answer->getId(), $this->presenter->response->getQuestion()->getAnswers())
+        );
+        $this->assertCount(
+            2,
+            array_filter(
+                $this->presenter->response->getQuestion()->getAnswers(),
+                fn (Answer $answer) => $answer->isGood()
+            )
         );
     }
 
@@ -84,9 +107,84 @@ class CreateTest extends TestCase
      */
     public function provideFailedData(): Generator
     {
-        yield ["", ["answer 1", "answer 2"]];
-        yield ["title", ["", "answer 2"]];
-        yield ["title", ["answer 1"]];
+        yield [
+            "",
+            [
+                [
+                    "title" => "answer 1",
+                    "good" => true
+                ],
+                [
+                    "title" => "answer 2",
+                    "good" => false
+                ],
+                [
+                    "title" => "answer 3",
+                    "good" => true
+                ]
+            ]
+        ];
+        yield [
+            "title",
+            [
+                [
+                    "title" => "",
+                    "good" => true
+                ],
+                [
+                    "title" => "answer 2",
+                    "good" => false
+                ],
+                [
+                    "title" => "answer 3",
+                    "good" => true
+                ]
+            ]
+        ];
+        yield [
+            "title",
+            [
+                [
+                    "title" => "answer 1",
+                    "good" => true
+                ]
+            ]
+        ];
+        yield [
+            "title",
+            [
+                [
+                    "title" => "answer 1",
+                    "good" => false
+                ],
+                [
+                    "title" => "answer 2",
+                    "good" => false
+                ],
+                [
+                    "title" => "answer 3",
+                    "good" => false
+                ]
+            ]
+        ];
+        yield [
+            "title",
+            [
+                [
+                    "title" => "answer 1",
+                    "good" => ""
+                ],
+                [
+                    "title" => "answer 2",
+                    "good" => false
+                ],
+                [
+                    "title" => "answer 3",
+                    "good" => false
+                ]
+            ]
+        ];
+
         yield ["title", []];
     }
 }

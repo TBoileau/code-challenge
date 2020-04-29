@@ -65,6 +65,8 @@ class CreateRequest
     {
         Assertion::notBlank($this->title);
         Assertion::minCount($this->answers, 2);
-        Assertion::allNotBlank($this->answers);
+        Assertion::allNotBlank(array_map(fn (array $answer) => $answer["title"], $this->answers));
+        Assertion::allBoolean(array_map(fn (array $answer) => $answer["good"], $this->answers));
+        Assertion::minCount(array_filter($this->answers, fn (array $answer) => $answer["good"]), 1);
     }
 }
