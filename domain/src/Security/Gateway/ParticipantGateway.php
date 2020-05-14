@@ -34,4 +34,6 @@ interface ParticipantGateway
      * @param Participant $user
      */
     public function register(Participant $user): void;
+
+    public function update(Participant $participant): void;
 }

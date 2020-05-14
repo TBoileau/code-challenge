@@ -8,6 +8,11 @@ question_update:
     methods: GET|POST
     controller: App\UserInterface\Controller\Question\UpdateController
 
+dashboard:
+    path: /dashboard
+    methods: GET|POST
+    controller: App\UserInterface\Controller\DashboardController
+
 registration:
     path: /registration
     methods: GET|POST

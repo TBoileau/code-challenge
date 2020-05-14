@@ -54,4 +54,8 @@ class ParticipantRepository implements ParticipantGateway
     public function register(Participant $participant): void
     {
     }
+
+    public function update(Participant $participant): void
+    {
+    }
 }

@@ -19,7 +19,7 @@ class Registration
     /**
      * @var ParticipantGateway
      */
-    private ParticipantGateway $participantGateway;
+    private ParticipantGateway $userGateway;
 
     /**
      * Registration constructor.

@@ -74,4 +74,12 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
         $this->_em->persist($DoctrineParticipant);
         $this->_em->flush();
     }
+
+    public function update(Participant $participant): void
+    {
+        $doctrineParticipant = $this->find($participant->getId());
+        $doctrineParticipant->setPassword($participant->getPassword());
+
+        $this->_em->flush();
+    }
 }
