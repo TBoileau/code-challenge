@@ -18,8 +18,7 @@ class EditPasswordController extends AbstractController
         Request $request,
         EditPassword $editPassword,
         EditPasswordPresenter $presenter
-    ): Response
-    {
+    ): Response {
         $form = $formFactory->create(EditPasswordType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -37,6 +37,4 @@ class EditPasswordTest extends IntegrationTestCase
 
         // $this->assertResponseIsSuccessful();
     }
-
-    
 }
