@@ -11,8 +11,19 @@ use Symfony\Component\HttpFoundation\Response;
 use TBoileau\CodeChallenge\Domain\Dashboard\Request\EditPasswordRequest;
 use TBoileau\CodeChallenge\Domain\Dashboard\UseCase\EditPassword;
 
+/**
+ * Class EditPasswordController
+ * @package App\UserInterface\Controller\Dashboard
+ */
 class EditPasswordController extends AbstractController
 {
+    /**
+     * @param FormFactoryInterface $formFactory
+     * @param Request $request
+     * @param EditPassword $editPassword
+     * @param EditPasswordPresenter $presenter
+     * @return Response
+     */
     public function __invoke(
         FormFactoryInterface $formFactory,
         Request $request,

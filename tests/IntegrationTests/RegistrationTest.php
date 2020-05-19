@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RegistrationTest extends IntegrationTestCase
 {
+    /**
+     * @return void
+     */
     public function testSuccessful()
     {
         $client = static::createClient();
@@ -63,7 +66,7 @@ class RegistrationTest extends IntegrationTestCase
     }
 
     /**
-     * @return Generator
+     * @return Generator<mixed[]>
      */
     public function provideFormData(): Generator
     {

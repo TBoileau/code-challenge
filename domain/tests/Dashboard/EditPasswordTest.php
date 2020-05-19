@@ -11,19 +11,37 @@ use TBoileau\CodeChallenge\Domain\Dashboard\Response\EditPasswordResponse;
 use TBoileau\CodeChallenge\Domain\Dashboard\UseCase\EditPassword;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
-use TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter\LogRepository;
 use TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter\ParticipantRepository;
 
+/**
+ * Class EditPasswordTest
+ * @package TBoileau\CodeChallenge\Domain\Tests\Dashboard
+ */
 class EditPasswordTest extends TestCase
 {
+    /**
+     * @var EditPassword
+     */
     private EditPassword $useCase;
 
+    /**
+     * @var EditPasswordPresenterInterface
+     */
     private EditPasswordPresenterInterface $presenter;
 
+    /**
+     * @var ParticipantGateway
+     */
     private ParticipantGateway $participantGateway;
 
+    /**
+     * @var Participant
+     */
     private Participant $participant;
 
+    /**
+     * @return void
+     */
     protected function setUp(): void
     {
         $this->presenter = new class () implements EditPasswordPresenterInterface {
@@ -42,6 +60,9 @@ class EditPasswordTest extends TestCase
         $this->participant = $this->participantGateway->getParticipantByEmail('used@email.com');
     }
 
+    /**
+     * @return void
+     */
     public function testSuccess(): void
     {
         $request = EditPasswordRequest::create($this->participant, 'password');
@@ -65,6 +86,9 @@ class EditPasswordTest extends TestCase
         $this->useCase->execute($request, $this->presenter);
     }
 
+    /**
+     * @return Generator<string[]>
+     */
     public function provideFailedRequestData(): Generator
     {
         yield [''];

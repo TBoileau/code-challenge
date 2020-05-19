@@ -63,6 +63,9 @@ class User implements UserInterface
     {
     }
 
+    /**
+     * @return Participant
+     */
     public function getParticipant(): Participant
     {
         return $this->participant;

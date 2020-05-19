@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Test\Adapter\Repository;
 
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
@@ -53,6 +52,9 @@ class ParticipantRepository implements ParticipantGateway
     {
     }
 
+    /**
+     * @inheritDoc
+     */
     public function updatePassword(Participant $participant, string $password): void
     {
     }

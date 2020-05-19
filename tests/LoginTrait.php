@@ -7,8 +7,15 @@ use Symfony\Component\BrowserKit\Cookie;
 use App\Infrastructure\Test\Adapter\Repository\ParticipantRepository;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
+/**
+ * Trait LoginTrait
+ * @package App\Tests
+ */
 trait LoginTrait
 {
+    /**
+     * @return void
+     */
     private function logIn()
     {
         $session = self::$container->get('session');

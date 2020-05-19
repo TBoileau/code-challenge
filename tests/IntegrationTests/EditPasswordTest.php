@@ -5,19 +5,31 @@ namespace App\Tests\IntegrationTests;
 use App\Infrastructure\Test\IntegrationTestCase;
 use App\Tests\LoginTrait;
 use Symfony\Component\BrowserKit\AbstractBrowser;
-use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class EditPasswordTest
+ * @package App\Tests\IntegrationTests
+ */
 class EditPasswordTest extends IntegrationTestCase
 {
     use LoginTrait;
 
+    /**
+     * @var AbstractBrowser
+     */
     private AbstractBrowser $client;
 
+    /**
+     * @return void
+     */
     protected function setUp()
     {
         $this->client = static::createClient();
     }
 
+    /**
+     * @return void
+     */
     public function testSuccessful(): void
     {
         // $this->logIn();
