@@ -62,4 +62,12 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
+
+    /**
+     * @return Participant
+     */
+    public function getParticipant(): Participant
+    {
+        return $this->participant;
+    }
 }

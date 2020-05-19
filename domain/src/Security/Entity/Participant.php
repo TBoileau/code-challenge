@@ -94,4 +94,15 @@ class Participant
     {
         return $this->password;
     }
+
+    /**
+     * @param string $password
+     * @return self
+     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
 }

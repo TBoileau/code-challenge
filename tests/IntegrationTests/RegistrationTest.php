@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RegistrationTest extends IntegrationTestCase
 {
+    /**
+     * @return void
+     */
     public function testSuccessful()
     {
         $client = static::createClient();
@@ -63,7 +66,7 @@ class RegistrationTest extends IntegrationTestCase
     }
 
     /**
-     * @return Generator
+     * @return Generator<mixed[]>
      */
     public function provideFormData(): Generator
     {
@@ -99,7 +102,7 @@ class RegistrationTest extends IntegrationTestCase
             "email@email.com",
             "pseudo",
             ["first" => "fail", "second" => "fail"],
-            "This value is too short. It should have 8 characters or more."
+            "Votre mot de passe doit contenir au minimum 8 caractères."
         ];
 
         yield [

@@ -4,7 +4,6 @@ namespace TBoileau\CodeChallenge\Domain\Tests\Security;
 
 use Assert\AssertionFailedException;
 use Generator;
-use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\RegistrationPresenterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\RegistrationResponse;

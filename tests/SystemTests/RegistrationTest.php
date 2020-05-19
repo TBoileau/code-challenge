@@ -99,7 +99,7 @@ class RegistrationTest extends WebTestCase
             "email@email.com",
             "pseudo",
             ["first" => "fail", "second" => "fail"],
-            "This value is too short. It should have 8 characters or more."
+            "Votre mot de passe doit contenir au minimum 8 caractères."
         ];
 
         yield [

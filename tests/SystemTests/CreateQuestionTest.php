@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class SystemTests
- * @package ${NAMESPACE}
+ * @package App\Tests\SystemTests
  */
 class CreateQuestionTest extends WebTestCase
 {

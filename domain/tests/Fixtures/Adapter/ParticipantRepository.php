@@ -50,8 +50,16 @@ class ParticipantRepository implements ParticipantGateway
 
     /**
      * @param Participant $participant
+     * @return void
      */
     public function register(Participant $participant): void
+    {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updatePassword(Participant $participant, string $password): void
     {
     }
 }
