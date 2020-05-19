@@ -20,8 +20,8 @@ class EditPassword
     {
         $request->validate();
         $participant = $request->getParticipant();
-        $participant->setPassword(password_hash($request->getPlainPassword(), PASSWORD_ARGON2I));
-        $this->userGateway->update($participant);
-        $presenter->present(new EditPasswordResponse);
+        $password = password_hash($request->getPlainPassword(), PASSWORD_ARGON2I);
+        $this->userGateway->updatePassword($participant, $password);
+        $presenter->present(new EditPasswordResponse());
     }
 }

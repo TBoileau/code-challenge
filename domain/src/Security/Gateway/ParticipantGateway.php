@@ -35,5 +35,5 @@ interface ParticipantGateway
      */
     public function register(Participant $user): void;
 
-    public function update(Participant $participant): void;
+    public function updatePassword(Participant $participant, string $password): void;
 }

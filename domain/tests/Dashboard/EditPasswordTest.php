@@ -36,9 +36,8 @@ class EditPasswordTest extends TestCase
         };
 
         $this->participantGateway = new ParticipantRepository();
-        $logGateway = new LogRepository();
 
-        $this->useCase = new EditPassword($this->participantGateway, $logGateway);
+        $this->useCase = new EditPassword($this->participantGateway);
 
         $this->participant = $this->participantGateway->getParticipantByEmail('used@email.com');
     }

@@ -8,10 +8,10 @@ question_update:
     methods: GET|POST
     controller: App\UserInterface\Controller\Question\UpdateController
 
-dashboard:
-    path: /dashboard
+dashboard_edit-password:
+    path: /dashboard/edit-password
     methods: GET|POST
-    controller: App\UserInterface\Controller\DashboardController
+    controller: App\UserInterface\Controller\Dashboard\EditPasswordController
 
 registration:
     path: /registration

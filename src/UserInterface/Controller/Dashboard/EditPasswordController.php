@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UserInterface\Controller;
+namespace App\UserInterface\Controller\Dashboard;
 
 use App\UserInterface\Form\EditPasswordType;
 use App\UserInterface\Presenter\Dashboard\EditPasswordPresenter;
@@ -11,19 +11,28 @@ use Symfony\Component\HttpFoundation\Response;
 use TBoileau\CodeChallenge\Domain\Dashboard\Request\EditPasswordRequest;
 use TBoileau\CodeChallenge\Domain\Dashboard\UseCase\EditPassword;
 
-class DashboardController extends AbstractController
+class EditPasswordController extends AbstractController
 {
-    public function __invoke(FormFactoryInterface $formFactory, Request $request, EditPassword $editPassword, EditPasswordPresenter $presenter): Response
+    public function __invoke(
+        FormFactoryInterface $formFactory,
+        Request $request,
+        EditPassword $editPassword,
+        EditPasswordPresenter $presenter
+    ): Response
     {
         $form = $formFactory->create(EditPasswordType::class)->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $request = EditPasswordRequest::create($this->getUser()->getParticipant(), $form->getData()->getPlainPassword());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $request = EditPasswordRequest::create(
+                $this->getUser()->getParticipant(),
+                $form->getData()->getPlainPassword()
+            );
+
             $editPassword->execute($request, $presenter);
         }
 
-        return $this->render('dashboard.html.twig', [
-            'editPasswordForm' => $form->createView()
+        return $this->render('dashboard/edit-password.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
