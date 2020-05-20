@@ -2,6 +2,7 @@
 
 namespace App\UserInterface\DataTransferObject;
 
+use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Quiz\Entity\Answer as DomainAnswer;
 use TBoileau\CodeChallenge\Domain\Quiz\Entity\Question as DomainQuestion;
 
@@ -11,6 +12,11 @@ use TBoileau\CodeChallenge\Domain\Quiz\Entity\Question as DomainQuestion;
  */
 class Question
 {
+    /**
+     * @var UuidInterface|null
+     */
+    private ?UuidInterface $id = null;
+
     /**
      * @var string|null
      */
@@ -28,6 +34,7 @@ class Question
     public static function fromDomainQuestion(DomainQuestion $question): self
     {
         $newQuestion = new self();
+        $newQuestion->id = $question->getId();
         $newQuestion->title = $question->getTitle();
         $newQuestion->answers = array_map(
             fn (DomainAnswer $answer) => Answer::fromDomainAnswer($answer),
@@ -35,6 +42,14 @@ class Question
         );
 
         return $newQuestion;
+    }
+
+    /**
+     * @return UuidInterface|null
+     */
+    public function getId(): ?UuidInterface
+    {
+        return $this->id;
     }
 
     /**

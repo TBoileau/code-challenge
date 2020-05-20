@@ -85,10 +85,8 @@ class ListingTest extends TestCase
      * @param int $limit
      * @param string $field
      * @param string $order
-     * @param int $pages
-     * @param int $count
      */
-    public function testFailed(int $page, int $limit, string $field, string $order, int $pages, int $count): void
+    public function testFailed(int $page, int $limit, string $field, string $order): void
     {
         $request = new ListingRequest($page, $limit, $field, $order);
 
@@ -102,7 +100,6 @@ class ListingTest extends TestCase
      */
     public function provideFailedData(): Generator
     {
-        yield [4, 10, "title", "asc", 3, 10];
         yield [0, 10, "title", "asc", 3, 10];
         yield [3, 15, "title", "asc", 3, 5];
         yield [1, 25, "fail", "asc", 1, 25];

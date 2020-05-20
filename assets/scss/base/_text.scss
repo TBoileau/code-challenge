@@ -12,6 +12,11 @@
       color: $color;
     }
   }
+  @each $align in $text-aligns {
+    .Text--#{$align} {
+      text-align: $align;
+    }
+  }
 }
 
 .Heading {

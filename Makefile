@@ -9,7 +9,7 @@ system-tests:
 
 e2e-tests:
 	composer database-panther
-	bin/phpunit --testsuite end_to_end
+	bin/phpunit --testsuite end_to_end -v
 
 .PHONY: tests
 tests:

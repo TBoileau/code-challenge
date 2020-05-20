@@ -2,6 +2,7 @@
 
 namespace TBoileau\CodeChallenge\Domain\Quiz\UseCase;
 
+use Assert\AssertionFailedException;
 use TBoileau\CodeChallenge\Domain\Quiz\Gateway\QuestionGateway;
 use TBoileau\CodeChallenge\Domain\Quiz\Request\ListingRequest;
 use TBoileau\CodeChallenge\Domain\Quiz\Response\ListingResponse;
@@ -40,7 +41,11 @@ class Listing
 
         $pages = ceil($countQuestion / $request->getLimit());
 
-        Assertion::range($request->getPage(), 1, $pages);
+        try {
+            Assertion::range($request->getPage(), 1, $pages);
+        } catch (AssertionFailedException $exception) {
+            $request->setPage(1);
+        }
 
         $presenter->present(
             new ListingResponse(

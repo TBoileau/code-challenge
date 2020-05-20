@@ -6,6 +6,7 @@ use App\Infrastructure\Doctrine\Entity\DoctrineAnswer;
 use App\Infrastructure\Doctrine\Entity\DoctrineQuestion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Quiz\Entity\Answer;
 use TBoileau\CodeChallenge\Domain\Quiz\Entity\Question;
@@ -94,5 +95,50 @@ class QuestionRepository extends ServiceEntityRepository implements QuestionGate
                 );
             })->toArray()
         );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQuestions(int $page, int $limit, string $field, string $order): array
+    {
+        $fields = [
+            "title" => "q.title",
+            "answers" => "COUNT(a.id)"
+        ];
+
+        $questions = $this->createQueryBuilder("q")
+            ->join("q.answers", "a")
+            ->orderBy($fields[$field], $order)
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->groupBy("q.id")
+            ->addGroupBy("q.title")
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return array_map(
+            fn (DoctrineQuestion $question) => new Question(
+                $question->getId(),
+                $question->getTitle(),
+                $question->getAnswers()->map(
+                    fn (DoctrineAnswer $answer) => new Answer(
+                        $answer->getId(),
+                        $answer->getTitle(),
+                        $answer->isGood()
+                    )
+                )->toArray()
+            ),
+            $questions
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function countQuestions(): int
+    {
+        return $this->count([]);
     }
 }

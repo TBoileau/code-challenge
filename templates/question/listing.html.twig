@@ -1,0 +1,93 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="Container">
+        <div class="Row Justify--center">
+            <div class="Column Column--12">
+                <div class="Card">
+                    <div class="Card__Header">Liste des questions</div>
+                    <div class="Card__Body">
+                        <form method="get" action="{{ path("question_listing", { page: 1 }) }}">
+                            <div class="Row Align--stretch">
+                                <div class="Column Column--12 Column--md-3">
+                                    <div class="Field Field--select Field--no-margin">
+                                        <select name="field" class="Field__Widget">
+                                            <option {{ vm.field == "title" ? "selected" : "" }} value="title">Titre</option>
+                                            <option {{ vm.field == "answers" ? "selected" : "" }} value="answers">Nombre de réponses</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="Column Column--12 Column--md-3">
+                                    <div class="Field Field--select Field--no-margin">
+                                        <select name="order" class="Field__Widget">
+                                            <option {{ vm.order == "asc" ? "selected" : "" }} value="asc">Croissant</option>
+                                            <option {{ vm.order == "desc" ? "selected" : "" }} value="desc">Décroissant</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="Column Column--12 Column--md-3">
+                                    <div class="Field Field--select Field--no-margin">
+                                        <select name="limit" class="Field__Widget">
+                                            <option {{ vm.limit == 10 ? "selected" : "" }} value="10">10 par page</option>
+                                            <option {{ vm.limit == 25 ? "selected" : "" }} value="25">25 par page</option>
+                                            <option {{ vm.limit == 50 ? "selected" : "" }} value="50">50 par page</option>
+                                            <option {{ vm.limit == 100 ? "selected" : "" }} value="100">100 par page</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="Column Column--12 Column--md-3 Flex Justify--end Align--center">
+                                    <button class="Button Button--primary Button--icon Button--icon-solid-filter"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="Card__Body Card__Body--no-padding">
+                        <table class="Table Table--in-card Table--hovered Table--striped Text Text--small">
+                            <thead>
+                                <tr>
+                                    <th class="Text Text--center">Question</th>
+                                    <th class="Text Text--center">Nb. de réponses</th>
+                                    <th class="Text Text--center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for question in vm.questions %}
+                                    <tr>
+                                        <td>{{ question.title }}</td>
+                                        <td class="Text Text--center">{{ question.answers|length }}</td>
+                                        <td class="Text Text--center">
+                                            <a href="{{ path("question_update", { id: question.id }) }}" class="Button Button--small Button--icon Button--icon-solid-edit"></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if vm.pages > 1 %}
+                        <div class="Card__Footer Flex Justify--end">
+                            <nav>
+                                <ul class="Pagination">
+                                    {% if vm.currentPage > 1 %}
+                                        <li class="Pagination__Item">
+                                            <a href="{{ path("question_listing", { page: vm.currentPage - 1 , limit: vm.limit, field: vm.field, order: vm.order }) }}">Précédent</a>
+                                        </li>
+                                    {% endif %}
+                                    {% for p in vm.range %}
+                                        <li class="Pagination__Item {{ p == vm.currentPage ? "Pagination__Item--active" : "" }}">
+                                            <a href="{{ path("question_listing", { page: p, limit: vm.limit, field: vm.field, order: vm.order }) }}">{{ p }}</a>
+                                        </li>
+                                    {% endfor %}
+                                    {% if vm.currentPage < vm.pages %}
+                                        <li class="Pagination__Item">
+                                            <a href="{{ path("question_listing", { page: vm.currentPage + 1, limit: vm.limit, field: vm.field, order: vm.order }) }}">Suivant</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

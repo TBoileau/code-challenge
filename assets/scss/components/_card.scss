@@ -18,6 +18,10 @@
 
     > .Card__Body {
         padding: 1.25rem;
+
+        &.Card__Body--no-padding {
+            padding: 0;
+        }
     }
 
     > .Card__Header {

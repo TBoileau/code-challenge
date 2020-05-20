@@ -77,7 +77,7 @@ class CreateController
             );
             $create->execute($request, $presenter);
 
-            return new RedirectResponse($this->urlGenerator->generate("home"));
+            return new RedirectResponse($this->urlGenerator->generate("question_listing"));
         }
 
         return new Response($this->twig->render("question/create.html.twig", [

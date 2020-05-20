@@ -1,0 +1,56 @@
+.Pagination {
+    display: flex;
+    list-style: none;
+
+    .Pagination__Item {
+        padding: $pagination-item-padding;
+
+        border: 1px solid map-get($colors, $pagination-base-color);
+        background: $white;
+        color: map-get($colors, $pagination-base-color);
+
+        &:active, &:hover, &.Pagination__Item--active {
+            border: 1px solid map-get($colors, $pagination-base-color);
+            background: map-get($colors, $pagination-base-color);
+            color: map-get($contrasts, $pagination-base-color);
+        }
+        &:focus {
+            box-shadow: 0 0 0 0.2rem rgba(map-get($colors, $pagination-base-color),.5);
+            outline: none;
+        }
+
+        &:first-child {
+            border-radius: $round-size 0 0 $round-size;
+        }
+
+        &:last-child {
+            border-radius: 0 $round-size $round-size 0;
+        }
+
+        &:first-child:last-child {
+            border-radius: $round-size;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    }
+    @each $name, $color in $colors {
+        &.Pagination--#{$name} .Pagination__Item {
+            border: 1px solid $color;
+            background: $white;
+            color: $color;
+            &:active, &:hover, &.Pagination__Item--active {
+                border: 1px solid $color;
+                background: $color;
+                color: map-get($contrasts, $name);
+            }
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($color,.5);
+                outline: none;
+            }
+        }
+    }
+
+}

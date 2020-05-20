@@ -54,6 +54,14 @@ class ListingRequest
     }
 
     /**
+     * @param int $page
+     */
+    public function setPage(int $page): void
+    {
+        $this->page = $page;
+    }
+
+    /**
      * @return int
      */
     public function getLimit(): int
