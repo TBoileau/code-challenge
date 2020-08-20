@@ -8,9 +8,9 @@ Rejoignez-nous sur :
 
 # Sommaire
 * [Concept](#concept)
-* [Participer](#comment-participer-au-dveloppement-)
+* [Participer](#comment-participer-au-développement-)
 * [Projet](#projet)
-* [Contribution](CONTRIBUTION.md)
+* [Contribution](CONTRIBUTING.md)
 * [Documentation](docs/index.md)
 
 # Concept
@@ -33,7 +33,7 @@ Comme je l'ai expliqué plus haut, le but de se projet est de monter en compéte
 
 Plus concrètement, nous allons mettre en place :
 * Clean architecture
-* **T**est **D**river **D**evelopment
+* **T**est **D**riven **D**evelopment
 
 Je vous invite à lire le fichier de [contribution](CONTRIBUTION.md);
 
