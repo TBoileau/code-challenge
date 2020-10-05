@@ -4,8 +4,8 @@ Front-end
 [Revenir à la documentation](index.md)
 
 # Sommaire
-* [Pré-compilateur, pattern & coding style](#pr-compilateur-pattern--coding-style)
-* [Base](#layout)
+* [Pré-compilateur, pattern & coding style](#pré-compilateur-pattern--coding-style)
+* [Base](#base)
     * [Container](#container)
     * [Grid](#grid)
     * [Flexbox](#flexbox)
