@@ -1,8 +1,6 @@
 <?php
 
-
 namespace TBoileau\CodeChallenge\Domain\Security\Provider;
-
 
 interface MailProviderInterface
 {

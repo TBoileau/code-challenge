@@ -37,8 +37,11 @@ class AskPasswordReset
      * @param MailProviderInterface $mailer
      * @param PasswordResetLinkGeneratorInterface $generator
      */
-    public function __construct(ParticipantGateway $gateway, MailProviderInterface $mailer, PasswordResetLinkGeneratorInterface $generator)
-    {
+    public function __construct(
+        ParticipantGateway $gateway,
+        MailProviderInterface $mailer,
+        PasswordResetLinkGeneratorInterface $generator
+    ) {
         $this->gateway = $gateway;
         $this->mailer = $mailer;
         $this->generator = $generator;

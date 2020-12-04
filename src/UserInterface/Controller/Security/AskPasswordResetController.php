@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\UserInterface\Controller\Security;
-
 
 use App\UserInterface\Form\ResetPasswordType;
 use App\UserInterface\Presenter\Security\AskPasswordResetPresenter;
@@ -54,9 +52,13 @@ class AskPasswordResetController
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function __invoke(Request $request, AskPasswordReset $useCase, AskPasswordResetPresenter $presenter): Response
-    {
-        $form = $this->formFactory->create(ResetPasswordType::class)->handleRequest($request);
+    public function __invoke(
+        Request $request,
+        AskPasswordReset $useCase,
+        AskPasswordResetPresenter $presenter
+    ): Response {
+        $form = $this->formFactory
+            ->create(ResetPasswordType::class)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $askPasswordResetRequest = AskPasswordResetRequest::create($form->getData()->getEmail());
@@ -71,6 +73,4 @@ class AskPasswordResetController
             "form" => $form->createView()
         ]));
     }
-
-
 }

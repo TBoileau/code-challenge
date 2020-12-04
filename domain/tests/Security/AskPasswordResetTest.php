@@ -32,7 +32,7 @@ class AskPasswordResetTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->presenter = new class() implements AskPasswordResetPresenterInterface {
+        $this->presenter = new class () implements AskPasswordResetPresenterInterface {
             public AskPasswordResetResponse $response;
 
             public function present(AskPasswordResetResponse $response): void
@@ -41,20 +41,18 @@ class AskPasswordResetTest extends TestCase
             }
         };
 
-        $mailer = new  class() implements MailProviderInterface {
+        $mailer = new  class () implements MailProviderInterface {
             public function send(string $from, string $to, string $subject, string $message): bool
             {
                 return true;
             }
-
         };
 
-        $generator = new class() implements PasswordResetLinkGeneratorInterface {
+        $generator = new class () implements PasswordResetLinkGeneratorInterface {
             public function generateLink(Participant $participant): string
             {
                 return 'link';
             }
-
         };
 
         $gateway = new ParticipantRepository();

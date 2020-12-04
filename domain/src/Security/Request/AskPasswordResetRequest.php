@@ -49,5 +49,4 @@ class AskPasswordResetRequest
         Assertion::email($this->email);
         Assertion::notNull($gateway->getParticipantByEmail($this->email));
     }
-
 }

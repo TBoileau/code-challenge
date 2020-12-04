@@ -30,7 +30,7 @@ class RecoverPasswordTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->presenter = new class() implements RecoverPasswordPresenterInterface {
+        $this->presenter = new class () implements RecoverPasswordPresenterInterface {
             public RecoverPasswordResponse $response;
 
             public function present(RecoverPasswordResponse $response): void
@@ -72,7 +72,6 @@ class RecoverPasswordTest extends TestCase
         $this->expectException(AssertionFailedException::class);
 
         $this->useCase->execute($request, $this->presenter);
-
     }
 
     /**

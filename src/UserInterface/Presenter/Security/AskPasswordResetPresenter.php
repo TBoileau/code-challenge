@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\UserInterface\Presenter\Security;
-
 
 use App\UserInterface\ViewModel\Security\AskPasswordResetViewModel;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
