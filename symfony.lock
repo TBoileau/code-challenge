@@ -108,6 +108,9 @@
     "doctrine/reflection": {
         "version": "1.2.1"
     },
+    "doctrine/sql-formatter": {
+        "version": "1.1.1"
+    },
     "enqueue/amqp-tools": {
         "version": "0.10.0"
     },
@@ -240,6 +243,9 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -369,6 +375,9 @@
     },
     "symfony/dependency-injection": {
         "version": "v5.0.7"
+    },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
     },
     "symfony/doctrine-bridge": {
         "version": "v5.0.7"
@@ -501,11 +510,17 @@
     "symfony/polyfill-intl-idn": {
         "version": "v1.15.0"
     },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.20.0"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.15.0"
     },
     "symfony/polyfill-php73": {
         "version": "v1.15.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.20.0"
     },
     "symfony/process": {
         "version": "v5.0.7"
