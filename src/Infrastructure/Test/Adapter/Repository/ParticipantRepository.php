@@ -52,4 +52,14 @@ class ParticipantRepository implements ParticipantGateway
     public function register(Participant $participant): void
     {
     }
+
+    public function updatePassword(string $email, string $newPlainPassword): Participant
+    {
+        return new Participant(
+            Uuid::uuid4(),
+            $email,
+            "pseudo",
+            password_hash($newPlainPassword, PASSWORD_ARGON2I)
+        );
+    }
 }

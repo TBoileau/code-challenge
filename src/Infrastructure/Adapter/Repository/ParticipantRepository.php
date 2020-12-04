@@ -5,7 +5,7 @@ namespace App\Infrastructure\Adapter\Repository;
 use App\Infrastructure\Doctrine\Entity\DoctrineParticipant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Uuid;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
@@ -73,5 +73,15 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
 
         $this->_em->persist($DoctrineParticipant);
         $this->_em->flush();
+    }
+
+    public function updatePassword(string $email, string $newPlainPassword): Participant
+    {
+        return new Participant(
+            Uuid::uuid4(),
+            $email,
+            "pseudo",
+            password_hash($newPlainPassword, PASSWORD_ARGON2I)
+        );
     }
 }

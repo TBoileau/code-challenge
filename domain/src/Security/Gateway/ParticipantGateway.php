@@ -34,4 +34,11 @@ interface ParticipantGateway
      * @param Participant $user
      */
     public function register(Participant $user): void;
+
+    /**
+     * @param string $email
+     * @param string $newPlainPassword
+     * @return Participant
+     */
+    public function updatePassword(string $email, string $newPlainPassword): Participant;
 }

@@ -2,6 +2,7 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\Entity;
 
+use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
@@ -34,8 +35,9 @@ class Participant
     private string $password;
 
     /**
-     * @param  RegistrationRequest $request
+     * @param RegistrationRequest $request
      * @return static
+     * @throws Exception
      */
     public static function fromRegistration(RegistrationRequest $request): self
     {
@@ -48,7 +50,7 @@ class Participant
     }
 
     /**
-     * User constructor.
+     * Participant constructor.
      *
      * @param UuidInterface $id
      * @param string $email
