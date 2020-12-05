@@ -13,6 +13,16 @@ registration:
     methods: GET|POST
     controller: App\UserInterface\Controller\RegistrationController
 
+ask_password_reset:
+    path: /reset-password
+    methods: GET|POST
+    controller: App\UserInterface\Controller\Security\AskPasswordResetController
+
+recover_password:
+    path: /handle-reset-password/{email}/{token}
+    methods: GET|POST
+    controller: App\UserInterface\Controller\Security\RecoverPasswordController
+
 login:
     path: /login
     methods: GET|POST

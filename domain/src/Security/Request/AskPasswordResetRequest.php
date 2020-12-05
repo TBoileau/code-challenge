@@ -40,13 +40,11 @@ class AskPasswordResetRequest
     }
 
     /**
-     * @param  ParticipantGateway $gateway
      * @throws AssertionFailedException
      */
-    public function validate(ParticipantGateway $gateway): void
+    public function validate(): void
     {
         Assertion::notBlank($this->email);
         Assertion::email($this->email);
-        Assertion::notNull($gateway->getParticipantByEmail($this->email));
     }
 }

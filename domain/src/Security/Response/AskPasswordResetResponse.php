@@ -2,6 +2,8 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\Response;
 
+use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
+
 /**
  * Class AskPasswordResetResponse
  * @package TBoileau\CodeChallenge\Domain\Security\Response
@@ -9,39 +11,24 @@ namespace TBoileau\CodeChallenge\Domain\Security\Response;
 class AskPasswordResetResponse
 {
     /**
-     * @var bool
+     * @var Participant|null
      */
-    private bool $passwordResetLinkSent;
-
-    /**
-     * @var string
-     */
-    private string $link;
+    private ?Participant $participant;
 
     /**
      * AskPasswordResetResponse constructor.
-     * @param bool $passwordResetLinkSent
-     * @param string $link
+     * @param Participant|null $participant
      */
-    public function __construct(bool $passwordResetLinkSent, string $link)
+    public function __construct(?Participant $participant)
     {
-        $this->passwordResetLinkSent = $passwordResetLinkSent;
-        $this->link = $link;
+        $this->participant = $participant;
     }
 
     /**
-     * @return bool
+     * @return Participant
      */
-    public function isPasswordResetLinkSent(): bool
+    public function getParticipant(): Participant
     {
-        return $this->passwordResetLinkSent;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLink(): string
-    {
-        return $this->link;
+        return $this->participant;
     }
 }

@@ -4,10 +4,10 @@ namespace TBoileau\CodeChallenge\Domain\Tests\Security;
 
 use Assert\AssertionFailedException;
 use Generator;
-use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
+use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\RouterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\AskPasswordResetPresenterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Provider\MailProviderInterface;
-use TBoileau\CodeChallenge\Domain\Security\Provider\PasswordResetLinkGeneratorInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\AskPasswordResetRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\AskPasswordResetResponse;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\AskPasswordReset;
@@ -42,16 +42,33 @@ class AskPasswordResetTest extends TestCase
         };
 
         $mailer = new  class () implements MailProviderInterface {
-            public function send(string $from, string $to, string $subject, string $message): bool
+            public function sendPasswordResetLink(string $email, string $pseudo, string $link): void
             {
-                return true;
             }
         };
 
-        $generator = new class () implements PasswordResetLinkGeneratorInterface {
-            public function generateLink(Participant $participant): string
+        $generator = new class () implements RouterInterface {
+            public function setContext(RequestContext $context)
             {
-                return 'link';
+            }
+
+            public function getContext()
+            {
+            }
+
+            public function getRouteCollection()
+            {
+            }
+
+            public function generate(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH)
+            {
+                return
+                    'https://127.0.0.1:8000/handle-reset-password/used@email.com/bb4b5730-6057-4fa1-a27b-692b9ba8c14a';
+            }
+
+            public function match(string $pathinfo)
+            {
+                return true;
             }
         };
 
@@ -71,9 +88,9 @@ class AskPasswordResetTest extends TestCase
 
         $this->assertInstanceOf(AskPasswordResetResponse::class, $this->presenter->response);
 
-        $this->assertTrue($this->presenter->response->isPasswordResetLinkSent());
+        $this->assertNotNull($this->presenter->response->getParticipant()->getPasswordResetToken());
 
-        $this->assertEquals('link', $this->presenter->response->getLink());
+        $this->assertNotNull($this->presenter->response->getParticipant()->getPasswordResetRequestedAt());
     }
 
     /**
@@ -96,6 +113,5 @@ class AskPasswordResetTest extends TestCase
     {
         yield [''];
         yield ['used_email.com'];
-        yield ['fail@email.com'];
     }
 }

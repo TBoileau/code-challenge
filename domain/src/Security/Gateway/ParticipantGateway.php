@@ -31,14 +31,12 @@ interface ParticipantGateway
     public function isPseudoUnique(?string $pseudo): bool;
 
     /**
-     * @param Participant $user
+     * @param Participant $participant
      */
-    public function register(Participant $user): void;
+    public function register(Participant $participant): void;
 
     /**
-     * @param string $email
-     * @param string $newPlainPassword
-     * @return Participant
+     * @param Participant $participant
      */
-    public function updatePassword(string $email, string $newPlainPassword): Participant;
+    public function update(Participant $participant): void;
 }

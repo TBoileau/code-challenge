@@ -5,6 +5,7 @@ integration-tests:
 	bin/phpunit --testsuite integration
 
 system-tests:
+	composer database-test
 	bin/phpunit --testsuite system
 
 e2e-tests:

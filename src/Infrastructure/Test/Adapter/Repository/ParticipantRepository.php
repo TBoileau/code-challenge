@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Test\Adapter\Repository;
 
+use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
@@ -26,7 +27,9 @@ class ParticipantRepository implements ParticipantGateway
             Uuid::uuid4(),
             "used@email.com",
             "pseudo",
-            password_hash("password", PASSWORD_ARGON2I)
+            password_hash("password", PASSWORD_ARGON2I),
+            'bb4b5730-6057-4fa1-a27b-692b9ba8c14a',
+            new DateTimeImmutable()
         );
     }
 
@@ -53,13 +56,7 @@ class ParticipantRepository implements ParticipantGateway
     {
     }
 
-    public function updatePassword(string $email, string $newPlainPassword): Participant
+    public function update(Participant $participant): void
     {
-        return new Participant(
-            Uuid::uuid4(),
-            $email,
-            "pseudo",
-            password_hash($newPlainPassword, PASSWORD_ARGON2I)
-        );
     }
 }

@@ -23,14 +23,21 @@ class RecoverPasswordRequest
     private string $newPlainPassword;
 
     /**
+     * @var string
+     */
+    private string $token;
+
+    /**
      * RecoverPasswordRequest constructor.
      * @param string $email
      * @param string $newPlainPassword
+     * @param string $token
      */
-    public function __construct(string $email, string $newPlainPassword)
+    public function __construct(string $email, string $newPlainPassword, string $token)
     {
         $this->email = $email;
         $this->newPlainPassword = $newPlainPassword;
+        $this->token = $token;
     }
 
 
@@ -51,14 +58,21 @@ class RecoverPasswordRequest
     }
 
     /**
-     * @param  ParticipantGateway $gateway
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
      * @throws AssertionFailedException
      */
-    public function validate(ParticipantGateway $gateway): void
+    public function validate(): void
     {
         Assertion::notBlank($this->email);
-        Assertion::email($this->email);
-        Assertion::notNull($gateway->getParticipantByEmail($this->email));
+        //Assertion::email($this->email);
+        Assertion::notBlank($this->token);
         Assertion::notBlank($this->newPlainPassword);
         Assertion::minLength($this->newPlainPassword, 8);
     }

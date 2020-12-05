@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
@@ -36,6 +37,18 @@ class DoctrineParticipant
      * @ORM\Column(unique=true)
      */
     private string $pseudo;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $passwordResetToken = null;
+
+    /**
+     * @var DateTimeInterface|null
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?DateTimeInterface $passwordResetRequestedAt = null;
 
     /**
      * @return UuidInterface
@@ -99,5 +112,37 @@ class DoctrineParticipant
     public function setPseudo(string $pseudo): void
     {
         $this->pseudo = $pseudo;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+    /**
+     * @param string|null $passwordResetToken
+     */
+    public function setPasswordResetToken(?string $passwordResetToken): void
+    {
+        $this->passwordResetToken = $passwordResetToken;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getPasswordResetRequestedAt(): ?DateTimeInterface
+    {
+        return $this->passwordResetRequestedAt;
+    }
+
+    /**
+     * @param DateTimeInterface|null $passwordResetRequestedAt
+     */
+    public function setPasswordResetRequestedAt(?DateTimeInterface $passwordResetRequestedAt): void
+    {
+        $this->passwordResetRequestedAt = $passwordResetRequestedAt;
     }
 }

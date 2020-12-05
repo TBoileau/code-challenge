@@ -3,10 +3,13 @@
 namespace TBoileau\CodeChallenge\Domain\Security\UseCase;
 
 use Assert\AssertionFailedException;
+use Exception;
+use Ramsey\Uuid\Uuid;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Provider\MailProviderInterface;
-use TBoileau\CodeChallenge\Domain\Security\Provider\PasswordResetLinkGeneratorInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\AskPasswordResetRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\AskPasswordResetResponse;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\AskPasswordResetPresenterInterface;
@@ -26,51 +29,58 @@ class AskPasswordReset
      * @var MailProviderInterface
      */
     private MailProviderInterface $mailer;
+
     /**
-     * @var PasswordResetLinkGeneratorInterface
+     * @var RouterInterface
      */
-    private PasswordResetLinkGeneratorInterface $generator;
+    private RouterInterface $urlGenerator;
 
     /**
      * AskPasswordReset constructor.
      * @param ParticipantGateway $gateway
      * @param MailProviderInterface $mailer
-     * @param PasswordResetLinkGeneratorInterface $generator
+     * @param RouterInterface $urlGenerator
      */
     public function __construct(
         ParticipantGateway $gateway,
         MailProviderInterface $mailer,
-        PasswordResetLinkGeneratorInterface $generator
+        RouterInterface $urlGenerator
     ) {
         $this->gateway = $gateway;
         $this->mailer = $mailer;
-        $this->generator = $generator;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
      * @param AskPasswordResetRequest $request
      * @param AskPasswordResetPresenterInterface $presenter
      * @throws AssertionFailedException
+     * @throws Exception
      */
     public function execute(AskPasswordResetRequest $request, AskPasswordResetPresenterInterface $presenter)
     {
-        $request->validate($this->gateway);
+        $request->validate();
 
         /** @var Participant $participant */
         $participant = $this->gateway->getParticipantByEmail($request->getEmail());
 
-        $link = $this->generator->generateLink($participant);
+        if ($participant) {
+            Participant::requestPasswordReset($participant, Uuid::uuid4());
 
-        $presenter->present(
-            new AskPasswordResetResponse(
-                $this->mailer->send(
-                    'from@email.com',
-                    $request->getEmail(),
-                    'Password reset request',
-                    $link
-                ),
-                $link
-            )
-        );
+            $this->gateway->update($participant);
+
+            $link = $this->urlGenerator->generate(
+                'recover_password',
+                [
+                    'email' => $participant->getEmail(),
+                    'token' => $participant->getPasswordResetToken(),
+                ],
+                UrlGeneratorInterface::ABSOLUTE_URL
+            );
+
+            $this->mailer->sendPasswordResetLink($participant->getEmail(), $participant->getPseudo(), $link);
+        }
+
+        $presenter->present(new AskPasswordResetResponse($participant));
     }
 }
