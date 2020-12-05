@@ -2,8 +2,12 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\Entity;
 
+use DateTimeImmutable;
+use DateTimeInterface;
+use Exception;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use TBoileau\CodeChallenge\Domain\Security\Request\RecoverPasswordRequest;
 use TBoileau\CodeChallenge\Domain\Security\Request\RegistrationRequest;
 
 /**
@@ -34,8 +38,44 @@ class Participant
     private string $password;
 
     /**
-     * @param  RegistrationRequest $request
+     * @var string|null
+     */
+    private ?string $passwordResetToken = null;
+
+    /**
+     * @var DateTimeInterface|null
+     */
+    private ?DateTimeInterface $passwordResetRequestedAt = null;
+
+    /**
+     * Participant constructor.
+     * @param UuidInterface $id
+     * @param string $email
+     * @param string $pseudo
+     * @param string $password
+     * @param string|null $passwordResetToken
+     * @param DateTimeInterface|null $passwordResetRequestedAt
+     */
+    public function __construct(
+        UuidInterface $id,
+        string $email,
+        string $pseudo,
+        string $password,
+        ?string $passwordResetToken = null,
+        ?DateTimeInterface $passwordResetRequestedAt = null
+    ) {
+        $this->id = $id;
+        $this->email = $email;
+        $this->pseudo = $pseudo;
+        $this->password = $password;
+        $this->passwordResetToken = $passwordResetToken;
+        $this->passwordResetRequestedAt = $passwordResetRequestedAt;
+    }
+
+    /**
+     * @param RegistrationRequest $request
      * @return static
+     * @throws Exception
      */
     public static function fromRegistration(RegistrationRequest $request): self
     {
@@ -48,20 +88,32 @@ class Participant
     }
 
     /**
-     * User constructor.
-     *
-     * @param UuidInterface $id
-     * @param string $email
-     * @param string $pseudo
-     * @param string $password
+     * @param Participant $participant
+     * @param RecoverPasswordRequest $request
      */
-    public function __construct(UuidInterface $id, string $email, string $pseudo, string $password)
+    public static function resetPassword(self $participant, RecoverPasswordRequest $request): void
     {
-        $this->id = $id;
-        $this->email = $email;
-        $this->pseudo = $pseudo;
-        $this->password = $password;
+        $password = password_hash($request->getNewPlainPassword(), PASSWORD_ARGON2I);
+
+        if ($password) {
+            $participant->password = $password;
+        }
+
+        $participant->passwordResetToken = null;
+        $participant->passwordResetRequestedAt = null;
     }
+
+    /**
+     * @param Participant $participant
+     * @param string $token
+     */
+    public static function requestPasswordReset(self $participant, string $token): void
+    {
+        $participant->passwordResetToken = $token;
+        $participant->passwordResetRequestedAt = new DateTimeImmutable();
+    }
+
+
 
     /**
      * @return UuidInterface
@@ -93,5 +145,21 @@ class Participant
     public function getPassword(): string
     {
         return $this->password;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getPasswordResetRequestedAt(): ?DateTimeInterface
+    {
+        return $this->passwordResetRequestedAt;
     }
 }

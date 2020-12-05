@@ -2,8 +2,9 @@
 
 namespace TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter;
 
+use DateTimeImmutable;
+use Exception;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
@@ -22,12 +23,16 @@ class ParticipantRepository implements ParticipantGateway
             return null;
         }
 
-        return new Participant(
+        $participant = new Participant(
             Uuid::uuid4(),
             "used@email.com",
             "pseudo",
-            password_hash("password", PASSWORD_ARGON2I)
+            password_hash("password", PASSWORD_ARGON2I),
+            'bb4b5730-6057-4fa1-a27b-692b9ba8c14a',
+            new DateTimeImmutable()
         );
+
+        return $participant;
     }
 
     /**
@@ -52,6 +57,13 @@ class ParticipantRepository implements ParticipantGateway
      * @param Participant $participant
      */
     public function register(Participant $participant): void
+    {
+    }
+
+    /**
+     * @param Participant $participant
+     */
+    public function update(Participant $participant): void
     {
     }
 }

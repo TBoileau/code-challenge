@@ -4,8 +4,10 @@ namespace App\Infrastructure\Adapter\Repository;
 
 use App\Infrastructure\Doctrine\Entity\DoctrineParticipant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
-use Ramsey\Uuid\UuidInterface;
+use Ramsey\Uuid\Uuid;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
@@ -29,18 +31,20 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
      */
     public function getParticipantByEmail(string $email): ?Participant
     {
-        /** @var DoctrineParticipant $DoctrineParticipant */
-        $DoctrineParticipant = $this->findOneByEmail($email);
+        /** @var DoctrineParticipant $doctrineParticipant */
+        $doctrineParticipant = $this->findOneBy(['email' => $email]);//dd($doctrineParticipant);
 
-        if ($DoctrineParticipant === null) {
+        if ($doctrineParticipant === null) {
             return null;
         }
 
         return new Participant(
-            $DoctrineParticipant->getId(),
-            $DoctrineParticipant->getEmail(),
-            $DoctrineParticipant->getPseudo(),
-            $DoctrineParticipant->getPassword()
+            $doctrineParticipant->getId(),
+            $doctrineParticipant->getEmail(),
+            $doctrineParticipant->getPseudo(),
+            $doctrineParticipant->getPassword(),
+            $doctrineParticipant->getPasswordResetToken(),
+            $doctrineParticipant->getPasswordResetRequestedAt()
         );
     }
 
@@ -62,16 +66,49 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
 
     /**
      * @inheritDoc
+     * @throws ORMException
      */
     public function register(Participant $participant): void
     {
-        $DoctrineParticipant = new DoctrineParticipant();
-        $DoctrineParticipant->setId($participant->getId());
-        $DoctrineParticipant->setEmail($participant->getEmail());
-        $DoctrineParticipant->setPassword($participant->getPassword());
-        $DoctrineParticipant->setPseudo($participant->getPseudo());
+        $doctrineParticipant = new DoctrineParticipant();
+        $doctrineParticipant->setId($participant->getId());
+        $doctrineParticipant->setEmail($participant->getEmail());
+        $doctrineParticipant->setPassword($participant->getPassword());
+        $doctrineParticipant->setPseudo($participant->getPseudo());
 
-        $this->_em->persist($DoctrineParticipant);
+        $this->_em->persist($doctrineParticipant);
         $this->_em->flush();
+    }
+
+    /**
+     * @param Participant $participant
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function update(Participant $participant): void
+    {
+        /** @var DoctrineParticipant $doctrineParticipant */
+        $doctrineParticipant = $this->find($participant->getId());
+
+        if ($doctrineParticipant === null) {
+            return;
+        }
+
+        $this->hydrateParticipant($doctrineParticipant, $participant);
+
+        $this->_em->flush();
+    }
+
+    /**
+     * @param DoctrineParticipant $doctrineParticipant
+     * @param Participant $participant
+     */
+    private function hydrateParticipant(DoctrineParticipant $doctrineParticipant, Participant $participant): void
+    {
+        $doctrineParticipant->setEmail($participant->getEmail());
+        $doctrineParticipant->setPassword($participant->getPassword());
+        $doctrineParticipant->setPseudo($participant->getPseudo());
+        $doctrineParticipant->setPasswordResetToken($participant->getPasswordResetToken());
+        $doctrineParticipant->setPasswordResetRequestedAt($participant->getPasswordResetRequestedAt());
     }
 }

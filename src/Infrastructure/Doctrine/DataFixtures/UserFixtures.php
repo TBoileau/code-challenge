@@ -23,6 +23,8 @@ class UserFixtures extends Fixture
         $user->setPseudo("used_pseudo");
         $user->setEmail("used@email.com");
         $user->setPassword(password_hash("password", PASSWORD_ARGON2I));
+        // $user->setPasswordResetToken('bb4b5730-6057-4fa1-a27b-692b9ba8c14a');
+        // $user->setPasswordResetRequestedAt(new \DateTimeImmutable());
         $manager->persist($user);
         $manager->flush();
     }
