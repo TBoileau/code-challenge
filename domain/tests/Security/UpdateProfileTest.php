@@ -9,6 +9,7 @@ use Ramsey\Uuid\Uuid;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\UpdateProfilePresenterInterface;
+use TBoileau\CodeChallenge\Domain\Security\Provider\UploaderProviderInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\UpdateProfileRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\UpdateProfileResponse;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\UpdateProfile;
@@ -20,6 +21,8 @@ class UpdateProfileTest extends TestCase
     private ParticipantRepository $participantGateway;
 
     private UpdateProfilePresenterInterface $presenter;
+
+    private UploaderProviderInterface $uplaoder;
 
     protected function setUp()
     {
@@ -33,11 +36,17 @@ class UpdateProfileTest extends TestCase
                 $this->response = $response;
             }
         };
+        $this->uplaoder = new class implements UploaderProviderInterface {
+            public function upload(string $path): string
+            {
+                return 'avatar.jpg';
+            }
+        };
     }
 
     public function testUpdateSuccessful(): void
     {
-        $useCase = new UpdateProfile($this->participantGateway);
+        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
 
         $request = new UpdateProfileRequest(1, 'user@email.com', 'user');
 
@@ -49,6 +58,37 @@ class UpdateProfileTest extends TestCase
         $this->assertEquals('user_update@email.com', $this->presenter->response->getParticipant()->getEmail());
     }
 
+    public function testUploadAvatarValid(): void
+    {
+        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
+
+        $request = new UpdateProfileRequest(
+            1,
+            'user@email.com',
+            'user',
+            dirname(__DIR__) . '/Fixtures/avatars/avatar.jpg'
+        );
+
+        $useCase->execute($request, $this->presenter);
+
+        $this->assertEquals('avatar.jpg', $this->presenter->response->getParticipant()->getAvatar());
+    }
+
+    /**
+     * @dataProvider providerFailedAvatar
+     * @throws AssertionFailedException
+     */
+    public function testUploadAvatarFailed(string $avatarPath): void
+    {
+        $this->expectException(AssertionFailedException::class);
+
+        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
+
+        $request = new UpdateProfileRequest(1, 'user@email.com', 'user', $avatarPath);
+
+        $useCase->execute($request, $this->presenter);
+    }
+
     /**
      * @dataProvider provideFailedRequestData
      * @throws AssertionFailedException
@@ -57,21 +97,11 @@ class UpdateProfileTest extends TestCase
     {
         $this->expectException(AssertionFailedException::class);
 
-        $useCase = new UpdateProfile($this->participantGateway);
+        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
 
         $request = new UpdateProfileRequest(1, $email, $pseudo);
 
         $useCase->execute($request, $this->presenter);
-    }
-
-    /**
-     * @return Generator
-     */
-    public function provideFailedRequestData(): Generator
-    {
-        yield ["", "pseudo"];
-        yield ["email", "pseudo"];
-        yield ["email@email.com", ""];
     }
 
     /**
@@ -116,7 +146,7 @@ class UpdateProfileTest extends TestCase
             }
         };
 
-        $useCase = new UpdateProfile($participantGateway);
+        $useCase = new UpdateProfile($participantGateway, $this->uplaoder);
 
         $request = new UpdateProfileRequest(1, 'foo@email.com', 'foo_pseudo');
 
@@ -126,5 +156,25 @@ class UpdateProfileTest extends TestCase
         $this->assertInstanceOf(Participant::class, $this->presenter->response->getParticipant());
         $this->assertEquals('foo_pseudo', $this->presenter->response->getParticipant()->getPseudo());
         $this->assertEquals('foo@email.com', $this->presenter->response->getParticipant()->getEmail());
+    }
+
+    public function providerFailedAvatar(): Generator
+    {
+        yield [''];
+        yield ['/fail/path/avatar.jpg'];
+        yield ['/fail/path/avatar.gif'];
+        yield ['/fail/path/avatar.pdf'];
+        yield ['/fail/path/avatar.php'];
+        yield ['/fail/path/avatar.'];
+    }
+
+    /**
+     * @return Generator
+     */
+    public function provideFailedRequestData(): Generator
+    {
+        yield ["", "pseudo"];
+        yield ["email", "pseudo"];
+        yield ["email@email.com", ""];
     }
 }

@@ -40,6 +40,11 @@ class Participant
     /**
      * @var string|null
      */
+    private ?string $avatar = null;
+
+    /**
+     * @var string|null
+     */
     private ?string $passwordResetToken = null;
 
     /**
@@ -62,7 +67,8 @@ class Participant
         string $pseudo,
         string $password,
         ?string $passwordResetToken = null,
-        ?DateTimeInterface $passwordResetRequestedAt = null
+        ?DateTimeInterface $passwordResetRequestedAt = null,
+        ?string $avatar = null
     ) {
         $this->id = $id;
         $this->email = $email;
@@ -70,6 +76,7 @@ class Participant
         $this->password = $password;
         $this->passwordResetToken = $passwordResetToken;
         $this->passwordResetRequestedAt = $passwordResetRequestedAt;
+        $this->avatar = $avatar;
     }
 
     /**
@@ -175,5 +182,21 @@ class Participant
     public function setPseudo(string $pseudo): void
     {
         $this->pseudo = $pseudo;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     */
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }

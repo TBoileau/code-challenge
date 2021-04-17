@@ -3,7 +3,10 @@
 namespace TBoileau\CodeChallenge\Domain\Security\Assert;
 
 use Assert\Assertion as BaseAssertion;
+use Assert\AssertionFailedException;
+use Assert\InvalidArgumentException;
 use TBoileau\CodeChallenge\Domain\Security\Exception\NonUniqueEmailException;
+use TBoileau\CodeChallenge\Domain\Security\Exception\NonValidAvatarException;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 
 /**
@@ -15,6 +18,7 @@ class Assertion extends BaseAssertion
 {
     public const EXISTING_EMAIL = 500;
     public const EXISTING_PSEUDO = 501;
+    public const EXISTING_AVATAR = 502;
 
     /**
      * @param string      $pseudo
@@ -35,6 +39,19 @@ class Assertion extends BaseAssertion
     {
         if (!$participantGateway->isEmailUnique($email)) {
             throw new NonUniqueEmailException("This email should be unique !", self::EXISTING_EMAIL);
+        }
+    }
+
+    /**
+     * @param string $avatarPath
+     */
+    public static function nonValidAvatar(string $avatarPath): void
+    {
+        try {
+            ['extension' => $extension] = pathinfo($avatarPath);
+            self::inArray($extension, ['jpg', 'png', 'jpeg']);
+        } catch (AssertionFailedException $exception) {
+            throw new NonValidAvatarException($exception->getMessage(), self::EXISTING_AVATAR);
         }
     }
 }

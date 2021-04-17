@@ -15,11 +15,14 @@ class UpdateProfileRequest
 
     private string $pseudo;
 
-    public function __construct(int $id, string $email, string $pseudo)
+    private ?string $avatarPath = null;
+
+    public function __construct(int $id, string $email, string $pseudo, ?string $avatarPath = null)
     {
         $this->id = $id;
         $this->email = $email;
         $this->pseudo = $pseudo;
+        $this->avatarPath = $avatarPath;
     }
 
     /**
@@ -39,22 +42,6 @@ class UpdateProfileRequest
     }
 
     /**
-     * @param string $email
-     */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * @param string $pseudo
-     */
-    public function setPseudo(string $pseudo): void
-    {
-        $this->pseudo = $pseudo;
-    }
-
-    /**
      * @return int
      */
     public function getId(): int
@@ -63,11 +50,11 @@ class UpdateProfileRequest
     }
 
     /**
-     * @param int $id
+     * @return string|null
      */
-    public function setId(int $id): void
+    public function getAvatarPath(): ?string
     {
-        $this->id = $id;
+        return $this->avatarPath;
     }
 
     /**
@@ -84,6 +71,11 @@ class UpdateProfileRequest
 
         if ($participant->getPseudo() !== $this->getPseudo()) {
             Assertion::nonUniquePseudo($this->pseudo, $participantGateway);
+        }
+
+        if (null !== $this->avatarPath) {
+            Assertion::file($this->avatarPath);
+            Assertion::nonValidAvatar($this->avatarPath);
         }
 
         Assertion::notBlank($this->pseudo);
