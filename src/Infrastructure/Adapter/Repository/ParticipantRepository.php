@@ -111,4 +111,9 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
         $doctrineParticipant->setPasswordResetToken($participant->getPasswordResetToken());
         $doctrineParticipant->setPasswordResetRequestedAt($participant->getPasswordResetRequestedAt());
     }
+
+    public function getParticipantById(int $id): ?Participant
+    {
+        return null; // To Implements
+    }
 }

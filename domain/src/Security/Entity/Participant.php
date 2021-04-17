@@ -113,8 +113,6 @@ class Participant
         $participant->passwordResetRequestedAt = new DateTimeImmutable();
     }
 
-
-
     /**
      * @return UuidInterface
      */
@@ -161,5 +159,21 @@ class Participant
     public function getPasswordResetRequestedAt(): ?DateTimeInterface
     {
         return $this->passwordResetRequestedAt;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string $pseudo
+     */
+    public function setPseudo(string $pseudo): void
+    {
+        $this->pseudo = $pseudo;
     }
 }
