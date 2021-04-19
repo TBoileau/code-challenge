@@ -73,7 +73,7 @@ class ParticipantRepository implements ParticipantGateway
         }
     }
 
-    public function getParticipantById(int $id): ?Participant
+    public function getParticipantById(string $id): ?Participant
     {
         $participant = new Participant(
             Uuid::uuid4(),

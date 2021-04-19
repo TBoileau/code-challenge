@@ -3,8 +3,6 @@
 namespace TBoileau\CodeChallenge\Domain\Security\Assert;
 
 use Assert\Assertion as BaseAssertion;
-use Assert\AssertionFailedException;
-use Assert\InvalidArgumentException;
 use TBoileau\CodeChallenge\Domain\Security\Exception\NonUniqueEmailException;
 use TBoileau\CodeChallenge\Domain\Security\Exception\NonValidAvatarException;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
@@ -47,11 +45,9 @@ class Assertion extends BaseAssertion
      */
     public static function nonValidAvatar(string $avatarPath): void
     {
-        try {
-            ['extension' => $extension] = pathinfo($avatarPath);
-            self::inArray($extension, ['jpg', 'png', 'jpeg']);
-        } catch (AssertionFailedException $exception) {
-            throw new NonValidAvatarException($exception->getMessage(), self::EXISTING_AVATAR);
+        $extension = pathinfo($avatarPath, PATHINFO_EXTENSION);
+        if (!in_array($extension, ['jpg', 'png', 'jpeg'])) {
+            throw new NonValidAvatarException('This avatar extension is not valid.', self::EXISTING_AVATAR);
         }
     }
 }

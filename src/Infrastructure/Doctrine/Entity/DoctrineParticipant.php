@@ -51,6 +51,12 @@ class DoctrineParticipant
     private ?DateTimeInterface $passwordResetRequestedAt = null;
 
     /**
+     * @var string|null
+     * @ORM\Column
+     */
+    private ?string $avatar = null;
+
+    /**
      * @return UuidInterface
      */
     public function getId(): UuidInterface
@@ -144,5 +150,21 @@ class DoctrineParticipant
     public function setPasswordResetRequestedAt(?DateTimeInterface $passwordResetRequestedAt): void
     {
         $this->passwordResetRequestedAt = $passwordResetRequestedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string|null $avatar
+     */
+    public function setAvatar(?string $avatar): void
+    {
+        $this->avatar = $avatar;
     }
 }

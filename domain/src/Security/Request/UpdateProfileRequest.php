@@ -2,22 +2,24 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\Request;
 
+use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Assert\Assertion;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
+use TBoileau\CodeChallenge\Domain\Security\Uploader\Uploader;
 
 class UpdateProfileRequest
 {
 
-    private int $id;
+    private UuidInterface $id;
 
     private string $email;
 
     private string $pseudo;
 
-    private ?string $avatarPath = null;
+    private ?Uploader $avatarPath = null;
 
-    public function __construct(int $id, string $email, string $pseudo, ?string $avatarPath = null)
+    public function __construct(UuidInterface $id, string $email, string $pseudo, ?Uploader $avatarPath = null)
     {
         $this->id = $id;
         $this->email = $email;
@@ -42,9 +44,9 @@ class UpdateProfileRequest
     }
 
     /**
-     * @return int
+     * @return UuidInterface
      */
-    public function getId(): int
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
@@ -52,7 +54,7 @@ class UpdateProfileRequest
     /**
      * @return string|null
      */
-    public function getAvatarPath(): ?string
+    public function getAvatarPath(): ?Uploader
     {
         return $this->avatarPath;
     }
@@ -62,8 +64,8 @@ class UpdateProfileRequest
      */
     public function validate(ParticipantGateway $participantGateway, Participant $participant)
     {
-        Assertion::notBlank($this->email);
-        Assertion::email($this->email);
+        Assertion::notBlank($this->email, null, 'email');
+        Assertion::email($this->email, null, 'email');
 
         if ($participant->getEmail() !== $this->getEmail()) {
             Assertion::nonUniqueEmail($this->email, $participantGateway);
@@ -74,10 +76,9 @@ class UpdateProfileRequest
         }
 
         if (null !== $this->avatarPath) {
-            Assertion::file($this->avatarPath);
-            Assertion::nonValidAvatar($this->avatarPath);
+            Assertion::nonValidAvatar($this->avatarPath->getOriginalName());
         }
 
-        Assertion::notBlank($this->pseudo);
+        Assertion::notBlank($this->pseudo, null, 'pseudo');
     }
 }

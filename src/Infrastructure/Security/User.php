@@ -56,10 +56,23 @@ class User implements UserInterface
         return $this->participant->getEmail();
     }
 
+    public function getAvatar(): ?string
+    {
+        return $this->participant->getAvatar();
+    }
+
     /**
      * @inheritDoc
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @return Participant
+     */
+    public function getParticipant(): Participant
+    {
+        return $this->participant;
     }
 }

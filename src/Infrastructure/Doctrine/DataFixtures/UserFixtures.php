@@ -4,7 +4,7 @@ namespace App\Infrastructure\Doctrine\DataFixtures;
 
 use App\Infrastructure\Doctrine\Entity\DoctrineParticipant;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -23,6 +23,7 @@ class UserFixtures extends Fixture
         $user->setPseudo("used_pseudo");
         $user->setEmail("used@email.com");
         $user->setPassword(password_hash("password", PASSWORD_ARGON2I));
+        $user->setAvatar('avatar.jpg');
         // $user->setPasswordResetToken('bb4b5730-6057-4fa1-a27b-692b9ba8c14a');
         // $user->setPasswordResetRequestedAt(new \DateTimeImmutable());
         $manager->persist($user);

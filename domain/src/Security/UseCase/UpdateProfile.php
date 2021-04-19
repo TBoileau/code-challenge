@@ -2,6 +2,7 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\UseCase;
 
+use Assert\AssertionFailedException;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Presenter\UpdateProfilePresenterInterface;
 use TBoileau\CodeChallenge\Domain\Security\Provider\UploaderProviderInterface;
@@ -24,25 +25,30 @@ class UpdateProfile
     /**
      * @param UpdateProfileRequest $request
      * @param UpdateProfilePresenterInterface $presenter
-     * @throws \Assert\AssertionFailedException
      */
     public function execute(UpdateProfileRequest $request, UpdateProfilePresenterInterface $presenter): void
     {
         $participant = $this->participantGateway->getParticipantById($request->getId());
+        $response = new UpdateProfileResponse($participant);
+        try {
+            $request->validate($this->participantGateway, $participant);
+            $isValid = true;
+        } catch (AssertionFailedException $exception) {
+            $isValid = false;
+            $response->addError($exception->getMessage(), $exception->getPropertyPath());
+        }
 
-        $request->validate($this->participantGateway, $participant);
+        if ($isValid) {
+            $participant->setPseudo($request->getPseudo());
+            $participant->setEmail($request->getEmail());
 
-        $participant->setPseudo($request->getPseudo());
-        $participant->setEmail($request->getEmail());
-
-        if ($request->getAvatarPath() !== null) {
-            $avatar = $this->uploaderProvider->upload($request->getAvatarPath());
-            $participant->setAvatar($avatar);
+            if ($request->getAvatarPath() !== null) {
+                $avatar = $this->uploaderProvider->upload($request->getAvatarPath());
+                $participant->setAvatar($avatar);
+            }
         }
 
         $this->participantGateway->update($participant);
-
-        $response = new UpdateProfileResponse($participant);
 
         $presenter->present($response);
     }

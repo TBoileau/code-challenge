@@ -2,7 +2,6 @@
 
 namespace TBoileau\CodeChallenge\Domain\Tests\Security;
 
-use Assert\AssertionFailedException;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -12,6 +11,7 @@ use TBoileau\CodeChallenge\Domain\Security\Presenter\UpdateProfilePresenterInter
 use TBoileau\CodeChallenge\Domain\Security\Provider\UploaderProviderInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\UpdateProfileRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\UpdateProfileResponse;
+use TBoileau\CodeChallenge\Domain\Security\Uploader\Uploader;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\UpdateProfile;
 use TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter\ParticipantRepository;
 
@@ -22,7 +22,7 @@ class UpdateProfileTest extends TestCase
 
     private UpdateProfilePresenterInterface $presenter;
 
-    private UploaderProviderInterface $uplaoder;
+    private UploaderProviderInterface $uploaderProvider;
 
     protected function setUp()
     {
@@ -36,19 +36,19 @@ class UpdateProfileTest extends TestCase
                 $this->response = $response;
             }
         };
-        $this->uplaoder = new class implements UploaderProviderInterface {
-            public function upload(string $path): string
+        $this->uploaderProvider = new class implements UploaderProviderInterface {
+            public function upload(Uploader $uploader): string
             {
-                return 'avatar.jpg';
+                return $uploader->getOriginalName();
             }
         };
     }
 
     public function testUpdateSuccessful(): void
     {
-        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
+        $useCase = new UpdateProfile($this->participantGateway, $this->uploaderProvider);
 
-        $request = new UpdateProfileRequest(1, 'user@email.com', 'user');
+        $request = new UpdateProfileRequest(Uuid::uuid4(), 'user@email.com', 'user');
 
         $useCase->execute($request, $this->presenter);
 
@@ -60,13 +60,13 @@ class UpdateProfileTest extends TestCase
 
     public function testUploadAvatarValid(): void
     {
-        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
+        $useCase = new UpdateProfile($this->participantGateway, $this->uploaderProvider);
 
         $request = new UpdateProfileRequest(
-            1,
+            Uuid::uuid4(),
             'user@email.com',
             'user',
-            dirname(__DIR__) . '/Fixtures/avatars/avatar.jpg'
+            new Uploader(dirname(__DIR__) . '/Fixtures/avatars/avatar.jpg', 'avatar.jpg')
         );
 
         $useCase->execute($request, $this->presenter);
@@ -76,48 +76,50 @@ class UpdateProfileTest extends TestCase
 
     /**
      * @dataProvider providerFailedAvatar
-     * @throws AssertionFailedException
      */
     public function testUploadAvatarFailed(string $avatarPath): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $useCase = new UpdateProfile($this->participantGateway, $this->uploaderProvider);
 
-        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
-
-        $request = new UpdateProfileRequest(1, 'user@email.com', 'user', $avatarPath);
+        $request = new UpdateProfileRequest(
+            Uuid::uuid4(),
+            'user@email.com',
+            'user',
+            new Uploader('/path', $avatarPath)
+        );
 
         $useCase->execute($request, $this->presenter);
+
+        $this->assertTrue($this->presenter->response->hasErrors());
     }
 
     /**
      * @dataProvider provideFailedRequestData
-     * @throws AssertionFailedException
      */
     public function testUpdateWithValidationError(string $email, string $pseudo): void
     {
-        $this->expectException(AssertionFailedException::class);
+        $useCase = new UpdateProfile($this->participantGateway, $this->uploaderProvider);
 
-        $useCase = new UpdateProfile($this->participantGateway, $this->uplaoder);
-
-        $request = new UpdateProfileRequest(1, $email, $pseudo);
+        $request = new UpdateProfileRequest(Uuid::uuid4(), $email, $pseudo);
 
         $useCase->execute($request, $this->presenter);
+
+        $this->assertTrue($this->presenter->response->hasErrors());
     }
 
     /**
      * Check that the validation of emails and pseudo are not activated if the data in the request are the same
      * as retrieved in database (data has not been edited)
-     *
-     * @throws AssertionFailedException
      */
     public function testNonValidationErrorIfNotEditData(): void
     {
         $participantGateway = new class implements ParticipantGateway {
             public function getParticipantByEmail(string $email): ?Participant
             {
+                return null;
             }
 
-            public function getParticipantById(int $id): ?Participant
+            public function getParticipantById(string $id): ?Participant
             {
                 return new Participant(
                     Uuid::uuid4(),
@@ -146,9 +148,9 @@ class UpdateProfileTest extends TestCase
             }
         };
 
-        $useCase = new UpdateProfile($participantGateway, $this->uplaoder);
+        $useCase = new UpdateProfile($participantGateway, $this->uploaderProvider);
 
-        $request = new UpdateProfileRequest(1, 'foo@email.com', 'foo_pseudo');
+        $request = new UpdateProfileRequest(Uuid::uuid4(), 'foo@email.com', 'foo_pseudo');
 
         $useCase->execute($request, $this->presenter);
 
@@ -161,7 +163,6 @@ class UpdateProfileTest extends TestCase
     public function providerFailedAvatar(): Generator
     {
         yield [''];
-        yield ['/fail/path/avatar.jpg'];
         yield ['/fail/path/avatar.gif'];
         yield ['/fail/path/avatar.pdf'];
         yield ['/fail/path/avatar.php'];

@@ -15,7 +15,7 @@ class NonUniqueEmailValidator extends ConstraintValidator
     /**
      * @var ParticipantGateway
      */
-    private ParticipantGateway $participantGateway;
+    private ParticipantGateway $userGateway;
 
     /**
      * NonUniqueEmailValidator constructor.
