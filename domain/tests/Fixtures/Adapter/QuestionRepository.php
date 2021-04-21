@@ -39,4 +39,21 @@ class QuestionRepository implements QuestionGateway
             new Answer(Uuid::uuid4(), "answer 3", true)
         ]);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getQuestions(int $page, int $limit, string $field, string $order): array
+    {
+        $questions = array_fill(0, 25, new Question(Uuid::uuid4(), "title", []));
+        return array_slice($questions, ($page - 1) * $limit, $limit);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function countQuestions(): int
+    {
+        return 25;
+    }
 }

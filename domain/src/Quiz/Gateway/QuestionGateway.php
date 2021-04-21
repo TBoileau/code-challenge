@@ -26,4 +26,18 @@ interface QuestionGateway
      * @return Question|null
      */
     public function getQuestionById(UuidInterface $id): ?Question;
+
+    /**
+     * @param int $page
+     * @param int $limit
+     * @param string $field
+     * @param string $order
+     * @return array
+     */
+    public function getQuestions(int $page, int $limit, string $field, string $order): array;
+
+    /**
+     * @return int
+     */
+    public function countQuestions(): int;
 }

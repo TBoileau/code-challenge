@@ -2,6 +2,10 @@
     box-sizing: content-box;
 }
 
+a {
+    color: inherit;
+}
+
 body {
     font-size: $base-font-size;
     font-family: 'Roboto', sans-serif;
