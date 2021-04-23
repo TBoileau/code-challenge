@@ -44,7 +44,8 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
             $doctrineParticipant->getPseudo(),
             $doctrineParticipant->getPassword(),
             $doctrineParticipant->getPasswordResetToken(),
-            $doctrineParticipant->getPasswordResetRequestedAt()
+            $doctrineParticipant->getPasswordResetRequestedAt(),
+            $doctrineParticipant->getAvatar()
         );
     }
 
@@ -110,5 +111,25 @@ class ParticipantRepository extends ServiceEntityRepository implements Participa
         $doctrineParticipant->setPseudo($participant->getPseudo());
         $doctrineParticipant->setPasswordResetToken($participant->getPasswordResetToken());
         $doctrineParticipant->setPasswordResetRequestedAt($participant->getPasswordResetRequestedAt());
+        if ($participant->getAvatar() !== null) {
+            $doctrineParticipant->setAvatar($participant->getAvatar());
+        }
+    }
+
+    public function getParticipantById(string $id): ?Participant
+    {
+        $doctrineParticipant = $this->find($id);
+        if ($doctrineParticipant === null) {
+            return null;
+        }
+
+        return new Participant(
+            $doctrineParticipant->getId(),
+            $doctrineParticipant->getEmail(),
+            $doctrineParticipant->getPseudo(),
+            $doctrineParticipant->getPassword(),
+            $doctrineParticipant->getPasswordResetToken(),
+            $doctrineParticipant->getPasswordResetRequestedAt()
+        );
     }
 }

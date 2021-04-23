@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="Container">
+        <div class="Row Justify--center">
+            <div class="Column Column--12 Column--md-8 Column--lg-6 Column--xl-5">
+                {{ form_start(form) }}
+                <div class="Card">
+                    <div class="Card__Header">Modifier mon compte</div>
+                    <div class="Card__Body">
+                        {{ form_rest(form) }}
+                        {% if app.user.avatar is not null %}
+                            <img src="{{ asset('/avatars/' ~ app.user.avatar) }}" />
+                        {% endif %}
+                    </div>
+                    <div class="Card__Footer Flex Justify--end">
+                        <button class="Button Button--primary">Modifier</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

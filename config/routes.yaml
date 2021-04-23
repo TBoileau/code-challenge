@@ -33,6 +33,11 @@ logout:
     methods: GET
     controller: App\UserInterface\Controller\LogoutController
 
+profile_edit:
+    path: /profile/edit
+    methods: GET|POST
+    controller: App\UserInterface\Controller\Security\UpdateProfileController
+
 home:
     path: /
     methods: GET

@@ -59,4 +59,16 @@ class ParticipantRepository implements ParticipantGateway
     public function update(Participant $participant): void
     {
     }
+
+    public function getParticipantById(string $id): ?Participant
+    {
+        return new Participant(
+            Uuid::uuid4(),
+            "used@email.com",
+            "pseudo",
+            password_hash("password", PASSWORD_ARGON2I),
+            'bb4b5730-6057-4fa1-a27b-692b9ba8c14a',
+            new DateTimeImmutable()
+        );
+    }
 }

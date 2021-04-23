@@ -19,6 +19,12 @@ interface ParticipantGateway
     public function getParticipantByEmail(string $email): ?Participant;
 
     /**
+     * @param string $id
+     * @return Participant|null
+     */
+    public function getParticipantById(string $id): ?Participant;
+
+    /**
      * @param  string|null $email
      * @return bool
      */

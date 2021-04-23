@@ -15,7 +15,7 @@ class NonUniquePseudoValidator extends ConstraintValidator
     /**
      * @var ParticipantGateway
      */
-    private ParticipantGateway $participantGateway;
+    private ParticipantGateway $userGateway;
 
     /**
      * NonUniquePseudoValidator constructor.

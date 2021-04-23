@@ -6,6 +6,7 @@
 parameters:
     app.from_email: 'no-reply@email.com'
     app.display_name: 'Code Challenge'
+    app.directory_avatar: '%kernel.project_dir%/public/avatars'
 
 services:
     # default configuration for services in *this* file
@@ -21,7 +22,9 @@ services:
 
     App\Infrastructure\:
         resource: '../src/Infrastructure'
-        exclude: '../src/Infrastructure/{Test}'
+        exclude:
+          - '../src/Infrastructure/{Test}'
+          - '../src/Infrastructure/Doctrine/Migrations'
 
     App\UserInterface\:
         resource: '../src/UserInterface'
@@ -34,3 +37,7 @@ services:
     App\UserInterface\Controller\:
         resource: '../src/UserInterface/Controller'
         tags: ['controller.service_arguments']
+
+    App\Infrastructure\Adapter\Provider\UploaderProvider:
+      arguments:
+        $directoryAvatarPath: '%app.directory_avatar%'
