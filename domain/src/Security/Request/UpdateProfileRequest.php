@@ -77,7 +77,7 @@ class UpdateProfileRequest
         }
 
         if (null !== $this->avatarPath) {
-            Assertion::image($this->avatarPath->getPath() . $this->avatarPath->getOriginalName());
+            Assertion::image($this->avatarPath->getPath());
         }
 
         Assertion::notBlank($this->pseudo, null, 'pseudo');

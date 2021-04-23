@@ -8,12 +8,6 @@ class Uploader implements UploaderInterface
 
     private string $originalName;
 
-    public function __construct(string $path, string $originalName)
-    {
-        $this->path = $path;
-        $this->originalName = $originalName;
-    }
-
     /**
      * @return string
      */
@@ -24,10 +18,13 @@ class Uploader implements UploaderInterface
 
     /**
      * @param string $path
+     * @return Uploader
      */
-    public function setPath(string $path): void
+    public function setPath(string $path): self
     {
         $this->path = $path;
+
+        return $this;
     }
 
     /**
@@ -40,9 +37,12 @@ class Uploader implements UploaderInterface
 
     /**
      * @param string $originalName
+     * @return Uploader
      */
-    public function setOriginalName(string $originalName): void
+    public function setOriginalName(string $originalName): self
     {
         $this->originalName = $originalName;
+
+        return $this;
     }
 }

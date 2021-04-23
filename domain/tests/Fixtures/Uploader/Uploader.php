@@ -25,4 +25,18 @@ class Uploader implements UploaderInterface
     {
         return $this->originalName;
     }
+
+    public function setPath(string $path): UploaderInterface
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function setOriginalName(string $originalName): UploaderInterface
+    {
+        $this->originalName = $originalName;
+
+        return $this;
+    }
 }

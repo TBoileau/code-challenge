@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use TBoileau\CodeChallenge\Domain\Security\Request\UpdateProfileRequest;
 use TBoileau\CodeChallenge\Domain\Security\Uploader\Uploader;
+use TBoileau\CodeChallenge\Domain\Security\Uploader\UploaderInterface;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\UpdateProfile;
 use Twig\Environment;
 use Twig\Error\LoaderError;
@@ -37,13 +38,16 @@ class UpdateProfileController
 
     private UpdateProfilePresenter $presenter;
 
+    private UploaderInterface $uploader;
+
     public function __construct(
         Environment $twig,
         UrlGeneratorInterface $urlGenerator,
         FormFactoryInterface $formFactory,
         Security $security,
         UpdateProfile $updateProfile,
-        UpdateProfilePresenter $presenter
+        UpdateProfilePresenter $presenter,
+        UploaderInterface $uploader
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;
@@ -51,6 +55,7 @@ class UpdateProfileController
         $this->security = $security;
         $this->updateProfile = $updateProfile;
         $this->presenter = $presenter;
+        $this->uploader = $uploader;
     }
 
     /**
@@ -72,13 +77,16 @@ class UpdateProfileController
             $file = $form->get('avatarPath')->getData();
             if ($file) {
                 $avatarName = $file->getClientOriginalName();
-                $uploader = new Uploader($file, $avatarName);
+                $this->uploader
+                  ->setPath($file)
+                  ->setOriginalName($avatarName)
+                ;
             }
             $updateRequest = new UpdateProfileRequest(
                 $participant->getId(),
                 $participant->getEmail(),
                 $participant->getPseudo(),
-                $uploader ?? null
+                $this->uploader ?? null
             );
             $this->updateProfile->execute($updateRequest, $this->presenter);
             return new RedirectResponse(

@@ -66,7 +66,7 @@ class UpdateProfileTest extends TestCase
             Uuid::uuid4(),
             'user@email.com',
             'user',
-            new Uploader(dirname(__DIR__) . '/Fixtures/avatars/', 'logo.png')
+            new Uploader(dirname(__DIR__) . '/Fixtures/avatars/logo.png', 'logo.png')
         );
 
         $useCase->execute($request, $this->presenter);
