@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use TBoileau\CodeChallenge\Domain\Security\Provider\UploaderProviderInterface;
-use TBoileau\CodeChallenge\Domain\Security\Uploader\Uploader;
+use TBoileau\CodeChallenge\Domain\Security\Uploader\UploaderInterface;
 
 class UploaderProvider implements UploaderProviderInterface
 {
@@ -21,7 +21,7 @@ class UploaderProvider implements UploaderProviderInterface
         $this->directoryAvatarPath = $directoryAvatarPath;
     }
 
-    public function upload(Uploader $uploader): string
+    public function upload(UploaderInterface $uploader): string
     {
         $avatarFile = new UploadedFile($uploader->getPath(), $uploader->getOriginalName());
 

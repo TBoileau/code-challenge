@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdateProfileTest extends WebTestCase
 {
-
     public function testSuccessful(): void
     {
         $client = self::createClient();
@@ -32,7 +31,7 @@ class UpdateProfileTest extends WebTestCase
         $form = $crawler->filter('form')->form([
             "participant[email]" => "email@email.com",
             "participant[pseudo]" => "pseudo",
-            "participant[avatarPath]" => "avatar.jpg",
+            "participant[avatarPath]" => new UploadedFile(__DIR__ . '/avatars/logo.png', 'logo.png'),
         ]);
 
         $client->submit($form);
@@ -48,7 +47,7 @@ class UpdateProfileTest extends WebTestCase
      * @param string|null $avatar
      * @param string $errorMessage
      */
-    public function testFailed(string $email, string $pseudo, ?string $avatar, string $errorMessage): void
+    public function testFailed(string $email, string $pseudo, $avatar, string $errorMessage): void
     {
         $client = self::createClient();
 
@@ -111,8 +110,15 @@ class UpdateProfileTest extends WebTestCase
         yield [
           "used@email.com",
           "pseudo",
+          new UploadedFile(__DIR__ . '/empty.txt', 'empty.txt'),
+          "An empty file is not allowed."
+        ];
+
+        yield [
+          "used@email.com",
+          "pseudo",
           new UploadedFile(__DIR__ . '/fail.txt', 'fail.txt'),
-          "This avatar extension is not valid."
+          "Please upload a valid image."
         ];
     }
 }

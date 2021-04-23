@@ -2,24 +2,25 @@
 
 namespace TBoileau\CodeChallenge\Domain\Security\Request;
 
+use Assert\AssertionFailedException;
 use Ramsey\Uuid\UuidInterface;
 use TBoileau\CodeChallenge\Domain\Security\Assert\Assertion;
 use TBoileau\CodeChallenge\Domain\Security\Entity\Participant;
 use TBoileau\CodeChallenge\Domain\Security\Gateway\ParticipantGateway;
 use TBoileau\CodeChallenge\Domain\Security\Uploader\Uploader;
+use TBoileau\CodeChallenge\Domain\Security\Uploader\UploaderInterface;
 
 class UpdateProfileRequest
 {
-
     private UuidInterface $id;
 
     private string $email;
 
     private string $pseudo;
 
-    private ?Uploader $avatarPath = null;
+    private ?UploaderInterface $avatarPath = null;
 
-    public function __construct(UuidInterface $id, string $email, string $pseudo, ?Uploader $avatarPath = null)
+    public function __construct(UuidInterface $id, string $email, string $pseudo, ?UploaderInterface $avatarPath = null)
     {
         $this->id = $id;
         $this->email = $email;
@@ -52,15 +53,15 @@ class UpdateProfileRequest
     }
 
     /**
-     * @return string|null
+     * @return UploaderInterface|null
      */
-    public function getAvatarPath(): ?Uploader
+    public function getAvatarPath(): ?UploaderInterface
     {
         return $this->avatarPath;
     }
 
     /**
-     * @throws \Assert\AssertionFailedException
+     * @throws AssertionFailedException
      */
     public function validate(ParticipantGateway $participantGateway, Participant $participant)
     {
@@ -76,7 +77,7 @@ class UpdateProfileRequest
         }
 
         if (null !== $this->avatarPath) {
-            Assertion::nonValidAvatar($this->avatarPath->getOriginalName());
+            Assertion::image($this->avatarPath->getPath() . $this->avatarPath->getOriginalName());
         }
 
         Assertion::notBlank($this->pseudo, null, 'pseudo');

@@ -11,13 +11,13 @@ use TBoileau\CodeChallenge\Domain\Security\Presenter\UpdateProfilePresenterInter
 use TBoileau\CodeChallenge\Domain\Security\Provider\UploaderProviderInterface;
 use TBoileau\CodeChallenge\Domain\Security\Request\UpdateProfileRequest;
 use TBoileau\CodeChallenge\Domain\Security\Response\UpdateProfileResponse;
-use TBoileau\CodeChallenge\Domain\Security\Uploader\Uploader;
+use TBoileau\CodeChallenge\Domain\Security\Uploader\UploaderInterface;
 use TBoileau\CodeChallenge\Domain\Security\UseCase\UpdateProfile;
 use TBoileau\CodeChallenge\Domain\Tests\Fixtures\Adapter\ParticipantRepository;
+use TBoileau\CodeChallenge\Domain\Tests\Fixtures\Uploader\Uploader;
 
 class UpdateProfileTest extends TestCase
 {
-
     private ParticipantRepository $participantGateway;
 
     private UpdateProfilePresenterInterface $presenter;
@@ -37,7 +37,7 @@ class UpdateProfileTest extends TestCase
             }
         };
         $this->uploaderProvider = new class implements UploaderProviderInterface {
-            public function upload(Uploader $uploader): string
+            public function upload(UploaderInterface $uploader): string
             {
                 return $uploader->getOriginalName();
             }
@@ -66,12 +66,12 @@ class UpdateProfileTest extends TestCase
             Uuid::uuid4(),
             'user@email.com',
             'user',
-            new Uploader(dirname(__DIR__) . '/Fixtures/avatars/avatar.jpg', 'avatar.jpg')
+            new Uploader(dirname(__DIR__) . '/Fixtures/avatars/', 'logo.png')
         );
 
         $useCase->execute($request, $this->presenter);
 
-        $this->assertEquals('avatar.jpg', $this->presenter->response->getParticipant()->getAvatar());
+        $this->assertEquals('logo.png', $this->presenter->response->getParticipant()->getAvatar());
     }
 
     /**

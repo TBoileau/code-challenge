@@ -26,7 +26,11 @@ class Participant
     private ?string $pseudo = null;
 
     /**
-     * @NonValidExtension()
+     * @Assert\File(
+     *     maxSize="5M",
+     *     mimeTypes={"image/*"},
+     *     mimeTypesMessage="Please upload a valid image."
+     * )
      * @var string|null
      */
     private ?string $avatarPath = null;

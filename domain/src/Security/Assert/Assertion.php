@@ -42,11 +42,14 @@ class Assertion extends BaseAssertion
 
     /**
      * @param string $avatarPath
+     * @throws \Assert\AssertionFailedException
      */
-    public static function nonValidAvatar(string $avatarPath): void
+    public static function image(string $avatarPath): void
     {
-        $extension = pathinfo($avatarPath, PATHINFO_EXTENSION);
-        if (!in_array($extension, ['jpg', 'png', 'jpeg'])) {
+        static::file($avatarPath);
+
+        $mimeTypeOfImage = mime_content_type($avatarPath);
+        if (!in_array($mimeTypeOfImage, ['image/jpg', 'image/png', 'image/jpeg'])) {
             throw new NonValidAvatarException('This avatar extension is not valid.', self::EXISTING_AVATAR);
         }
     }

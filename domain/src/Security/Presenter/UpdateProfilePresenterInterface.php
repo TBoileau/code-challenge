@@ -6,6 +6,5 @@ use TBoileau\CodeChallenge\Domain\Security\Response\UpdateProfileResponse;
 
 interface UpdateProfilePresenterInterface
 {
-
     public function present(UpdateProfileResponse $response): void;
 }

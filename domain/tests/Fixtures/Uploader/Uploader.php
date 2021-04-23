@@ -1,6 +1,8 @@
 <?php
 
-namespace TBoileau\CodeChallenge\Domain\Security\Uploader;
+namespace TBoileau\CodeChallenge\Domain\Tests\Fixtures\Uploader;
+
+use TBoileau\CodeChallenge\Domain\Security\Uploader\UploaderInterface;
 
 class Uploader implements UploaderInterface
 {
@@ -14,35 +16,13 @@ class Uploader implements UploaderInterface
         $this->originalName = $originalName;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * @param string $path
-     */
-    public function setPath(string $path): void
-    {
-        $this->path = $path;
-    }
-
-    /**
-     * @return string
-     */
     public function getOriginalName(): string
     {
         return $this->originalName;
-    }
-
-    /**
-     * @param string $originalName
-     */
-    public function setOriginalName(string $originalName): void
-    {
-        $this->originalName = $originalName;
     }
 }
